@@ -1,42 +1,19 @@
-import React from "react";
-import { GifViewer } from "../components";
-import { Gif } from "../types";
+import React from 'react';
 
-interface Props {}
+import { GifViewer } from 'components';
+import { Gif } from 'types';
 
-interface State {
+interface Props {
   gifs: Gif[];
 }
 
-class Content extends React.Component<Props, State> {
-  state = {
-    gifs: []
-  };
-
-  async componentDidMount() {
-    fetch(
-      "http://api.giphy.com/v1/gifs/trending?api_key=osVl8xeSb13OvfguXaI0pUrbRzph61v9"
-    )
-      .then(response => response.json())
-      .then(json => {
-        const gifs = json.data.map((gif: Gif) => gif);
-        this.setState({
-          gifs
-        });
-      })
-      .catch(error => console.log(error));
-  }
-
-  render() {
-    return (
-      <div>
-        <div>
-          <input type="text" placeholder="Search for GIFs" />
-        </div>
-        <GifViewer gifs={this.state.gifs} />
-      </div>
-    );
-  }
-}
+const Content: React.FC<Props> = ({ gifs }) => (
+  <div>
+    <div>
+      <input type='text' placeholder='Search for GIFs' />
+    </div>
+    <GifViewer gifs={gifs} />
+  </div>
+);
 
 export { Content };

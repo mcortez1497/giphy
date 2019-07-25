@@ -1,14 +1,18 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 
-import { Content, Header } from "./components";
+import { ContentContainer, Header } from 'components';
+import { store } from 'reducers';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <Header />
-      <Content />
-    </div>
+    <Provider store={store}>
+      <div className='App'>
+        <Header />
+        <ContentContainer />
+      </div>
+    </Provider>
   );
-}
+};
 
 export default App;

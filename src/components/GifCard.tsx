@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Gif } from "../types";
+import { Gif } from 'types';
 
 interface Props {
   gif: Gif;
@@ -8,7 +8,7 @@ interface Props {
 
 const GifCard: React.FC<Props> = ({ gif }) => (
   <div>
-    <img src={gif.images.original.url} alt={gif.title} />
+    <img src={gif.url} alt={gif.title} />
   </div>
 );
 

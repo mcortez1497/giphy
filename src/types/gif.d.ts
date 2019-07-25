@@ -1,10 +1,21 @@
 interface Gif {
-    images: {
-        original: {
-            url: string;
-        };
-    };
-    title: string;
+  url: string;
+  title: string;
 }
 
-export { Gif };
+interface GifPagination {
+  count: number;
+  offset: number;
+  total_count: number;
+}
+
+interface GifResponse {
+  images: {
+    original: {
+      url: string;
+    };
+  };
+  title: string;
+}
+
+export { Gif, GifPagination, GifResponse };
