@@ -65,7 +65,7 @@ export const gifReducer: Reducer<GifState, GifAction> = (
 export const getGifs = (query: string = '') => async (
   dispatch: Dispatch<GifAction>
 ) => {
-  const api_key = 'osVl8xeSb13OvfguXaI0pUrbRzph61v9';
+  const api_key = process.env.REACT_APP_GIPHY_API_KEY;
   const url = query
     ? `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${api_key}`
     : `http://api.giphy.com/v1/gifs/trending?api_key=${api_key}`;
