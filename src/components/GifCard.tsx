@@ -1,14 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import { Gif } from 'types';
+import { Gif } from "types";
 
 interface Props {
-  gif: Gif;
+  readonly gif: Gif;
+  readonly onSelect: (gif: Gif) => void;
 }
 
-const GifCard: React.FC<Props> = ({ gif }) => (
+const GifCard: React.FC<Props> = ({ gif, onSelect }) => (
   <div>
-    <img src={gif.url} alt={gif.title} />
+    <img src={gif.url} alt={gif.title} onClick={() => onSelect(gif)} />
   </div>
 );
 

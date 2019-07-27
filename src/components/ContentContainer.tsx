@@ -2,10 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
+import { Content } from "components";
 import { AppState, getGifs } from 'reducers';
 import { Gif } from 'types';
-
-import { Content } from 'components';
 
 interface StateProps {
   readonly gifs: Gif[];

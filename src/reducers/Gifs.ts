@@ -1,6 +1,6 @@
-import { Action, Dispatch, Reducer } from 'redux';
+import { Action, Dispatch, Reducer } from "redux";
 
-import { Gif, GifPagination, GifResponse } from 'types';
+import { Gif, GifPagination, GifResponse } from "types";
 
 export interface GifState {
   readonly items: Gif[];
@@ -25,9 +25,9 @@ const initialState: GifState = {
 
 // Actions
 export enum GifActionTypes {
-  GET_GIFS = 'GET_GIFS',
-  SET_GIFS = 'SET_GIFS',
-  SET_PAGINATION = 'SET_PAGINATION'
+  GET_GIFS = "GET_GIFS",
+  SET_GIFS = "SET_GIFS",
+  SET_PAGINATION = "SET_PAGINATION"
 }
 
 export const setGifs = (items: Gif[]): GifAction => ({
@@ -62,13 +62,10 @@ export const gifReducer: Reducer<GifState, GifAction> = (
 };
 
 // Thunks
-export const getGifs = (query: string = '') => async (
+export const getGifs = (query: string = "") => async (
   dispatch: Dispatch<GifAction>
 ) => {
-  const api_key = process.env.REACT_APP_GIPHY_API_KEY;
-  const url = query
-    ? `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${api_key}`
-    : `http://api.giphy.com/v1/gifs/trending?api_key=${api_key}`;
+  const url = `/api/gifs${query ? `?q=${query}` : ""}`;
 
   await fetch(url)
     .then(response => response.json())
@@ -81,4 +78,24 @@ export const getGifs = (query: string = '') => async (
       dispatch(setPagination(json.pagination));
     })
     .catch(error => console.log(error));
+};
+
+export const getUserGifs = () => async (dispatch: Dispatch<GifAction>) => {
+  await fetch("/api/user/gifs")
+    .then(response => response.json())
+    .then(gifs => console.log(gifs))
+    .catch(error => console.log(error));
+};
+
+export const saveGif = (gif: Gif) => async (dispatch: Dispatch<GifAction>) => {
+  await fetch("/api/user/gifs", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      title: gif.title,
+      url: gif.url
+    })
+  }).then(response => console.log(response));
 };

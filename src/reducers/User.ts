@@ -62,21 +62,16 @@ export const login = (username: string, password: string) => async (
     })
   })
     .then(response => response.json())
-    .then(json => {
-      if (json.auth) {
-        dispatch(setUsername(json.username));
-      }
-    });
+    .then(json => dispatch(setUsername(json.username)))
+    .catch(error => console.log(error));
 };
 
 export const logout = () => async (dispatch: Dispatch<UserAction>) => {
   await fetch("/api/logout", {
     method: "DELETE"
-  }).then(response => {
-    if (response.ok) {
-      dispatch(resetUser());
-    }
-  });
+  })
+    .then(response => dispatch(resetUser()))
+    .catch(error => console.log(error));
 };
 
 export const register = (username: string, password: string) => async (
@@ -91,16 +86,30 @@ export const register = (username: string, password: string) => async (
       username,
       password
     })
-  }).then(response => console.log(response));
+  })
+    .then(response => console.log(response))
+    .catch(error => console.log(error));
 };
 
 export const profile = () => async (dispatch: Dispatch<UserAction>) => {
-  await fetch("/api/profile")
+  await fetch("/api/user")
     .then(response => response.json())
-    .then(json => {
-      if (json.auth) {
-        dispatch(setUsername(json.username));
-      }
+    .then(json => dispatch(setUsername(json.username)))
+    .catch(error => console.log(error));
+};
+
+export const createCategory = (name: string) => async (
+  dispatch: Dispatch<UserAction>
+) => {
+  await fetch("/api/user/categories", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name
     })
+  })
+    .then(response => console.log(response))
     .catch(error => console.log(error));
 };

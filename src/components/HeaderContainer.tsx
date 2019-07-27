@@ -2,19 +2,28 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
-import { AppState, login, logout, profile, register } from "reducers";
-
 import { Header } from "components";
+import {
+  AppState,
+  createCategory,
+  getUserGifs,
+  login,
+  logout,
+  profile,
+  register
+} from "reducers";
 
 interface StateProps {
   readonly username: string;
 }
 
 interface DispatchProps {
+  readonly createCategory: (name: string) => void;
   readonly onLogin: (username: string, password: string) => void;
   readonly onLogout: () => void;
   readonly onRegister: (username: string, password: string) => void;
   readonly getProfile: () => void;
+  readonly getUserGifs: () => void;
 }
 
 interface ComponentProps extends StateProps, DispatchProps {}
@@ -37,10 +46,12 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
+      createCategory: createCategory,
       onLogin: login,
       onLogout: logout,
       onRegister: register,
-      getProfile: profile
+      getProfile: profile,
+      getUserGifs: getUserGifs
     },
     dispatch
   );

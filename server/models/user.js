@@ -21,9 +21,9 @@ UserSchema.pre("save", async function(next) {
     .hash(user.password, 10)
     .then(hash => {
       user.password = hash;
-      next();
+      return next();
     })
-    .catch(error => console.log(error));
+    .catch(error => next(error));
 });
 
 module.exports = mongoose.model("User", UserSchema);

@@ -3,6 +3,8 @@ import React, { ChangeEvent } from "react";
 interface Props {
   username: string;
 
+  createCategory: (name: string) => void;
+  getUserGifs: () => void;
   onLogin: (username: string, password: string) => void;
   onLogout: () => void;
   onRegister: (username: string, password: string) => void;
@@ -21,6 +23,7 @@ class Header extends React.Component<Props, State> {
 
   render() {
     const {
+      handleCreateCategory,
       handleLogin,
       handleLogout,
       handleRegister,
@@ -51,13 +54,21 @@ class Header extends React.Component<Props, State> {
         )}
         {this.props.username !== "" && (
           <React.Fragment>
-          <h3>Welcome back, {this.props.username}</h3>
+            <h3>Welcome back, {this.props.username}</h3>
             <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleCreateCategory}>Create Category</button>
+            <button onClick={() => this.props.getUserGifs()}>
+              Get User Gifs
+            </button>
           </React.Fragment>
         )}
       </header>
     );
   }
+
+  private handleCreateCategory = () => {
+    this.props.createCategory("funny");
+  };
 
   private handleLogout = () => {
     this.props.onLogout();
