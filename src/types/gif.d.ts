@@ -1,6 +1,10 @@
+import { Category } from "types";
+
 interface Gif {
-  url: string;
+  _id?: string;
+  categories?: Category[];
   title: string;
+  url: string;
 }
 
 interface GifPagination {

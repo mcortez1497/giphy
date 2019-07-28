@@ -31,7 +31,12 @@ router.get("/user/gifs", checkAuthenticated, async (req, res, next) => {
     .exec()
     .then(gifs =>
       res.json({
-        gifs
+        gifs: gifs.map(gif => ({
+          _id: gif._id,
+          url: gif.url,
+          title: gif.title,
+          categories: gif.categories
+        }))
       })
     )
     .catch(error => next(error));
@@ -47,7 +52,12 @@ router.post("/user/gifs", checkAuthenticated, async (req, res, next) => {
   await Gif.create(gif)
     .then(gif =>
       res.json({
-        gif
+        gif: {
+          _id: gif._id,
+          url: gif.url,
+          title: gif.title,
+          categories: gif.categories
+        }
       })
     )
     .catch(error => next(error));
@@ -65,7 +75,12 @@ router.patch("/user/gifs/:id", checkAuthenticated, async (req, res, next) => {
     .save()
     .then(gif =>
       res.json({
-        gif
+        gif: {
+          _id: gif._id,
+          url: gif.url,
+          title: gif.title,
+          categories: gif.categories
+        }
       })
     )
     .catch(error => next(error));
@@ -85,7 +100,12 @@ router.get(
       .exec()
       .then(gifs =>
         res.json({
-          gifs
+          gifs: gifs.map(gif => ({
+            _id: gif._id,
+            url: gif.url,
+            title: gif.title,
+            categories: gif.categories
+          }))
         })
       )
       .catch(error => next(error));

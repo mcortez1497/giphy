@@ -1,94 +1,161 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 
-interface Props {
+import {
+  AppBar,
+  Button,
+  IconButton,
+  Popover,
+  Toolbar,
+  WithStyles
+} from "@material-ui/core";
+import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
+import { Menu } from "@material-ui/icons";
+
+import { LoginPopover, RegistrationPopover, SearchBar } from "components";
+
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1
+    },
+    appBar: {
+      backgroundColor: "#303030",
+      color: "#9ccc65"
+    },
+    toolBar: {
+      justifyContent: "space-between"
+    },
+    menuButton: {
+      marginRight: theme.spacing(2)
+    }
+  });
+
+interface Props extends WithStyles<typeof styles> {
   username: string;
 
-  createCategory: (name: string) => void;
   getUserGifs: () => void;
   onLogin: (username: string, password: string) => void;
   onLogout: () => void;
+  onMenuClick: () => void;
   onRegister: (username: string, password: string) => void;
+  onSearch: (query?: string) => void;
 }
 
 interface State {
-  username: string;
-  password: string;
+  anchorEl: HTMLButtonElement | null;
+  isRegistering: boolean;
 }
 
-class Header extends React.Component<Props, State> {
+class HeaderWithStyles extends React.Component<Props, State> {
   state = {
-    username: "",
-    password: ""
+    anchorEl: null,
+    isRegistering: false
   };
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (prevProps.username !== this.props.username) {
+      this.setState({ anchorEl: null });
+    }
+  }
 
   render() {
     const {
-      handleCreateCategory,
-      handleLogin,
       handleLogout,
-      handleRegister,
-      handlePasswordChange,
-      handleUsernameChange,
-      state: { password, username }
+      handlePopoverClose,
+      handlePopoverOpen,
+      togglePopover,
+      props: { classes, onLogin, onMenuClick, onRegister, onSearch, username },
+      state: { anchorEl, isRegistering }
     } = this;
 
+    const open = Boolean(anchorEl);
+    const id = open ? "login-popover" : undefined;
+    const isAuthenticated = Boolean(username);
+
     return (
-      <header>
-        {this.props.username === "" && (
-          <React.Fragment>
-            <button onClick={handleLogin}>Login</button>
-            <button onClick={handleRegister}>Register</button>
-            <input
-              type="text"
-              placeholder="username"
-              value={username}
-              onChange={handleUsernameChange}
-            />
-            <input
-              type="text"
-              placeholder="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-          </React.Fragment>
-        )}
-        {this.props.username !== "" && (
-          <React.Fragment>
-            <h3>Welcome back, {this.props.username}</h3>
-            <button onClick={handleLogout}>Logout</button>
-            <button onClick={handleCreateCategory}>Create Category</button>
-            <button onClick={() => this.props.getUserGifs()}>
-              Get User Gifs
-            </button>
-          </React.Fragment>
-        )}
-      </header>
+      <div className={classes.root}>
+        <AppBar position="static" className={classes.appBar}>
+          <Toolbar className={classes.toolBar}>
+            {isAuthenticated && (
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+                onClick={onMenuClick}
+              >
+                <Menu />
+              </IconButton>
+            )}
+            <SearchBar onSearch={onSearch} />
+            {isAuthenticated && (
+              <Button color="inherit" onClick={handleLogout}>
+                Log out
+              </Button>
+            )}
+            {!isAuthenticated && (
+              <React.Fragment>
+                <Button
+                  aria-describedby={id}
+                  color="inherit"
+                  onClick={handlePopoverOpen}
+                >
+                  Log in
+                </Button>
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handlePopoverClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right"
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                  }}
+                >
+                  {isRegistering ? (
+                    <RegistrationPopover
+                      onSubmit={onRegister}
+                      onGoBack={togglePopover}
+                    />
+                  ) : (
+                    <LoginPopover onSubmit={onLogin} onSignUp={togglePopover} />
+                  )}
+                </Popover>
+              </React.Fragment>
+            )}
+          </Toolbar>
+        </AppBar>
+      </div>
     );
   }
 
-  private handleCreateCategory = () => {
-    this.props.createCategory("funny");
+  private togglePopover = () =>
+    this.setState((prevState: State) => ({
+      isRegistering: !prevState.isRegistering
+    }));
+
+  private handlePopoverOpen = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    this.setState({
+      anchorEl: event.currentTarget
+    });
   };
+
+  private handlePopoverClose = () =>
+    this.setState({
+      anchorEl: null
+    });
 
   private handleLogout = () => {
     this.props.onLogout();
   };
-
-  private handleLogin = () => {
-    this.props.onLogin(this.state.username, this.state.password);
-  };
-
-  private handleRegister = () => {
-    this.props.onRegister(this.state.username, this.state.password);
-  };
-
-  private handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ password: e.target.value });
-  };
-
-  private handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ username: e.target.value });
-  };
 }
+
+const Header = withStyles(styles)(HeaderWithStyles);
 
 export { Header };

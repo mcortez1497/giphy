@@ -83,7 +83,10 @@ export const getGifs = (query: string = "") => async (
 export const getUserGifs = () => async (dispatch: Dispatch<GifAction>) => {
   await fetch("/api/user/gifs")
     .then(response => response.json())
-    .then(gifs => console.log(gifs))
+    .then(json => {
+      dispatch(setGifs(json.gifs));
+      dispatch(setPagination({ ...initialState.pagination }));
+    })
     .catch(error => console.log(error));
 };
 

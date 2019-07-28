@@ -92,9 +92,14 @@ export const register = (username: string, password: string) => async (
 };
 
 export const profile = () => async (dispatch: Dispatch<UserAction>) => {
+  // TODO: Make this more intuitive
   await fetch("/api/user")
-    .then(response => response.json())
-    .then(json => dispatch(setUsername(json.username)))
+    .then(async response => {
+      if (!response.ok) {
+        return;
+      }
+      await response.json().then(json => dispatch(setUsername(json.username)));
+    })
     .catch(error => console.log(error));
 };
 

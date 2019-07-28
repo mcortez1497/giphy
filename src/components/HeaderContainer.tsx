@@ -5,12 +5,13 @@ import { bindActionCreators, Dispatch } from "redux";
 import { Header } from "components";
 import {
   AppState,
-  createCategory,
+  getGifs,
   getUserGifs,
   login,
   logout,
   profile,
-  register
+  register,
+  setDrawerOpen
 } from "reducers";
 
 interface StateProps {
@@ -18,10 +19,11 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  readonly createCategory: (name: string) => void;
   readonly onLogin: (username: string, password: string) => void;
   readonly onLogout: () => void;
+  readonly onMenuClick: () => void;
   readonly onRegister: (username: string, password: string) => void;
+  readonly onSearch: (query?: string) => void;
   readonly getProfile: () => void;
   readonly getUserGifs: () => void;
 }
@@ -46,10 +48,11 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      createCategory: createCategory,
       onLogin: login,
       onLogout: logout,
+      onMenuClick: setDrawerOpen,
       onRegister: register,
+      onSearch: getGifs,
       getProfile: profile,
       getUserGifs: getUserGifs
     },
