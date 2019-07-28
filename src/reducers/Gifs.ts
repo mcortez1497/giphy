@@ -1,5 +1,6 @@
 import { Action, Dispatch, Reducer } from "redux";
 
+import { AppState, getUserGifs } from "reducers";
 import { Gif, GifPagination, GifResponse } from "types";
 
 export interface GifState {
@@ -71,6 +72,7 @@ export const getGifs = (query: string = "") => async (
     .then(response => response.json())
     .then(json => {
       const items: Gif[] = json.data.map((gif: GifResponse) => ({
+        giphy_id: gif.id,
         url: gif.images.original.url,
         title: gif.title
       }));
@@ -80,25 +82,14 @@ export const getGifs = (query: string = "") => async (
     .catch(error => console.log(error));
 };
 
-export const getUserGifs = () => async (dispatch: Dispatch<GifAction>) => {
-  await fetch("/api/user/gifs")
-    .then(response => response.json())
-    .then(json => {
-      dispatch(setGifs(json.gifs));
-      dispatch(setPagination({ ...initialState.pagination }));
+export const viewUserGifs = () => async (
+  dispatch: Dispatch<GifAction>,
+  getState: () => AppState
+) => {
+  getUserGifs()(dispatch)
+    .then(() => {
+      dispatch(setGifs(getState().user.gifs));
+      dispatch(setPagination(initialState.pagination));
     })
     .catch(error => console.log(error));
-};
-
-export const saveGif = (gif: Gif) => async (dispatch: Dispatch<GifAction>) => {
-  await fetch("/api/user/gifs", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      title: gif.title,
-      url: gif.url
-    })
-  }).then(response => console.log(response));
 };

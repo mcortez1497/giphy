@@ -12,8 +12,8 @@ router.get("/gifs", async (req, res, next) => {
   const api_key = process.env.GIPHY_API_KEY;
 
   const url = query
-    ? `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${api_key}`
-    : `http://api.giphy.com/v1/gifs/trending?api_key=${api_key}`;
+    ? `http://api.giphy.com/v1/gifs/search?q=${query}&limit=24&rating=g&api_key=${api_key}`
+    : `http://api.giphy.com/v1/gifs/trending?limit=24&rating=g&api_key=${api_key}`;
 
   await fetch(url)
     .then(response => response.json())
@@ -33,6 +33,7 @@ router.get("/user/gifs", checkAuthenticated, async (req, res, next) => {
       res.json({
         gifs: gifs.map(gif => ({
           _id: gif._id,
+          giphy_id: gif.giphy_id,
           url: gif.url,
           title: gif.title,
           categories: gif.categories
@@ -44,8 +45,9 @@ router.get("/user/gifs", checkAuthenticated, async (req, res, next) => {
 
 router.post("/user/gifs", checkAuthenticated, async (req, res, next) => {
   const gif = {
-    url: req.body.url,
+    giphy_id: req.body.giphy_id,
     title: req.body.title,
+    url: req.body.url,
     user: req.user._id
   };
 
@@ -54,6 +56,7 @@ router.post("/user/gifs", checkAuthenticated, async (req, res, next) => {
       res.json({
         gif: {
           _id: gif._id,
+          giphy_id: gif.giphy_id,
           url: gif.url,
           title: gif.title,
           categories: gif.categories
@@ -77,6 +80,7 @@ router.patch("/user/gifs/:id", checkAuthenticated, async (req, res, next) => {
       res.json({
         gif: {
           _id: gif._id,
+          giphy_id: gif.giphy_id,
           url: gif.url,
           title: gif.title,
           categories: gif.categories
@@ -102,6 +106,7 @@ router.get(
         res.json({
           gifs: gifs.map(gif => ({
             _id: gif._id,
+            giphy_id: gif.giphy_id,
             url: gif.url,
             title: gif.title,
             categories: gif.categories

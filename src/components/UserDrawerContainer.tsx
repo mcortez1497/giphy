@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
 import { UserDrawer } from "components"
-import { AppState, getUserGifs, setDrawerClosed } from "reducers";
+import { AppState, viewUserGifs, setDrawerClosed } from "reducers";
 
 interface StateProps {
   readonly isOpen: boolean;
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       closeDrawer: setDrawerClosed,
-      getUserGifs: getUserGifs
+      getUserGifs: viewUserGifs
     },
     dispatch
   );

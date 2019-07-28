@@ -22,6 +22,9 @@ const styles = (theme: Theme) =>
       backgroundColor: "#303030",
       color: "#9ccc65"
     },
+    grow: {
+      flexGrow: 1
+    },
     toolBar: {
       justifyContent: "space-between"
     },
@@ -33,7 +36,6 @@ const styles = (theme: Theme) =>
 interface Props extends WithStyles<typeof styles> {
   username: string;
 
-  getUserGifs: () => void;
   onLogin: (username: string, password: string) => void;
   onLogout: () => void;
   onMenuClick: () => void;
@@ -88,6 +90,7 @@ class HeaderWithStyles extends React.Component<Props, State> {
               </IconButton>
             )}
             <SearchBar onSearch={onSearch} />
+            <div className={classes.grow} />
             {isAuthenticated && (
               <Button color="inherit" onClick={handleLogout}>
                 Log out

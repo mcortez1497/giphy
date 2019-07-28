@@ -1,95 +1,121 @@
 import React from "react";
 
 import {
-  Button,
   Card,
-  CardContent,
   CardMedia,
-  CardActions,
   CardActionArea,
+  CardActions,
   Fab,
-  Typography,
-  WithStyles
+  WithStyles,
+  Modal
 } from "@material-ui/core";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
-import { Add } from "@material-ui/icons";
+import { Add, Remove } from "@material-ui/icons";
 
 import { Gif } from "types";
 
 const styles = (theme: Theme) =>
   createStyles({
     card: {
-      maxWidth: 345,
-      position: "relative"
+      height: "400px"
     },
-    cardActions: {
-      padding: theme.spacing(0)
+    cardActionArea: {
+      height: "300px"
+    },
+    cardMedia: {
+      height: "100%"
     },
     fab: {
-      bottom: 0,
-      margin: theme.spacing(2),
-      position: "absolute",
-      right: 0
+      // bottom: 0,
+      margin: theme.spacing(2)
+      // position: "absolute",
+      // right: 0
+    },
+    modal: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
     }
   });
 
 interface Props extends WithStyles<typeof styles> {
   readonly gif: Gif;
-  readonly onSelect: (gif: Gif) => void;
+  readonly isSaved: boolean;
+
+  readonly onAdd: (gif: Gif) => void;
+  readonly onDelete: (gif: Gif) => void;
 }
 
 interface State {
-  readonly isHovered: boolean;
+  readonly isBlownUp: boolean;
 }
 
 class GifCardWithStyles extends React.Component<Props, State> {
   state = {
-    isHovered: false
+    isBlownUp: false
   };
 
   render() {
     const {
-      props: { classes, gif, onSelect },
-      state: { isHovered },
-      resetHover,
-      setHover,
-      selectGif
+      props: { classes, gif, isSaved },
+      state: { isBlownUp },
+      addGif,
+      deleteGif
     } = this;
 
-    const fabDisplayStyle = {
-      display: isHovered ? "flex" : "none"
-    };
-
     return (
-      <Card
-        className={classes.card}
-        onMouseEnter={setHover}
-        onMouseLeave={resetHover}
-      >
-        <CardMedia
-          component="img"
-          alt={gif.title}
-          image={gif.url}
-          title={gif.title}
-        />
-        <CardActions className={classes.cardActions}>
-          <Fab
-            color="primary"
-            aria-label="add"
-            className={classes.fab}
-            style={fabDisplayStyle}
-            onClick={selectGif}
+      <React.Fragment>
+        <Card className={classes.card}>
+          <CardActionArea
+            className={classes.cardActionArea}
+            onClick={this.blowUpImage}
           >
-            <Add />
-          </Fab>
-        </CardActions>
-      </Card>
+            <CardMedia
+              component="img"
+              alt={gif.title}
+              image={gif.url}
+              title={gif.title}
+              className={classes.cardMedia}
+            />
+          </CardActionArea>
+          <CardActions>
+            {isSaved && (
+              <Fab
+                color="secondary"
+                aria-label="remove"
+                className={classes.fab}
+                onClick={deleteGif}
+              >
+                <Remove />
+              </Fab>
+            )}
+            {!isSaved && (
+              <Fab
+                color="primary"
+                aria-label="add"
+                className={classes.fab}
+                onClick={addGif}
+              >
+                <Add />
+              </Fab>
+            )}
+          </CardActions>
+        </Card>
+        <Modal
+          open={this.state.isBlownUp}
+          onClose={this.shrinkImage}
+          className={classes.modal}
+        >
+          <img src={gif.url} title={gif.title} alt={gif.title} />
+        </Modal>
+      </React.Fragment>
     );
   }
 
-  private selectGif = () => this.props.onSelect(this.props.gif);
-  private setHover = () => this.setState({ isHovered: true });
-  private resetHover = () => this.setState({ isHovered: false });
+  private addGif = () => this.props.onAdd(this.props.gif);
+  private deleteGif = () => this.props.onDelete(this.props.gif);
+  private blowUpImage = () => this.setState({ isBlownUp: true });
+  private shrinkImage = () => this.setState({ isBlownUp: false });
 }
 
 const GifCard = withStyles(styles)(GifCardWithStyles);

@@ -3,6 +3,7 @@ import { Category } from "types";
 interface Gif {
   _id?: string;
   categories?: Category[];
+  giphy_id: string;
   title: string;
   url: string;
 }
@@ -14,6 +15,7 @@ interface GifPagination {
 }
 
 interface GifResponse {
+  id: string,
   images: {
     original: {
       url: string;

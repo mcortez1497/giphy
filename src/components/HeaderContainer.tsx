@@ -6,12 +6,13 @@ import { Header } from "components";
 import {
   AppState,
   getGifs,
+  getUser,
   getUserGifs,
   login,
   logout,
-  profile,
   register,
-  setDrawerOpen
+  setDrawerOpen,
+  UserAction
 } from "reducers";
 
 interface StateProps {
@@ -24,7 +25,7 @@ interface DispatchProps {
   readonly onMenuClick: () => void;
   readonly onRegister: (username: string, password: string) => void;
   readonly onSearch: (query?: string) => void;
-  readonly getProfile: () => void;
+  readonly getUser: () => void;
   readonly getUserGifs: () => void;
 }
 
@@ -32,11 +33,11 @@ interface ComponentProps extends StateProps, DispatchProps {}
 
 class Container extends React.Component<ComponentProps> {
   public componentDidMount() {
-    this.props.getProfile();
+    this.props.getUser()
   }
 
   public render() {
-    const { getProfile, ...props } = this.props;
+    const { getUser, getUserGifs, ...props } = this.props;
     return <Header {...props} />;
   }
 }
@@ -53,7 +54,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
       onMenuClick: setDrawerOpen,
       onRegister: register,
       onSearch: getGifs,
-      getProfile: profile,
+      getUser: getUser,
       getUserGifs: getUserGifs
     },
     dispatch
