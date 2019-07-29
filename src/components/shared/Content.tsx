@@ -5,9 +5,11 @@ import {
   CssBaseline,
   GridList,
   GridListTile,
-  WithStyles
+  WithStyles,
+  withWidth
 } from "@material-ui/core";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
+import { isWidthUp, WithWidthProps } from "@material-ui/core/withWidth";
 
 import { GifCardContainer } from "components";
 import { Gif } from "types";
@@ -29,32 +31,48 @@ const styles = (theme: Theme) =>
     }
   });
 
-interface Props extends WithStyles<typeof styles> {
+interface Props extends WithWidthProps, WithStyles<typeof styles> {
   gifs: Gif[];
 }
 
-const calculateColumns = (gifs: Gif[]) => {
-  if (gifs.length <= 2) {
-    return gifs.length;
-  }
-  return 3;
+const ContentWithStyles: React.FC<Props> = ({
+  classes,
+  gifs,
+  width = "lg"
+}) => {
+  
+  // Ensure Grid is responsive
+  const calculateColumns = () => {
+    if (gifs.length <= 2) {
+      return gifs.length;
+    }
+
+    if (isWidthUp("lg", width)) {
+      return 3;
+    }
+    if (isWidthUp("md", width)) {
+      return 2;
+    }
+
+    return 1;
+  };
+
+  return (
+    <Container maxWidth="lg">
+      <CssBaseline />
+      <div className={classes.root}>
+        <GridList cols={calculateColumns()}>
+          {gifs.map((gif, index) => (
+            <GridListTile key={index} cols={1} className={classes.gridListTile}>
+              <GifCardContainer gif={gif} />
+            </GridListTile>
+          ))}
+        </GridList>
+      </div>
+    </Container>
+  );
 };
 
-const ContentWithStyles: React.FC<Props> = ({ classes, gifs }) => (
-  <Container maxWidth="lg">
-    <CssBaseline />
-    <div className={classes.root}>
-      <GridList cols={calculateColumns(gifs)}>
-        {gifs.map((gif, index) => (
-          <GridListTile key={index} cols={1} className={classes.gridListTile}>
-            <GifCardContainer gif={gif} />
-          </GridListTile>
-        ))}
-      </GridList>
-    </div>
-  </Container>
-);
-
-const Content = withStyles(styles)(ContentWithStyles);
+const Content = withWidth()(withStyles(styles)(ContentWithStyles));
 
 export { Content };
