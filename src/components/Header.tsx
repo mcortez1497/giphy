@@ -41,6 +41,7 @@ interface Props extends WithStyles<typeof styles> {
   onMenuClick: () => void;
   onRegister: (username: string, password: string) => void;
   onSearch: (query?: string) => void;
+  resetGifView: () => void;
 }
 
 interface State {
@@ -54,7 +55,7 @@ class HeaderWithStyles extends React.Component<Props, State> {
     isRegistering: false
   };
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.username !== this.props.username) {
       this.setState({ anchorEl: null });
     }
@@ -65,8 +66,9 @@ class HeaderWithStyles extends React.Component<Props, State> {
       handleLogout,
       handlePopoverClose,
       handlePopoverOpen,
+      handleSearch,
       togglePopover,
-      props: { classes, onLogin, onMenuClick, onRegister, onSearch, username },
+      props: { classes, onLogin, onMenuClick, onRegister, username },
       state: { anchorEl, isRegistering }
     } = this;
 
@@ -89,7 +91,7 @@ class HeaderWithStyles extends React.Component<Props, State> {
                 <Menu />
               </IconButton>
             )}
-            <SearchBar onSearch={onSearch} />
+            <SearchBar onSearch={handleSearch} />
             <div className={classes.grow} />
             {isAuthenticated && (
               <Button color="inherit" onClick={handleLogout}>
@@ -136,27 +138,29 @@ class HeaderWithStyles extends React.Component<Props, State> {
     );
   }
 
-  private togglePopover = () =>
-    this.setState((prevState: State) => ({
-      isRegistering: !prevState.isRegistering
-    }));
+  private handleLogout = () => this.props.onLogout();
 
   private handlePopoverOpen = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  ) =>
     this.setState({
       anchorEl: event.currentTarget
     });
-  };
 
   private handlePopoverClose = () =>
     this.setState({
       anchorEl: null
     });
 
-  private handleLogout = () => {
-    this.props.onLogout();
+  private handleSearch = (query: string = "") => {
+    this.props.onSearch(query);
+    this.props.resetGifView();
   };
+
+  private togglePopover = () =>
+    this.setState((prevState: State) => ({
+      isRegistering: !prevState.isRegistering
+    }));
 }
 
 const Header = withStyles(styles)(HeaderWithStyles);

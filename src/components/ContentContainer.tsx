@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import * as React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators, Dispatch } from "redux";
 
 import { Content } from "components";
-import { AppState, getGifs } from 'reducers';
-import { Gif } from 'types';
+import { AppState, getGifs } from "reducers";
+import { Gif } from "types";
 
 interface StateProps {
   readonly gifs: Gif[];
@@ -26,9 +26,17 @@ class Container extends React.Component<ComponentProps> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
-  gifs: state.gifs.items
-})
+const mapStateToProps = (state: AppState) => {
+  const gifs = state.ui.gifView === "fresh" ? state.gifs.items.map((gif) => {
+    const userGif = state.user.gifs.find(userGif => userGif.giphy_id === gif.giphy_id)
+    return userGif ? userGif : gif;
+  }) : state.user.gifs
+
+  return { gifs }
+}
+// {
+// gifs: state.ui.gifView === "fresh" ? state.gifs.items : state.user.gifs
+// }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -38,7 +46,12 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     dispatch
   );
 
-export const ContentContainer = connect<StateProps, DispatchProps, {}, AppState>(
+export const ContentContainer = connect<
+  StateProps,
+  DispatchProps,
+  {},
+  AppState
+>(
   mapStateToProps,
   mapDispatchToProps
 )(Container);

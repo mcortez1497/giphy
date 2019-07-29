@@ -1,4 +1,6 @@
-export * from './Content';
+export * from "./AddCategoryPopover";
+export * from "./CategorySelector";
+export * from "./Content";
 export * from './ContentContainer';
 export * from "./GifCard";
 export * from "./GifCardContainer";

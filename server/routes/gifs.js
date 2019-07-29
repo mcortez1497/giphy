@@ -36,7 +36,10 @@ router.get("/user/gifs", checkAuthenticated, async (req, res, next) => {
           giphy_id: gif.giphy_id,
           url: gif.url,
           title: gif.title,
-          categories: gif.categories
+          categories: gif.categories.map(category => ({
+            _id: category._id,
+            name: category.name
+          }))
         }))
       })
     )
@@ -59,7 +62,10 @@ router.post("/user/gifs", checkAuthenticated, async (req, res, next) => {
           giphy_id: gif.giphy_id,
           url: gif.url,
           title: gif.title,
-          categories: gif.categories
+          categories: gif.categories.map(category => ({
+            _id: category._id,
+            name: category.name
+          }))
         }
       })
     )
@@ -67,15 +73,16 @@ router.post("/user/gifs", checkAuthenticated, async (req, res, next) => {
 });
 
 router.patch("/user/gifs/:id", checkAuthenticated, async (req, res, next) => {
-  const categoryId = req.body.categoryId;
-  const gif = await Gif.findOne({ user: req.user._id });
+  const categoryIds = req.body.categoryIds;
+  const gif = await Gif.findOne({ _id: req.params.id });
 
-  if (!gif.categories.includes(categoryId)) {
-    gif.categories.push(categoryId);
+  if (gif && gif.categories) {
+    gif.categories = categoryIds;
   }
 
   await gif
     .save()
+    .then(gif => Gif.populate(gif, { path: "categories" }))
     .then(gif =>
       res.json({
         gif: {
@@ -83,7 +90,10 @@ router.patch("/user/gifs/:id", checkAuthenticated, async (req, res, next) => {
           giphy_id: gif.giphy_id,
           url: gif.url,
           title: gif.title,
-          categories: gif.categories
+          categories: gif.categories.map(category => ({
+            _id: category._id,
+            name: category.name
+          }))
         }
       })
     )
@@ -109,7 +119,10 @@ router.get(
             giphy_id: gif.giphy_id,
             url: gif.url,
             title: gif.title,
-            categories: gif.categories
+            categories: gif.categories.map(category => ({
+              _id: category._id,
+              name: category.name
+            }))
           }))
         })
       )

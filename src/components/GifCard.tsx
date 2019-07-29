@@ -1,35 +1,30 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 import {
   Card,
   CardMedia,
   CardActionArea,
   CardActions,
-  Fab,
-  WithStyles,
-  Modal
+  IconButton,
+  Modal,
+  WithStyles
 } from "@material-ui/core";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
-import { Add, Remove } from "@material-ui/icons";
+import { Favorite } from "@material-ui/icons";
 
-import { Gif } from "types";
+import { CategorySelector } from "components";
+import { Category, Gif } from "types";
 
 const styles = (theme: Theme) =>
   createStyles({
-    card: {
-      height: "400px"
-    },
     cardActionArea: {
       height: "300px"
     },
     cardMedia: {
       height: "100%"
     },
-    fab: {
-      // bottom: 0,
-      margin: theme.spacing(2)
-      // position: "absolute",
-      // right: 0
+    grow: {
+      flexGrow: 1
     },
     modal: {
       display: "flex",
@@ -39,11 +34,13 @@ const styles = (theme: Theme) =>
   });
 
 interface Props extends WithStyles<typeof styles> {
+  readonly categories: Category[];
   readonly gif: Gif;
-  readonly isSaved: boolean;
+  readonly isAuthenticated: boolean;
 
   readonly onAdd: (gif: Gif) => void;
-  readonly onDelete: (gif: Gif) => void;
+  readonly onCategoryChange: (gifId: string, categoryIds: string[]) => void;
+  readonly onDelete: (gifId: string) => void;
 }
 
 interface State {
@@ -57,18 +54,21 @@ class GifCardWithStyles extends React.Component<Props, State> {
 
   render() {
     const {
-      props: { classes, gif, isSaved },
+      props: { categories, classes, gif, isAuthenticated, onCategoryChange },
       state: { isBlownUp },
       addGif,
+      blowUpImage,
       deleteGif
     } = this;
 
+    const isSaved = Boolean(gif._id);
+    
     return (
       <React.Fragment>
-        <Card className={classes.card}>
+        <Card raised>
           <CardActionArea
             className={classes.cardActionArea}
-            onClick={this.blowUpImage}
+            onClick={blowUpImage}
           >
             <CardMedia
               component="img"
@@ -78,31 +78,31 @@ class GifCardWithStyles extends React.Component<Props, State> {
               className={classes.cardMedia}
             />
           </CardActionArea>
-          <CardActions>
+          <CardActions disableSpacing>
+            {isAuthenticated && isSaved && (
+              <CategorySelector
+                gif={gif}
+                categories={categories}
+                onCategorySelect={onCategoryChange}
+              />
+            )}
+            {isAuthenticated && !isSaved && (
+              <div className={classes.grow} />
+            )}
             {isSaved && (
-              <Fab
-                color="secondary"
-                aria-label="remove"
-                className={classes.fab}
-                onClick={deleteGif}
-              >
-                <Remove />
-              </Fab>
+              <IconButton aria-label="remove" onClick={deleteGif}>
+                <Favorite color="secondary" />
+              </IconButton>
             )}
             {!isSaved && (
-              <Fab
-                color="primary"
-                aria-label="add"
-                className={classes.fab}
-                onClick={addGif}
-              >
-                <Add />
-              </Fab>
+              <IconButton aria-label="add" onClick={addGif}>
+                <Favorite />
+              </IconButton>
             )}
           </CardActions>
         </Card>
         <Modal
-          open={this.state.isBlownUp}
+          open={isBlownUp}
           onClose={this.shrinkImage}
           className={classes.modal}
         >
@@ -113,8 +113,16 @@ class GifCardWithStyles extends React.Component<Props, State> {
   }
 
   private addGif = () => this.props.onAdd(this.props.gif);
-  private deleteGif = () => this.props.onDelete(this.props.gif);
+
+  private deleteGif = () => {
+    if (!this.props.gif._id) {
+      return;
+    }
+    this.props.onDelete(this.props.gif._id);
+  };
+
   private blowUpImage = () => this.setState({ isBlownUp: true });
+
   private shrinkImage = () => this.setState({ isBlownUp: false });
 }
 

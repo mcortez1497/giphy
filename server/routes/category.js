@@ -28,7 +28,10 @@ router.post("/user/categories", checkAuthenticated, async (req, res, next) => {
   await Category.create(category)
     .then(category =>
       res.json({
-        category
+        category: {
+          _id: category._id,
+          name: category.name
+        }
       })
     )
     .catch(error => next(error));

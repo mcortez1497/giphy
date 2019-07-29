@@ -6,18 +6,21 @@ import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import { GifCardContainer } from "components";
 import { Gif } from "types";
 
-const styles = (theme: Theme) => createStyles({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    marginTop: theme.spacing(2),
-    overflow: 'hidden'
-  },
-  gridListTile: {
-    minHeight: "400px"
-  }
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "space-around",
+      marginTop: theme.spacing(2),
+      overflow: "hidden"
+    },
+    gridListTile: {
+      height: "initial !important",
+      minHeight: "368px",
+      overflow: "initial"
+    }
+  });
 
 interface Props extends WithStyles<typeof styles> {
   gifs: Gif[];
@@ -34,7 +37,7 @@ const ContentWithStyles: React.FC<Props> = ({ classes, gifs }) => (
           </GridListTile>
         ))}
       </GridList>
-    </div>]
+    </div>
   </Container>
 );
 

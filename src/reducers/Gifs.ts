@@ -81,15 +81,3 @@ export const getGifs = (query: string = "") => async (
     })
     .catch(error => console.log(error));
 };
-
-export const viewUserGifs = () => async (
-  dispatch: Dispatch<GifAction>,
-  getState: () => AppState
-) => {
-  getUserGifs()(dispatch)
-    .then(() => {
-      dispatch(setGifs(getState().user.gifs));
-      dispatch(setPagination(initialState.pagination));
-    })
-    .catch(error => console.log(error));
-};

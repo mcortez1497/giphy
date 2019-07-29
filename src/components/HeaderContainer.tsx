@@ -12,8 +12,10 @@ import {
   logout,
   register,
   setDrawerOpen,
-  UserAction
+  UserAction,
+  setGifView
 } from "reducers";
+import { GifView } from "types";
 
 interface StateProps {
   readonly username: string;
@@ -26,18 +28,18 @@ interface DispatchProps {
   readonly onRegister: (username: string, password: string) => void;
   readonly onSearch: (query?: string) => void;
   readonly getUser: () => void;
-  readonly getUserGifs: () => void;
+  readonly resetGifView: () => void;
 }
 
 interface ComponentProps extends StateProps, DispatchProps {}
 
 class Container extends React.Component<ComponentProps> {
   public componentDidMount() {
-    this.props.getUser()
+    this.props.getUser();
   }
 
   public render() {
-    const { getUser, getUserGifs, ...props } = this.props;
+    const { getUser, ...props } = this.props;
     return <Header {...props} />;
   }
 }
@@ -55,7 +57,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
       onRegister: register,
       onSearch: getGifs,
       getUser: getUser,
-      getUserGifs: getUserGifs
+      resetGifView: () => setGifView("fresh")
     },
     dispatch
   );

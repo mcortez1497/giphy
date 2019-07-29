@@ -2,16 +2,18 @@ import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
 import { GifCard } from "components";
-import { AppState, deleteGif, saveGif } from "reducers";
-import { Gif } from "types";
+import { AppState, addGif, deleteGif, updateGif } from "reducers";
+import { Category, Gif } from "types";
 
 interface StateProps {
-  readonly isSaved: boolean;
+  readonly categories: Category[];
+  readonly isAuthenticated: boolean;
 }
 
 interface DispatchProps {
   readonly onAdd: (gif: Gif) => void;
-  readonly onDelete: (gif: Gif) => void;
+  readonly onCategoryChange: (gifId: string, categoryIds: string[]) => void;
+  readonly onDelete: (gifId: string) => void;
 }
 
 interface OwnProps {
@@ -19,15 +21,15 @@ interface OwnProps {
 }
 
 const mapStateToProps = (state: AppState, props: OwnProps) => ({
-  isSaved:
-    Boolean(props.gif._id) ||
-    state.user.gifs.filter(gif => gif.giphy_id === props.gif.giphy_id).length > 0
+  categories: state.user.categories.items,
+  isAuthenticated: state.user.username !== ""
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      onAdd: saveGif,
+      onAdd: addGif,
+      onCategoryChange: updateGif,
       onDelete: deleteGif
     },
     dispatch
