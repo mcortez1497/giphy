@@ -2,7 +2,7 @@ const express = require("express");
 const fetch = require("node-fetch");
 
 const Gif = require("../models/Gif");
-const checkAuthenticated = require("../utils").checkAuthenticated;
+const utils = require("../utils");
 
 const router = express.Router();
 
@@ -33,28 +33,19 @@ router.get("/gifs", async (req, res, next) => {
     .catch(error => next(error));
 });
 
-router.get("/user/gifs", checkAuthenticated, async (req, res, next) => {
+router.get("/user/gifs", utils.checkAuthenticated, async (req, res, next) => {
   await Gif.find({ user: req.user._id })
     .populate("categories")
     .exec()
     .then(gifs =>
       res.json({
-        gifs: gifs.map(gif => ({
-          _id: gif._id,
-          giphy_id: gif.giphy_id,
-          url: gif.url,
-          title: gif.title,
-          categories: gif.categories.map(category => ({
-            _id: category._id,
-            name: category.name
-          }))
-        }))
+        gifs: gifs.map(gif => utils.formatGif(gif))
       })
     )
     .catch(error => next(error));
 });
 
-router.post("/user/gifs", checkAuthenticated, async (req, res, next) => {
+router.post("/user/gifs", utils.checkAuthenticated, async (req, res, next) => {
   const gif = {
     giphy_id: req.body.giphy_id,
     title: req.body.title,
@@ -65,73 +56,54 @@ router.post("/user/gifs", checkAuthenticated, async (req, res, next) => {
   await Gif.create(gif)
     .then(gif =>
       res.json({
-        gif: {
-          _id: gif._id,
-          giphy_id: gif.giphy_id,
-          url: gif.url,
-          title: gif.title,
-          categories: gif.categories.map(category => ({
-            _id: category._id,
-            name: category.name
-          }))
-        }
+        gif: utils.formatGif(gif)
       })
     )
     .catch(error => next(error));
 });
 
-router.patch("/user/gifs/:id", checkAuthenticated, async (req, res, next) => {
-  const categoryIds = req.body.categoryIds;
-  const gif = await Gif.findOne({ _id: req.params.id });
+router.patch(
+  "/user/gifs/:id",
+  utils.checkAuthenticated,
+  async (req, res, next) => {
+    const categoryIds = req.body.categoryIds;
+    const gif = await Gif.findOne({ _id: req.params.id });
 
-  if (gif && gif.categories) {
-    gif.categories = categoryIds;
+    if (gif && gif.categories) {
+      gif.categories = categoryIds;
+    }
+
+    await gif
+      .save()
+      .then(gif => Gif.populate(gif, { path: "categories" }))
+      .then(gif =>
+        res.json({
+          gif: utils.formatGif(gif)
+        })
+      )
+      .catch(error => next(error));
   }
+);
 
-  await gif
-    .save()
-    .then(gif => Gif.populate(gif, { path: "categories" }))
-    .then(gif =>
-      res.json({
-        gif: {
-          _id: gif._id,
-          giphy_id: gif.giphy_id,
-          url: gif.url,
-          title: gif.title,
-          categories: gif.categories.map(category => ({
-            _id: category._id,
-            name: category.name
-          }))
-        }
-      })
-    )
-    .catch(error => next(error));
-});
-
-router.delete("/user/gifs/:id", checkAuthenticated, async (req, res, next) => {
-  await Gif.deleteOne({ _id: req.params.id })
-    .then(() => res.status(200).send())
-    .catch(error => next(error));
-});
+router.delete(
+  "/user/gifs/:id",
+  utils.checkAuthenticated,
+  async (req, res, next) => {
+    await Gif.deleteOne({ _id: req.params.id })
+      .then(() => res.status(200).send())
+      .catch(error => next(error));
+  }
+);
 
 router.get(
   "/user/categories/:id/gifs",
-  checkAuthenticated,
+  utils.checkAuthenticated,
   async (req, res, next) => {
     await Gif.find({ user: req.user._id, categories: req.params.id })
       .exec()
       .then(gifs =>
         res.json({
-          gifs: gifs.map(gif => ({
-            _id: gif._id,
-            giphy_id: gif.giphy_id,
-            url: gif.url,
-            title: gif.title,
-            categories: gif.categories.map(category => ({
-              _id: category._id,
-              name: category.name
-            }))
-          }))
+          gifs: gifs.map(gif => utils.formatGif(gif))
         })
       )
       .catch(error => next(error));

@@ -1,14 +1,11 @@
 const express = require("express");
 
-const checkAuthenticated = require("../utils").checkAuthenticated;
+const utils = require("../utils");
 
 const router = express.Router();
 
-router.get("/user", checkAuthenticated, (req, res) =>
-  res.json({
-    username: req.user.username,
-    _id: req.user._id
-  })
+router.get("/user", utils.checkAuthenticated, (req, res) =>
+  res.json(utils.formatUser(req.user))
 );
 
 module.exports = router;

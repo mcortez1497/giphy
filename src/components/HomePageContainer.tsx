@@ -1,40 +1,17 @@
-import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
-import { Content, InfiniteScroll, Layout } from "components";
+import { HomePage } from "components";
 import { AppState, getGifs, getMoreGifs } from "reducers";
-import { QueryUtil } from "services";
 import { Gif } from "types";
 
 interface StateProps {
   readonly gifs: Gif[];
-  readonly query: string;
 }
 
 interface DispatchProps {
   readonly getGifs: (query?: string) => void;
   readonly getMoreGifs: () => void;
-}
-
-interface ComponentProps extends StateProps, DispatchProps {}
-
-class Container extends React.Component<ComponentProps> {
-
-  public componentDidMount() {
-    const query = QueryUtil.parseQueryString(window.location.search).q;
-
-    this.props.getGifs(query);
-  }
-
-  public render() {
-    return (
-      <Layout>
-        <Content gifs={this.props.gifs} />
-        <InfiniteScroll loadMore={this.props.getMoreGifs} />
-      </Layout>
-    );
-  }
 }
 
 const mapStateToProps = (state: AppState) => {
@@ -45,7 +22,7 @@ const mapStateToProps = (state: AppState) => {
     return userGif ? userGif : gif;
   });
 
-  return { gifs, query: state.gifs.query };
+  return { gifs };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -65,4 +42,4 @@ export const HomePageContainer = connect<
 >(
   mapStateToProps,
   mapDispatchToProps
-)(Container);
+)(HomePage);

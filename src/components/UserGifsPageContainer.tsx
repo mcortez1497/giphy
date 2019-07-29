@@ -1,8 +1,7 @@
-import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
-import { Content, Layout } from "components";
+import { UserGifsPage } from "components";
 import { AppState, getGifs } from "reducers";
 import { Gif } from "types";
 
@@ -12,22 +11,6 @@ interface StateProps {
 
 interface DispatchProps {
   readonly getGifs: () => void;
-}
-
-interface ComponentProps extends StateProps, DispatchProps {}
-
-class Container extends React.Component<ComponentProps> {
-  public componentDidMount() {
-    this.props.getGifs();
-  }
-
-  public render() {
-    return (
-      <Layout>
-        <Content gifs={this.props.gifs} />
-      </Layout>
-    );
-  }
 }
 
 const mapStateToProps = (state: AppState) => ({
@@ -42,7 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     dispatch
   );
 
-export const MyGifsPageContainer = connect<
+export const UserGifsPageContainer = connect<
   StateProps,
   DispatchProps,
   {},
@@ -50,4 +33,4 @@ export const MyGifsPageContainer = connect<
 >(
   mapStateToProps,
   mapDispatchToProps
-)(Container);
+)(UserGifsPage);

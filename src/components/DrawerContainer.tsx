@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
-import { UserDrawer } from "components"
+import { Drawer } from "components"
 import { AppState, addCategory, setDrawerClosed } from "reducers";
 import { Category } from "types";
 
@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     dispatch
   );
 
-export const UserDrawerContainer = connect<
+export const DrawerContainer = connect<
   StateProps,
   DispatchProps,
   {},
@@ -37,4 +37,4 @@ export const UserDrawerContainer = connect<
 >(
   mapStateToProps,
   mapDispatchToProps
-)(UserDrawer);
+)(Drawer);

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import {
   Divider,
-  Drawer,
+  Drawer as TemporaryDrawer,
   IconButton,
   List,
   ListItem,
@@ -55,7 +55,7 @@ interface State {
   anchorEl: HTMLButtonElement | null;
 }
 
-class UserDrawerWithStyles extends React.Component<Props, State> {
+class DrawerWithStyles extends React.Component<Props, State> {
   state = {
     anchorEl: null
   };
@@ -72,7 +72,7 @@ class UserDrawerWithStyles extends React.Component<Props, State> {
     const id = open ? "add-category-popover" : undefined;
 
     return (
-      <Drawer open={isOpen} onClose={closeDrawer}>
+      <TemporaryDrawer open={isOpen} onClose={closeDrawer}>
         <div className={classes.drawer}>
           <ListItem className={classes.title}>
             <Typography variant="h5" color="primary">
@@ -142,7 +142,7 @@ class UserDrawerWithStyles extends React.Component<Props, State> {
             ))}
           </List>
         </div>
-      </Drawer>
+      </TemporaryDrawer>
     );
   }
 
@@ -159,6 +159,6 @@ class UserDrawerWithStyles extends React.Component<Props, State> {
     });
 }
 
-const UserDrawer = withStyles(styles)(UserDrawerWithStyles);
+const Drawer = withStyles(styles)(DrawerWithStyles);
 
-export { UserDrawer };
+export { Drawer };

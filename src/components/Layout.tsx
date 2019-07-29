@@ -1,12 +1,12 @@
 import React from "react";
 
-import { HeaderContainer, UserDrawerContainer } from "components";
+import { HeaderContainer, DrawerContainer } from "components";
 
 const Layout: React.FC = ({ children }) => (
   <React.Fragment>
     <HeaderContainer />
     {children}
-    <UserDrawerContainer />
+    <DrawerContainer />
   </React.Fragment>
 );
 

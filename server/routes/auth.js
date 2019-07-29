@@ -2,23 +2,26 @@ const express = require("express");
 const passport = require("passport");
 
 const User = require("../models/user");
-const checkAuthenticated = require("../utils").checkAuthenticated;
-const checkNotAuthenticated = require("../utils").checkNotAuthenticated;
+const utils = require("../utils");
 
 const router = express.Router();
 
-router.post("/register", checkNotAuthenticated, async (req, res, next) => {
-  const user = {
-    username: req.body.username,
-    password: req.body.password
-  };
+router.post(
+  "/register",
+  utils.checkNotAuthenticated,
+  async (req, res, next) => {
+    const user = {
+      username: req.body.username,
+      password: req.body.password
+    };
 
-  await User.create(user)
-    .then(_ => res.status(200).send())
-    .catch(error => next(error));
-});
+    await User.create(user)
+      .then(_ => res.status(200).send())
+      .catch(error => next(error));
+  }
+);
 
-router.post("/login", checkNotAuthenticated, (req, res, next) => {
+router.post("/login", utils.checkNotAuthenticated, (req, res, next) => {
   passport.authenticate("local", (error, user, info) => {
     if (error) {
       return next(error);
@@ -33,7 +36,7 @@ router.post("/login", checkNotAuthenticated, (req, res, next) => {
   })(req, res, next);
 });
 
-router.delete("/logout", checkAuthenticated, (req, res) => {
+router.delete("/logout", utils.checkAuthenticated, (req, res) => {
   req.logOut();
   res.status(200).send();
 });

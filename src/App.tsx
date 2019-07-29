@@ -4,31 +4,17 @@ import { Redirect, Route, Router, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
 import { ThemeProvider } from "@material-ui/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
 
 import {
-  CategoryPageContainer,
   HomePageContainer,
-  MyGifsPageContainer
+  UserGifsPageContainer,
+  UserGifsByCategoryPageContainer
 } from "components";
 import { store } from "reducers";
 
-const history = createBrowserHistory();
+import { theme } from "./theme"; 
 
-const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-    primary: {
-      main: "#9ccc65"
-    },
-    secondary: {
-      main: "#ff5252"
-    },
-    background: {
-      default: "#303030"
-    }
-  }
-});
+const history = createBrowserHistory();
 
 const App: React.FC = () => {
   return (
@@ -39,9 +25,9 @@ const App: React.FC = () => {
             <Switch>
               <Route
                 path="/categories/:categoryId"
-                component={CategoryPageContainer}
+                component={UserGifsByCategoryPageContainer}
               />
-              <Route path="/my-gifs" component={MyGifsPageContainer} />
+              <Route path="/my-gifs" component={UserGifsPageContainer} />
               <Route path="/" exact component={HomePageContainer} />
               <Redirect from="/*" to="/" />
             </Switch>
