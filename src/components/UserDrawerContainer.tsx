@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
 import { UserDrawer } from "components"
-import { AppState, addCategory, setDrawerClosed, setGifView } from "reducers";
+import { AppState, addCategory, setDrawerClosed } from "reducers";
 import { Category } from "types";
 
 interface StateProps {
@@ -13,7 +13,6 @@ interface StateProps {
 interface DispatchProps {
   readonly addCategory: (categoryName: string) => void;
   readonly closeDrawer: () => void;
-  readonly onMySavedGifsClick: () => void;
 }
 
 const mapStateToProps = (state: AppState) => ({
@@ -25,8 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       addCategory,
-      closeDrawer: setDrawerClosed,
-      onMySavedGifsClick: () => setGifView("saved")
+      closeDrawer: setDrawerClosed
     },
     dispatch
   );

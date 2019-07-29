@@ -8,12 +8,20 @@ const router = express.Router();
 
 // Passthrough for GIPHY API call
 router.get("/gifs", async (req, res, next) => {
-  const query = req.query.q;
-  const api_key = process.env.GIPHY_API_KEY;
+  const request = {
+    q: req.query.q !== undefined ? req.query.q : "",
+    limit: req.query.limit !== undefined ? req.query.limit : "24",
+    offset: req.query.offset !== undefined ? req.query.offset : "0",
+    rating: "g",
+    api_key: process.env.GIPHY_API_KEY
+  };
 
-  const url = query
-    ? `http://api.giphy.com/v1/gifs/search?q=${query}&limit=24&rating=g&api_key=${api_key}`
-    : `http://api.giphy.com/v1/gifs/trending?limit=24&rating=g&api_key=${api_key}`;
+  const endpoint = request.q ? "search" : "trending";
+  const params = Object.keys(request)
+    .map(key => `${key}=${request[key]}`)
+    .join("&");
+
+  const url = `http://api.giphy.com/v1/gifs/${endpoint}?${params}`;
 
   await fetch(url)
     .then(response => response.json())

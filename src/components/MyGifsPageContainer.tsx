@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
-import { Content } from "components";
+import { Content, Layout } from "components";
 import { AppState, getGifs } from "reducers";
 import { Gif } from "types";
 
@@ -22,21 +22,17 @@ class Container extends React.Component<ComponentProps> {
   }
 
   public render() {
-    return <Content gifs={this.props.gifs} />;
+    return (
+      <Layout>
+        <Content gifs={this.props.gifs} />
+      </Layout>
+    );
   }
 }
 
-const mapStateToProps = (state: AppState) => {
-  const gifs = state.ui.gifView === "fresh" ? state.gifs.items.map((gif) => {
-    const userGif = state.user.gifs.find(userGif => userGif.giphy_id === gif.giphy_id)
-    return userGif ? userGif : gif;
-  }) : state.user.gifs
-
-  return { gifs }
-}
-// {
-// gifs: state.ui.gifView === "fresh" ? state.gifs.items : state.user.gifs
-// }
+const mapStateToProps = (state: AppState) => ({
+  gifs: state.user.gifs
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -46,7 +42,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     dispatch
   );
 
-export const ContentContainer = connect<
+export const MyGifsPageContainer = connect<
   StateProps,
   DispatchProps,
   {},

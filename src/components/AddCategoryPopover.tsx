@@ -1,10 +1,8 @@
 import React, { ChangeEvent, KeyboardEvent } from "react";
 
 import {
-  Button,
   IconButton,
   InputAdornment,
-  Paper,
   TextField,
   WithStyles
 } from "@material-ui/core";

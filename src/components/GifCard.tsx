@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 
 import {
   Card,
@@ -22,6 +22,9 @@ const styles = (theme: Theme) =>
     },
     cardMedia: {
       height: "100%"
+    },
+    favorite: {
+      alignSelf: "flex-start"
     },
     grow: {
       flexGrow: 1
@@ -62,7 +65,7 @@ class GifCardWithStyles extends React.Component<Props, State> {
     } = this;
 
     const isSaved = Boolean(gif._id);
-    
+
     return (
       <React.Fragment>
         <Card raised>
@@ -86,16 +89,22 @@ class GifCardWithStyles extends React.Component<Props, State> {
                 onCategorySelect={onCategoryChange}
               />
             )}
-            {isAuthenticated && !isSaved && (
-              <div className={classes.grow} />
-            )}
+            {isAuthenticated && !isSaved && <div className={classes.grow} />}
             {isSaved && (
-              <IconButton aria-label="remove" onClick={deleteGif}>
+              <IconButton
+                aria-label="remove"
+                className={classes.favorite}
+                onClick={deleteGif}
+              >
                 <Favorite color="secondary" />
               </IconButton>
             )}
             {!isSaved && (
-              <IconButton aria-label="add" onClick={addGif}>
+              <IconButton
+                aria-label="add"
+                className={classes.favorite}
+                onClick={addGif}
+              >
                 <Favorite />
               </IconButton>
             )}

@@ -24,6 +24,4 @@ interface GifResponse {
   title: string;
 }
 
-type GifView = "fresh" | "saved"
-
-export { Gif, GifPagination, GifResponse, GifView };
+export { Gif, GifPagination, GifResponse };

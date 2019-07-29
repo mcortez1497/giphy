@@ -34,6 +34,7 @@ const styles = (theme: Theme) =>
   });
 
 interface Props extends WithStyles<typeof styles> {
+  initialSearchValue: string;
   username: string;
 
   onLogin: (username: string, password: string) => void;
@@ -41,7 +42,6 @@ interface Props extends WithStyles<typeof styles> {
   onMenuClick: () => void;
   onRegister: (username: string, password: string) => void;
   onSearch: (query?: string) => void;
-  resetGifView: () => void;
 }
 
 interface State {
@@ -68,7 +68,14 @@ class HeaderWithStyles extends React.Component<Props, State> {
       handlePopoverOpen,
       handleSearch,
       togglePopover,
-      props: { classes, onLogin, onMenuClick, onRegister, username },
+      props: {
+        classes,
+        initialSearchValue,
+        onLogin,
+        onMenuClick,
+        onRegister,
+        username
+      },
       state: { anchorEl, isRegistering }
     } = this;
 
@@ -91,7 +98,10 @@ class HeaderWithStyles extends React.Component<Props, State> {
                 <Menu />
               </IconButton>
             )}
-            <SearchBar onSearch={handleSearch} />
+            <SearchBar
+              initialValue={initialSearchValue}
+              onSearch={handleSearch}
+            />
             <div className={classes.grow} />
             {isAuthenticated && (
               <Button color="inherit" onClick={handleLogout}>
@@ -154,7 +164,6 @@ class HeaderWithStyles extends React.Component<Props, State> {
 
   private handleSearch = (query: string = "") => {
     this.props.onSearch(query);
-    this.props.resetGifView();
   };
 
   private togglePopover = () =>

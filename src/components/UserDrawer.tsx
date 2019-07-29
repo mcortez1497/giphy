@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import {
+  Divider,
   Drawer,
   IconButton,
   List,
@@ -8,10 +10,16 @@ import {
   ListItemIcon,
   ListItemText,
   Popover,
-  WithStyles
+  WithStyles,
+  Typography
 } from "@material-ui/core";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
-import { Add, Favorite, Category as CategoryIcon } from "@material-ui/icons";
+import {
+  Add,
+  Category as CategoryIcon,
+  Favorite,
+  Home
+} from "@material-ui/icons";
 
 import { AddCategoryPopover } from "components";
 import { Category } from "types";
@@ -26,6 +34,12 @@ const styles = (theme: Theme) =>
     },
     nested: {
       paddingLeft: theme.spacing(4)
+    },
+    title: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      padding: theme.spacing(2)
     }
   });
 
@@ -35,7 +49,6 @@ interface Props extends WithStyles<typeof styles> {
 
   addCategory: (categroyName: string) => void;
   closeDrawer: () => void;
-  onMySavedGifsClick: () => void;
 }
 
 interface State {
@@ -51,7 +64,6 @@ class UserDrawerWithStyles extends React.Component<Props, State> {
     const {
       handlePopoverClose,
       handlePopoverOpen,
-      viewMyGifs,
       props: { addCategory, categories, classes, closeDrawer, isOpen = false },
       state: { anchorEl }
     } = this;
@@ -62,7 +74,22 @@ class UserDrawerWithStyles extends React.Component<Props, State> {
     return (
       <Drawer open={isOpen} onClose={closeDrawer}>
         <div className={classes.drawer}>
-          <ListItem button onClick={viewMyGifs}>
+          <ListItem className={classes.title}>
+            <Typography variant="h5" color="primary">
+              GIF Viewer
+            </Typography>
+            <Typography variant="caption">
+              By Michael Cortez for H-E-B
+            </Typography>
+          </ListItem>
+          <Divider />
+          <ListItem button component={Link} to="/">
+            <ListItemIcon>
+              <Home />
+            </ListItemIcon>
+            <ListItemText primary={"Home"} />
+          </ListItem>
+          <ListItem button component={Link} to="/my-gifs">
             <ListItemIcon>
               <Favorite />
             </ListItemIcon>
@@ -103,7 +130,13 @@ class UserDrawerWithStyles extends React.Component<Props, State> {
           </ListItem>
           <List component="div" disablePadding>
             {categories.map((category, index) => (
-              <ListItem button key={index} className={classes.nested}>
+              <ListItem
+                button
+                key={index}
+                className={classes.nested}
+                component={Link}
+                to={`/categories/${category._id}`}
+              >
                 <ListItemText primary={category.name} />
               </ListItem>
             ))}
@@ -124,11 +157,6 @@ class UserDrawerWithStyles extends React.Component<Props, State> {
     this.setState({
       anchorEl: null
     });
-
-  private viewMyGifs = () => {
-    this.props.closeDrawer();
-    this.props.onMySavedGifsClick();
-  };
 }
 
 const UserDrawer = withStyles(styles)(UserDrawerWithStyles);

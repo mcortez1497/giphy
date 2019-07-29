@@ -7,15 +7,12 @@ import {
   AppState,
   getGifs,
   getUser,
-  getUserGifs,
   login,
   logout,
   register,
-  setDrawerOpen,
-  UserAction,
-  setGifView
+  setDrawerOpen
 } from "reducers";
-import { GifView } from "types";
+import { QueryUtil } from "services";
 
 interface StateProps {
   readonly username: string;
@@ -28,7 +25,6 @@ interface DispatchProps {
   readonly onRegister: (username: string, password: string) => void;
   readonly onSearch: (query?: string) => void;
   readonly getUser: () => void;
-  readonly resetGifView: () => void;
 }
 
 interface ComponentProps extends StateProps, DispatchProps {}
@@ -39,8 +35,13 @@ class Container extends React.Component<ComponentProps> {
   }
 
   public render() {
-    const { getUser, ...props } = this.props;
-    return <Header {...props} />;
+    const {
+      props: { getUser, ...rest }
+    } = this;
+   
+    const searchValue = QueryUtil.parseQueryString(window.location.search).q || "";
+
+    return <Header initialSearchValue={searchValue} {...rest} />;
   }
 }
 
@@ -56,8 +57,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
       onMenuClick: setDrawerOpen,
       onRegister: register,
       onSearch: getGifs,
-      getUser: getUser,
-      resetGifView: () => setGifView("fresh")
+      getUser: getUser
     },
     dispatch
   );

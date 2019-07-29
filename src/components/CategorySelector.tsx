@@ -3,16 +3,13 @@ import React, { ChangeEvent } from "react";
 import {
   Chip,
   FormControl,
-  IconButton,
   Input,
   InputLabel,
   MenuItem,
   Select,
-  WithStyles,
-  Typography
+  WithStyles
 } from "@material-ui/core";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
-import { Category as CategoryIcon } from "@material-ui/icons";
 
 import { Category, Gif } from "types";
 
