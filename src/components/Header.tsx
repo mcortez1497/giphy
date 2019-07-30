@@ -11,7 +11,11 @@ import {
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import { Menu } from "@material-ui/icons";
 
-import { LoginPopover, RegistrationPopover, SearchBar } from "components";
+import {
+  LoginPopoverContainer,
+  RegistrationPopoverContainer,
+  SearchBar
+} from "components";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -37,7 +41,6 @@ interface Props extends WithStyles<typeof styles> {
   initialSearchValue: string;
   username: string;
 
-  onLogin: (username: string, password: string) => void;
   onLogout: () => void;
   onMenuClick: () => void;
   onRegister: (username: string, password: string) => void;
@@ -68,14 +71,7 @@ class HeaderWithStyles extends React.Component<Props, State> {
       handlePopoverOpen,
       handleSearch,
       togglePopover,
-      props: {
-        classes,
-        initialSearchValue,
-        onLogin,
-        onMenuClick,
-        onRegister,
-        username
-      },
+      props: { classes, initialSearchValue, onMenuClick, username },
       state: { anchorEl, isRegistering }
     } = this;
 
@@ -132,12 +128,9 @@ class HeaderWithStyles extends React.Component<Props, State> {
                   }}
                 >
                   {isRegistering ? (
-                    <RegistrationPopover
-                      onSubmit={onRegister}
-                      onGoBack={togglePopover}
-                    />
+                    <RegistrationPopoverContainer onGoBack={togglePopover} />
                   ) : (
-                    <LoginPopover onSubmit={onLogin} onSignUp={togglePopover} />
+                    <LoginPopoverContainer onSignUp={togglePopover} />
                   )}
                 </Popover>
               </React.Fragment>
@@ -157,10 +150,11 @@ class HeaderWithStyles extends React.Component<Props, State> {
       anchorEl: event.currentTarget
     });
 
-  private handlePopoverClose = () =>
+  private handlePopoverClose = () => {
     this.setState({
       anchorEl: null
     });
+  };
 
   private handleSearch = (query: string = "") => {
     this.props.onSearch(query);

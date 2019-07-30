@@ -1,6 +1,7 @@
 import { Action, Dispatch, Reducer } from "redux";
 
 import { AppState } from "reducers";
+import { Api } from "services";
 import { Gif, GifPagination, GifResponse } from "types";
 
 const API_LIMIT = 24;
@@ -32,6 +33,8 @@ const initialState: GifState = {
 // Actions
 export enum GifActionTypes {
   ADD_GIFS = "ADD_GIFS",
+  GET_GIFS = "GET_GIFS",
+  GET_MORE_GIFS = "GET_MORE_GIFS",
   SET_GIFS = "SET_GIFS",
   SET_PAGINATION = "SET_PAGINATION"
 }
@@ -84,16 +87,17 @@ export const getGifs = (query: string = "") => async (
 ) => {
   const url = `/api/gifs?limit=${API_LIMIT}${query ? `&q=${query}` : ""}`;
 
-  await fetch(url)
-    .then(response => response.json())
+  Api.fetch(url, GifActionTypes.GET_GIFS, dispatch)
     .then(json => {
-      const items: Gif[] = json.data.map((gif: GifResponse) => ({
-        giphy_id: gif.id,
-        url: gif.images.original.url,
-        title: gif.title
-      }));
-      dispatch(setGifs(items, query));
-      dispatch(setPagination(json.pagination));
+      if (json.data) {
+        const items: Gif[] = json.data.map((gif: GifResponse) => ({
+          giphy_id: gif.id,
+          url: gif.images.original.url,
+          title: gif.title
+        }));
+        dispatch(setGifs(items, query));
+        dispatch(setPagination(json.pagination));
+      }
     })
     .catch(error => console.log(error));
 };
@@ -105,21 +109,22 @@ export const getMoreGifs = () => async (
   const query = getState().gifs.query;
   const pagination = getState().gifs.pagination;
   const offset = pagination.offset + pagination.count;
-  
+
   const url = `/api/gifs?limit=${API_LIMIT}&offset=${offset}${
     query ? `&q=${query}` : ""
   }`;
 
-  await fetch(url)
-    .then(response => response.json())
+  Api.fetch(url, GifActionTypes.GET_MORE_GIFS, dispatch)
     .then(json => {
-      const items: Gif[] = json.data.map((gif: GifResponse) => ({
-        giphy_id: gif.id,
-        url: gif.images.original.url,
-        title: gif.title
-      }));
-      dispatch(addGifs(items));
-      dispatch(setPagination(json.pagination));
+      if (json.data) {
+        const items: Gif[] = json.data.map((gif: GifResponse) => ({
+          giphy_id: gif.id,
+          url: gif.images.original.url,
+          title: gif.title
+        }));
+        dispatch(addGifs(items));
+        dispatch(setPagination(json.pagination));
+      }
     })
     .catch(error => console.log(error));
 };

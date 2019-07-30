@@ -1,23 +1,25 @@
 import React from "react";
+import { Redirect } from "react-router";
 
 import { Content, Layout } from "components";
 import { Gif } from "types";
 
 interface Props {
   readonly gifs: Gif[];
-
-  readonly getGifs: (query?: string) => void;
+  readonly isAuthenticated: boolean;
 }
 
 class UserGifsPage extends React.Component<Props> {
-  public componentDidMount() {
-    this.props.getGifs();
-  }
-
   public render() {
-    return (
+    const {
+      props: { gifs, isAuthenticated }
+    } = this;
+
+    return !isAuthenticated ? (
+      <Redirect to="/" />
+    ) : (
       <Layout>
-        <Content gifs={this.props.gifs} />
+        <Content gifs={gifs} />
       </Layout>
     );
   }

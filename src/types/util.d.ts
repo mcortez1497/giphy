@@ -2,4 +2,8 @@ interface QueryParams {
   [key: string]: string;
 }
 
-export { QueryParams }
+interface UIErrors {
+  [elementId: string]: string;
+}
+
+export { QueryParams, UIErrors }

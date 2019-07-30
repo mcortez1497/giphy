@@ -45,7 +45,7 @@ router.delete(
   utils.checkAuthenticated,
   async (req, res, next) => {
     await Category.deleteOne({ _id: req.params.id })
-      .then(() => res.status(200).send())
+      .then(() => res.status(200).json({ success: true }))
       .catch(error => next(error));
   }
 );

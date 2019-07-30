@@ -1,8 +1,16 @@
 const checkAuthenticated = (req, res, next) =>
-  req.isAuthenticated() ? next() : res.status(401).send();
+  req.isAuthenticated()
+    ? next()
+    : res
+        .status(401)
+        .json({ message: "You must be logged in to perform this action" });
 
 const checkNotAuthenticated = (req, res, next) =>
-  !req.isAuthenticated() ? next() : res.status(400).send();
+  !req.isAuthenticated()
+    ? next()
+    : res
+        .status(400)
+        .json({ message: "You must be logged out to perform this action" });
 
 const formatCategory = category => ({
   _id: category._id,

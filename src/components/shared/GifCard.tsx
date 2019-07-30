@@ -81,34 +81,38 @@ class GifCardWithStyles extends React.Component<Props, State> {
               className={classes.cardMedia}
             />
           </CardActionArea>
-          <CardActions disableSpacing>
-            {isAuthenticated && isSaved && (
-              <CategorySelector
-                gif={gif}
-                categories={categories}
-                onCategorySelect={onCategoryChange}
-              />
-            )}
-            {isAuthenticated && !isSaved && <div className={classes.grow} />}
-            {isSaved && (
-              <IconButton
-                aria-label="remove"
-                className={classes.favorite}
-                onClick={deleteGif}
-              >
-                <Favorite color="secondary" />
-              </IconButton>
-            )}
-            {!isSaved && (
-              <IconButton
-                aria-label="add"
-                className={classes.favorite}
-                onClick={addGif}
-              >
-                <Favorite />
-              </IconButton>
-            )}
-          </CardActions>
+          {isAuthenticated && (
+            <CardActions disableSpacing>
+              {isSaved && (
+                <React.Fragment>
+                  <CategorySelector
+                    gif={gif}
+                    categories={categories}
+                    onCategorySelect={onCategoryChange}
+                  />
+                  <IconButton
+                    aria-label="remove"
+                    className={classes.favorite}
+                    onClick={deleteGif}
+                  >
+                    <Favorite color="secondary" />
+                  </IconButton>
+                </React.Fragment>
+              )}
+              {!isSaved && (
+                <React.Fragment>
+                  <div className={classes.grow} />
+                  <IconButton
+                    aria-label="add"
+                    className={classes.favorite}
+                    onClick={addGif}
+                  >
+                    <Favorite />
+                  </IconButton>
+                </React.Fragment>
+              )}
+            </CardActions>
+          )}
         </Card>
         <Modal
           open={isBlownUp}

@@ -8,6 +8,7 @@ import { Gif } from "types";
 
 interface StateProps {
   readonly gifs: Gif[];
+  readonly isAuthenticated: boolean;
 }
 
 interface DispatchProps {
@@ -31,7 +32,8 @@ const mapStateToProps = (
         ? [...gifsWithCategory, gif]
         : gifsWithCategory,
     []
-  )
+  ),
+  isAuthenticated: state.user.username !== ""
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

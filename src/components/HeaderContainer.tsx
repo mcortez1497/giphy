@@ -7,7 +7,6 @@ import {
   AppState,
   getGifs,
   getUser,
-  login,
   logout,
   register,
   setDrawerOpen
@@ -19,7 +18,6 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  readonly onLogin: (username: string, password: string) => void;
   readonly onLogout: () => void;
   readonly onMenuClick: () => void;
   readonly onRegister: (username: string, password: string) => void;
@@ -52,7 +50,6 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      onLogin: login,
       onLogout: logout,
       onMenuClick: setDrawerOpen,
       onRegister: register,

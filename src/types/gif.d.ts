@@ -15,11 +15,11 @@ interface GifPagination {
 }
 
 interface GifResponse {
-  id: string,
+  id: string;
   images: {
     original: {
       url: string;
-    };
+    }
   };
   title: string;
 }

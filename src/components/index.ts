@@ -1,6 +1,8 @@
 export * from "./popovers/AddCategoryPopover";
 export * from "./popovers/LoginPopover";
+export * from "./popovers/LoginPopoverContainer";
 export * from "./popovers/RegistrationPopover";
+export * from "./popovers/RegistrationPopoverContainer";
 
 export * from "./shared/CategorySelector";
 export * from "./shared/Content";

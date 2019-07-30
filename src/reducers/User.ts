@@ -1,8 +1,13 @@
 import { Action, Dispatch, Reducer } from "redux";
 
-import { AppState } from "reducers";
+import {
+  getGifs,
+  resetRegistration,
+  setRegistrationComplete,
+  AppState
+} from "reducers";
+import { Api } from "services";
 import { Category, Gif } from "types";
-import { getGifs } from "./Gifs";
 
 export interface UserState {
   readonly username: string;
@@ -36,7 +41,12 @@ export enum UserActionTypes {
   ADD_USER_CATEGORY = "ADD_USER_CATEGORY",
   ADD_USER_GIF = "ADD_USER_GIF",
   DELETE_USER_GIF = "DELETE_USER_GIF",
+  GET_USER = "GET_USER",
+  GET_USER_CATEGORIES = "GET_USER_CATEGORIES",
   GET_USER_GIFS = "GET_USER_GIFS",
+  LOGIN = "LOGIN",
+  LOGOUT = "LOGOUT",
+  REGISTER = "REGISTER",
   RESET_USER = "RESET_USER",
   SET_USER_CATEGORIES = "SET_USER_CATEGORIES",
   SET_USER_GIFS = "SET_USER_GIFS",
@@ -147,167 +157,159 @@ export const userReducer: Reducer<UserState, UserAction> = (
 // Authentication
 export const login = (username: string, password: string) => async (
   dispatch: Dispatch<UserAction>
-) => {
-  await fetch("/api/login", {
+) =>
+  Api.fetch("/api/login", UserActionTypes.LOGIN, dispatch, {
     method: "POST",
-    headers: {
+    headers: new Headers({
       "Content-Type": "application/json"
-    },
+    }),
     body: JSON.stringify({
       username,
       password
     })
   })
-    .then(response => response.json())
     .then(json => {
-      dispatch(setUsername(json.username));
-      getUserData(dispatch);
+      if (json.username) {
+        dispatch(setUsername(json.username));
+        dispatch(resetRegistration());
+        getUserData(dispatch);
+      }
     })
     .catch(error => console.log(error));
-};
 
-export const logout = () => async (dispatch: Dispatch<UserAction>) => {
-  await fetch("/api/logout", {
+export const logout = () => async (dispatch: Dispatch<UserAction>) =>
+  Api.fetch("/api/logout", UserActionTypes.LOGOUT, dispatch, {
     method: "DELETE"
-  })
-    .then(response => {
+  }).then(json => {
+    if (json.success) {
       dispatch(resetUser());
       getGifs()(dispatch);
-    })
-    .catch(error => console.log(error));
-};
+    }
+  });
 
 export const register = (username: string, password: string) => async (
   dispatch: Dispatch<UserAction>
-) => {
-  await fetch("/api/register", {
+) =>
+  Api.fetch("/api/register", UserActionTypes.REGISTER, dispatch, {
     method: "POST",
-    headers: {
+    headers: new Headers({
       "Content-Type": "application/json"
-    },
+    }),
     body: JSON.stringify({
       username,
       password
     })
-  })
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
-};
+  }).then(json => {
+    if (json.success) {
+      dispatch(setRegistrationComplete());
+    }
+  });
 
 // User Data
-export const getUser = () => async (dispatch: Dispatch<UserAction>) =>
-  // TODO: Make this more intuitive
-  await fetch("/api/user")
-    .then(async response => {
-      if (!response.ok) {
-        return;
-      }
-      await response.json().then(json => {
-        dispatch(setUsername(json.username));
-        getUserData(dispatch);
-      });
-    })
-    .catch(error => console.log(error));
+export const getUser = () => async (
+  dispatch: Dispatch<UserAction>,
+  getState: () => AppState
+) =>
+  Api.fetch("/api/user", UserActionTypes.GET_USER, dispatch).then(json => {
+    if (json.username && getState().user.username === "") {
+      dispatch(setUsername(json.username));
+      getUserData(dispatch);
+    }
+  });
 
-export const getUserGifs = () => async (dispatch: Dispatch<UserAction>) => {
-  await fetch("/api/user/gifs")
-    .then(response => response.json())
-    .then(json => dispatch(setUserGifs(json.gifs)))
-    .catch(error => console.log(error));
-};
+export const getUserGifs = () => async (dispatch: Dispatch<UserAction>) =>
+  Api.fetch("/api/user/gifs", UserActionTypes.GET_USER_GIFS, dispatch).then(
+    json => {
+      if (json.gifs) {
+        dispatch(setUserGifs(json.gifs));
+      }
+    }
+  );
 
 export const getUserCategories = () => async (
   dispatch: Dispatch<UserAction>
 ) => {
-  await fetch("/api/user/categories")
-    .then(response => response.json())
-    .then(json => dispatch(setUserCategories(json.categories)))
-    .catch(error => console.log(error));
+  Api.fetch(
+    "/api/user/categories",
+    UserActionTypes.GET_USER_CATEGORIES,
+    dispatch
+  ).then(json => {
+    if (json.categories) {
+      dispatch(setUserCategories(json.categories));
+    }
+  });
 };
 
+// Return all of this in a single API call
 const getUserData = async (dispatch: Dispatch<UserAction>) =>
   Promise.all([getUserGifs()(dispatch), getUserCategories()(dispatch)]);
 
 // User Gif Data
-export const addGif = (gif: Gif) => async (dispatch: Dispatch<UserAction>) => {
-  await fetch("/api/user/gifs", {
+export const addGif = (gif: Gif) => async (dispatch: Dispatch<UserAction>) =>
+  Api.fetch("/api/user/gifs", UserActionTypes.ADD_USER_GIF, dispatch, {
     method: "POST",
-    headers: {
+    headers: new Headers({
       "Content-Type": "application/json"
-    },
+    }),
     body: JSON.stringify({
       giphy_id: gif.giphy_id,
       title: gif.title,
       url: gif.url
     })
-  })
-    .then(response => response.json())
-    .then(json => dispatch(addUserGif(json.gif)))
-    .catch(error => console.log(error));
-};
+  }).then(json => {
+    if (json.gif) {
+      dispatch(addUserGif(json.gif));
+    }
+  });
 
 export const deleteGif = (id: string) => async (
-  dispatch: Dispatch<UserAction>,
-  getState: () => AppState
-) => {
-  // If the GIF doesn't have an _id, that means we're looking at fresh Gifs.
-  // So, we'll need to find the _id in our saved gifs.
-  // const id =
-  //   gif._id ||
-  //   getState().user.gifs.reduce(
-  //     (acc: string = "", userGif: Gif) =>
-  //       userGif.giphy_id === gif.giphy_id ? userGif._id || "" : "",
-  //     ""
-  //   );
-
-  await fetch(`/api/user/gifs/${id}`, {
+  dispatch: Dispatch<UserAction>
+) =>
+  Api.fetch(`/api/user/gifs/${id}`, UserActionTypes.DELETE_USER_GIF, dispatch, {
     method: "DELETE"
-  })
-    .then(response => dispatch(deleteUserGif(id)))
-    .catch(error => console.log(error));
-};
+  }).then(json => {
+    if (json.success) {
+      dispatch(deleteUserGif(id));
+    }
+  });
 
 export const updateGif = (id: string, categoryIds: string[]) => async (
-  dispatch: Dispatch<UserAction>,
-  getState: () => AppState
+  dispatch: Dispatch<UserAction>
 ) => {
-  // If the GIF doesn't have an _id, that means we're looking at fresh Gifs.
-  // So, we'll need to find the _id in our saved gifs.
-  // const id =
-  //   gif._id ||
-  //   getState().user.gifs.reduce(
-  //     (acc: string = "", userGif: Gif) =>
-  //       userGif.giphy_id === gif.giphy_id ? userGif._id || "" : "",
-  //     ""
-  //   );
-
-  await fetch(`/api/user/gifs/${id}`, {
+  Api.fetch(`/api/user/gifs/${id}`, UserActionTypes.UPDATE_USER_GIF, dispatch, {
     method: "PATCH",
-    headers: {
+    headers: new Headers({
       "Content-Type": "application/json"
-    },
+    }),
     body: JSON.stringify({
       categoryIds
     })
-  })
-    .then(response => response.json())
-    .then(json => dispatch(updateUserGif(json.gif)))
-    .catch(error => console.log(error));
+  }).then(json => {
+    if (json.gif) {
+      dispatch(updateUserGif(json.gif));
+    }
+  });
 };
 
 // User Category Data
 export const addCategory = (name: string) => async (
   dispatch: Dispatch<UserAction>
 ) =>
-  await fetch("/api/user/categories", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      name
-    })
-  })
-    .then(response => response.json())
-    .then(json => dispatch(addUserCategory(json.category)))
-    .catch(error => console.log(error));
+  Api.fetch(
+    "/api/user/categories",
+    UserActionTypes.ADD_USER_CATEGORY,
+    dispatch,
+    {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify({
+        name
+      })
+    }
+  ).then(json => {
+    if (json.category) {
+      dispatch(addUserCategory(json.category));
+    }
+  });

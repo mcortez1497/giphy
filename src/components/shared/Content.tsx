@@ -26,7 +26,6 @@ const styles = (theme: Theme) =>
     },
     gridListTile: {
       height: "initial !important",
-      minHeight: "368px",
       overflow: "initial"
     }
   });

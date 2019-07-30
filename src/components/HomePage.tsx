@@ -1,11 +1,11 @@
 import React from "react";
 
 import { Content, InfiniteScroll, Layout } from "components";
-import { QueryUtil } from "services";
 import { Gif } from "types";
 
 interface Props {
   readonly gifs: Gif[];
+  readonly query: string;
 
   readonly getGifs: (query?: string) => void;
   readonly getMoreGifs: () => void;
@@ -13,9 +13,7 @@ interface Props {
 
 class HomePage extends React.Component<Props> {
   public componentDidMount() {
-    const query = QueryUtil.parseQueryString(window.location.search).q;
-
-    this.props.getGifs(query);
+    this.props.getGifs(this.props.query);
   }
 
   public render() {

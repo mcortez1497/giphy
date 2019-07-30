@@ -10,17 +10,18 @@ function initialize(passport) {
       if (error) {
         return done(error);
       }
+      if (!user) {
+        return done(null, false, "Username does not exist");
+      }
 
       await bcrypt
         .compare(password, user.password)
         .then(isValidPassword =>
           isValidPassword
             ? done(null, user)
-            : done(null, false, {
-                message: "Invalid Password."
-              })
+            : done(null, false, "Incorrect Password")
         )
-        .catch(error => done(error, false, { message: "Error Logging In." }));
+        .catch(error => done(error, false, "Error Logging In"));
     });
   };
 
@@ -36,7 +37,7 @@ function initialize(passport) {
   passport.serializeUser((user, done) => done(null, user._id));
 
   passport.deserializeUser((id, done) => {
-    User.findOne({ _id: id }, (error, user) => 
+    User.findOne({ _id: id }, (error, user) =>
       error ? done(error) : done(null, user)
     );
   });

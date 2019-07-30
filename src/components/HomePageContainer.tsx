@@ -3,10 +3,12 @@ import { bindActionCreators, Dispatch } from "redux";
 
 import { HomePage } from "components";
 import { AppState, getGifs, getMoreGifs } from "reducers";
+import { QueryUtil } from "services";
 import { Gif } from "types";
 
 interface StateProps {
   readonly gifs: Gif[];
+  readonly query: string;
 }
 
 interface DispatchProps {
@@ -22,7 +24,10 @@ const mapStateToProps = (state: AppState) => {
     return userGif ? userGif : gif;
   });
 
-  return { gifs };
+  return {
+    gifs,
+    query: QueryUtil.parseQueryString(window.location.search).q || ""
+  };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

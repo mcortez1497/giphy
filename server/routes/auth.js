@@ -12,11 +12,11 @@ router.post(
   async (req, res, next) => {
     const user = {
       username: req.body.username,
-      password: req.body.password
+      password: req.body.password,
     };
 
     await User.create(user)
-      .then(_ => res.status(200).send())
+      .then(_ => res.status(200).json({ success: true }))
       .catch(error => next(error));
   }
 );
@@ -31,14 +31,13 @@ router.post("/login", utils.checkNotAuthenticated, (req, res, next) => {
         message: info
       });
     }
-
     req.logIn(user, error => (error ? next(error) : res.redirect("/api/user")));
   })(req, res, next);
 });
 
 router.delete("/logout", utils.checkAuthenticated, (req, res) => {
   req.logOut();
-  res.status(200).send();
+  res.status(200).json({ success: true });
 });
 
 module.exports = router;
