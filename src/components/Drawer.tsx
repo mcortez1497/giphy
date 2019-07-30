@@ -89,7 +89,7 @@ class DrawerWithStyles extends React.Component<Props, State> {
             </ListItemIcon>
             <ListItemText primary={"Home"} />
           </ListItem>
-          <ListItem button component={Link} to="/my-gifs">
+          <ListItem button component={Link} to="/my-gifs" onClick={closeDrawer}>
             <ListItemIcon>
               <Favorite />
             </ListItemIcon>
@@ -136,6 +136,7 @@ class DrawerWithStyles extends React.Component<Props, State> {
                 className={classes.nested}
                 component={Link}
                 to={`/categories/${category._id}`}
+                onClick={closeDrawer}
               >
                 <ListItemText primary={category.name} />
               </ListItem>

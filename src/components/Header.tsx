@@ -81,7 +81,7 @@ class HeaderWithStyles extends React.Component<Props, State> {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" className={classes.appBar}>
+        <AppBar position="sticky" className={classes.appBar}>
           <Toolbar className={classes.toolBar}>
             {isAuthenticated && (
               <IconButton
