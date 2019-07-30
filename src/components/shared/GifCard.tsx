@@ -17,12 +17,6 @@ import { Category, Gif } from "types";
 
 const styles = (theme: Theme) =>
   createStyles({
-    cardActionArea: {
-      height: "300px"
-    },
-    cardMedia: {
-      height: "100%"
-    },
     favorite: {
       alignSelf: "flex-start"
     },
@@ -70,15 +64,13 @@ class GifCardWithStyles extends React.Component<Props, State> {
       <React.Fragment>
         <Card raised>
           <CardActionArea
-            className={classes.cardActionArea}
             onClick={blowUpImage}
           >
             <CardMedia
               component="img"
               alt={gif.title}
-              image={gif.url}
+              image={gif.fixed_url}
               title={gif.title}
-              className={classes.cardMedia}
             />
           </CardActionArea>
           {isAuthenticated && (
@@ -119,7 +111,7 @@ class GifCardWithStyles extends React.Component<Props, State> {
           onClose={this.shrinkImage}
           className={classes.modal}
         >
-          <img src={gif.url} title={gif.title} alt={gif.title} />
+          <img src={gif.original_url} title={gif.title} alt={gif.title} />
         </Modal>
       </React.Fragment>
     );

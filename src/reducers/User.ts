@@ -253,8 +253,10 @@ export const addGif = (gif: Gif) => async (dispatch: Dispatch<UserAction>) =>
     }),
     body: JSON.stringify({
       giphy_id: gif.giphy_id,
+      fixed_url: gif.fixed_url,
+      original_url: gif.original_url,
       title: gif.title,
-      url: gif.url
+      height: gif.height
     })
   }).then(json => {
     if (json.gif) {

@@ -37,7 +37,7 @@ router.get("/user/gifs", utils.checkAuthenticated, async (req, res, next) => {
   await Gif.find({ user: req.user._id })
     .populate("categories")
     .exec()
-    .then(gifs => 
+    .then(gifs =>
       res.json({
         gifs: gifs.map(gif => utils.formatGif(gif))
       })
@@ -48,13 +48,16 @@ router.get("/user/gifs", utils.checkAuthenticated, async (req, res, next) => {
 router.post("/user/gifs", utils.checkAuthenticated, async (req, res, next) => {
   const gif = {
     giphy_id: req.body.giphy_id,
+    fixed_url: req.body.fixed_url,
+    original_url: req.body.original_url,
     title: req.body.title,
-    url: req.body.url,
+    height: req.body.height,
     user: req.user._id
   };
+  console.log(gif)
 
   await Gif.create(gif)
-    .then(gif => 
+    .then(gif =>
       res.json({
         gif: utils.formatGif(gif)
       })
@@ -90,7 +93,7 @@ router.delete(
   utils.checkAuthenticated,
   async (req, res, next) => {
     await Gif.deleteOne({ _id: req.params.id })
-      .then(() => res.status(200).json({ success: true }))
+      .then(() => res.json({ success: true }))
       .catch(error => next(error));
   }
 );

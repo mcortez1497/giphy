@@ -20,8 +20,10 @@ const formatCategory = category => ({
 const formatGif = gif => ({
   _id: gif._id,
   giphy_id: gif.giphy_id,
-  url: gif.url,
+  fixed_url: gif.fixed_url,
+  original_url: gif.original_url,
   title: gif.title,
+  height: gif.height,
   categories: gif.categories.map(category => formatCategory(category))
 });
 

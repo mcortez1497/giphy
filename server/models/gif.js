@@ -6,10 +6,17 @@ const GifSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  url: {
+  original_url: {
     type: String,
     required: true,
-    unique: true
+  },
+  fixed_url: {
+    type: String,
+    required: true,
+  },
+  height: {
+    type: String,
+    required: true,
   },
   title: {
     type: String,

@@ -92,8 +92,10 @@ export const getGifs = (query: string = "") => async (
       if (json.data) {
         const items: Gif[] = json.data.map((gif: GifResponse) => ({
           giphy_id: gif.id,
-          url: gif.images.original.url,
-          title: gif.title
+          fixed_url: gif.images.fixed_width.webp,
+          original_url: gif.images.original.url,
+          title: gif.title,
+          height: gif.images.fixed_width.height
         }));
         dispatch(setGifs(items, query));
         dispatch(setPagination(json.pagination));
@@ -119,8 +121,10 @@ export const getMoreGifs = () => async (
       if (json.data) {
         const items: Gif[] = json.data.map((gif: GifResponse) => ({
           giphy_id: gif.id,
-          url: gif.images.original.url,
-          title: gif.title
+          fixed_url: gif.images.fixed_width.webp,
+          original_url: gif.images.original.url,
+          title: gif.title,
+          height: gif.images.fixed_width.height
         }));
         dispatch(addGifs(items));
         dispatch(setPagination(json.pagination));

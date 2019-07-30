@@ -5,7 +5,9 @@ interface Gif {
   categories?: Category[];
   giphy_id: string;
   title: string;
-  url: string;
+  original_url: string;
+  fixed_url: string;
+  height: string;
 }
 
 interface GifPagination {
@@ -17,6 +19,10 @@ interface GifPagination {
 interface GifResponse {
   id: string;
   images: {
+    fixed_width: {
+      height: string;
+      webp: string
+    }
     original: {
       url: string;
     }
