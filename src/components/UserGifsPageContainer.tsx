@@ -19,7 +19,7 @@ interface DispatchProps {
 const mapStateToProps = (state: AppState) => ({
   apiRequest: StateUtil.getApiRequest(state, UserActionTypes.GET_USER_GIFS),
   gifs: state.user.gifs,
-  isAuthenticated: state.user.username !== ""
+  isAuthenticated: StateUtil.isAuthenticated(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

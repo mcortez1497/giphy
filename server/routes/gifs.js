@@ -54,7 +54,6 @@ router.post("/user/gifs", utils.checkAuthenticated, async (req, res, next) => {
     height: req.body.height,
     user: req.user._id
   };
-  console.log(gif)
 
   await Gif.create(gif)
     .then(gif =>

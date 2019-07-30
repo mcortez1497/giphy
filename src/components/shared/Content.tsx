@@ -19,7 +19,7 @@ const styles = (theme: Theme) =>
     container: {
       marginTop: theme.spacing(2)
     },
-    empty: {
+    message: {
       textAlign: "center",
       marginTop: theme.spacing(10)
     },
@@ -47,15 +47,17 @@ const styles = (theme: Theme) =>
 interface Props extends WithWidthProps, WithStyles<typeof styles> {
   readonly apiRequest: ApiRequest;
   readonly gifs: Gif[];
+  readonly showEmptyMessage?: boolean;
 }
 
 const ContentWithStyles: React.FC<Props> = ({
-  apiRequest: { isLoading },
+  apiRequest: { isError },
   classes,
   gifs,
-  width = "lg"
+  width = "lg",
+  showEmptyMessage = true
 }) => {
-  // Ensure Grid is responsive
+  // Calculate the number of columns to display to ensure Grid is responsive
   const calculateColumns = () => {
     if (gifs.length <= 2) {
       return gifs.length;
@@ -71,6 +73,8 @@ const ContentWithStyles: React.FC<Props> = ({
     return 1;
   };
 
+  // Calculate the total height of the container so the masonry effect will
+  // fit properly into the calculated columns.
   const calculateHeight = () => {
     const cols = calculateColumns();
 
@@ -85,10 +89,12 @@ const ContentWithStyles: React.FC<Props> = ({
     return height / cols + height / (gifs.length + 1) + "px";
   };
 
+  const hasGifs = gifs.length > 0;
+
   return (
     <Container maxWidth="lg" className={classes.container}>
       <CssBaseline />
-      {gifs.length > 0 && (
+      {!isError && hasGifs && (
         <div className={classes.masonry} style={{ height: calculateHeight() }}>
           {gifs.map((gif, index) => (
             <div key={index} className={classes.brick}>
@@ -97,8 +103,8 @@ const ContentWithStyles: React.FC<Props> = ({
           ))}
         </div>
       )}
-      {!isLoading && gifs.length === 0 && (
-        <div className={classes.empty}>
+      {!isError && !hasGifs && showEmptyMessage && (
+        <div className={classes.message}>
           <Typography variant="h4" color="primary">
             There's no GIFs here!
           </Typography>
@@ -106,6 +112,18 @@ const ContentWithStyles: React.FC<Props> = ({
             <Link to="/" style={{ color: "#757575" }}>
               Go add some
             </Link>
+          </Typography>
+        </div>
+      )}
+      {isError && (
+        <div className={classes.message}>
+          <Typography variant="h4" color="error">
+            Uh oh! We couldn't fetch your GIFs!
+          </Typography>
+          <Typography variant="subtitle1">
+            <a href={`/${window.location.search}`} style={{ color: "#757575" }}>
+              Try fetching again
+            </a>
           </Typography>
         </div>
       )}

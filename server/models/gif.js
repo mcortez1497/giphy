@@ -3,20 +3,19 @@ const mongoose = require("mongoose");
 const GifSchema = new mongoose.Schema({
   giphy_id: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   original_url: {
     type: String,
-    required: true,
+    required: true
   },
   fixed_url: {
     type: String,
-    required: true,
+    required: true
   },
   height: {
     type: String,
-    required: true,
+    required: true
   },
   title: {
     type: String,

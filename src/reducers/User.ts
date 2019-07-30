@@ -1,10 +1,11 @@
 import { Action, Dispatch, Reducer } from "redux";
 
 import {
+  AppState,
   getGifs,
   resetRegistration,
-  setRegistrationComplete,
-  AppState
+  setDrawerOpen,
+  setRegistrationComplete
 } from "reducers";
 import { Api } from "services";
 import { Category, Gif } from "types";
@@ -40,6 +41,7 @@ const initialState: UserState = {
 export enum UserActionTypes {
   ADD_USER_CATEGORY = "ADD_USER_CATEGORY",
   ADD_USER_GIF = "ADD_USER_GIF",
+  DELETE_USER_CATEGORY = "DELETE_USER_CATEGORY",
   DELETE_USER_GIF = "DELETE_USER_GIF",
   GET_USER = "GET_USER",
   GET_USER_CATEGORIES = "GET_USER_CATEGORIES",
@@ -57,6 +59,11 @@ export enum UserActionTypes {
 const addUserCategory = (category: Category): UserAction => ({
   type: UserActionTypes.ADD_USER_CATEGORY,
   category
+});
+
+const deleteUserCategory = (id: string): UserAction => ({
+  type: UserActionTypes.DELETE_USER_CATEGORY,
+  id
 });
 
 const addUserGif = (gif: Gif): UserAction => ({
@@ -112,6 +119,18 @@ export const userReducer: Reducer<UserState, UserAction> = (
         return state;
       }
       return { ...state, gifs: [...state.gifs, action.gif] };
+    case UserActionTypes.DELETE_USER_CATEGORY:
+      if (!action.id) {
+        return state;
+      }
+      return {
+        ...state,
+        categories: {
+          items: state.categories.items.filter(
+            category => category._id !== action.id
+          )
+        }
+      };
     case UserActionTypes.DELETE_USER_GIF:
       if (!action.id) {
         return state;
@@ -167,15 +186,14 @@ export const login = (username: string, password: string) => async (
       username,
       password
     })
-  })
-    .then(json => {
-      if (json.username) {
-        dispatch(setUsername(json.username));
-        dispatch(resetRegistration());
-        getUserData(dispatch);
-      }
-    })
-    .catch(error => console.log(error));
+  }).then(json => {
+    if (json.username) {
+      dispatch(setUsername(json.username));
+      dispatch(setDrawerOpen());
+      dispatch(resetRegistration());
+      getUserData(dispatch);
+    }
+  });
 
 export const logout = () => async (dispatch: Dispatch<UserAction>) =>
   Api.fetch("/api/logout", UserActionTypes.LOGOUT, dispatch, {
@@ -313,5 +331,21 @@ export const addCategory = (name: string) => async (
   ).then(json => {
     if (json.category) {
       dispatch(addUserCategory(json.category));
+    }
+  });
+
+export const deleteCategory = (id: string) => async (
+  dispatch: Dispatch<UserAction>
+) =>
+  Api.fetch(
+    `/api/user/categories/${id}`,
+    UserActionTypes.DELETE_USER_CATEGORY,
+    dispatch,
+    {
+      method: "DELETE"
+    }
+  ).then(json => {
+    if (json.success) {
+      dispatch(deleteUserCategory(id));
     }
   });

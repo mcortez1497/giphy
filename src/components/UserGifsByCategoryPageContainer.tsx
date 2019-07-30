@@ -27,7 +27,7 @@ const mapStateToProps = (
 ) => ({
   apiRequest: StateUtil.getApiRequest(state, UserActionTypes.GET_USER_GIFS),
   gifs: StateUtil.getSavedGifsByCategory(state, props.match.params.categoryId),
-  isAuthenticated: state.user.username !== ""
+  isAuthenticated: StateUtil.isAuthenticated(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

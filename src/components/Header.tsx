@@ -9,13 +9,14 @@ import {
   WithStyles
 } from "@material-ui/core";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
-import { Menu } from "@material-ui/icons";
+import { AccountCircle, ExitToApp, Menu } from "@material-ui/icons";
 
 import {
   LoginPopoverContainer,
   RegistrationPopoverContainer,
   SearchBar
 } from "components";
+import { QueryUtil } from "services";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -26,11 +27,17 @@ const styles = (theme: Theme) =>
       backgroundColor: "#303030",
       color: "#9ccc65"
     },
+    button: {
+      padding: theme.spacing(1, 2)
+    },
+    buttonIconLeft: {
+      marginRight: theme.spacing(1)
+    },
+    buttonIconRight: {
+      marginLeft: theme.spacing(1)
+    },
     grow: {
       flexGrow: 1
-    },
-    toolBar: {
-      justifyContent: "space-between"
     },
     menuButton: {
       marginRight: theme.spacing(2)
@@ -38,12 +45,11 @@ const styles = (theme: Theme) =>
   });
 
 interface Props extends WithStyles<typeof styles> {
-  initialSearchValue: string;
   username: string;
 
+  getUser: () => void;
   onLogout: () => void;
   onMenuClick: () => void;
-  onRegister: (username: string, password: string) => void;
   onSearch: (query?: string) => void;
 }
 
@@ -58,6 +64,10 @@ class HeaderWithStyles extends React.Component<Props, State> {
     isRegistering: false
   };
 
+  public componentDidMount() {
+    this.props.getUser();
+  }
+
   componentDidUpdate(prevProps: Props) {
     if (prevProps.username !== this.props.username) {
       this.setState({ anchorEl: null });
@@ -71,18 +81,20 @@ class HeaderWithStyles extends React.Component<Props, State> {
       handlePopoverOpen,
       handleSearch,
       togglePopover,
-      props: { classes, initialSearchValue, onMenuClick, username },
+      props: { classes, onMenuClick, username },
       state: { anchorEl, isRegistering }
     } = this;
 
     const open = Boolean(anchorEl);
     const id = open ? "login-popover" : undefined;
     const isAuthenticated = Boolean(username);
+    const searchValue =
+      QueryUtil.parseQueryString(window.location.search).q || "";
 
     return (
       <div className={classes.root}>
         <AppBar position="sticky" className={classes.appBar}>
-          <Toolbar className={classes.toolBar}>
+          <Toolbar>
             {isAuthenticated && (
               <IconButton
                 edge="start"
@@ -94,23 +106,29 @@ class HeaderWithStyles extends React.Component<Props, State> {
                 <Menu />
               </IconButton>
             )}
-            <SearchBar
-              initialValue={initialSearchValue}
-              onSearch={handleSearch}
-            />
+            <SearchBar initialValue={searchValue} onSearch={handleSearch} />
             <div className={classes.grow} />
             {isAuthenticated && (
-              <Button color="inherit" onClick={handleLogout}>
+              <Button
+                variant="outlined"
+                color="inherit"
+                className={classes.button}
+                onClick={handleLogout}
+              >
                 Log out
+                <ExitToApp className={classes.buttonIconRight} />
               </Button>
             )}
             {!isAuthenticated && (
               <React.Fragment>
                 <Button
+                  variant="outlined"
                   aria-describedby={id}
                   color="inherit"
+                  className={classes.button}
                   onClick={handlePopoverOpen}
                 >
+                  <AccountCircle className={classes.buttonIconLeft} />
                   Log in
                 </Button>
                 <Popover
@@ -128,7 +146,9 @@ class HeaderWithStyles extends React.Component<Props, State> {
                   }}
                 >
                   {isRegistering ? (
-                    <RegistrationPopoverContainer onGoBack={togglePopover} />
+                    <RegistrationPopoverContainer
+                      onGoBack={togglePopover}
+                    />
                   ) : (
                     <LoginPopoverContainer onSignUp={togglePopover} />
                   )}

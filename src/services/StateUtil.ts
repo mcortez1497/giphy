@@ -26,6 +26,10 @@ class StateUtil {
   // Returns a list of categories sorted alphabetically by name
   public getSortedCategories = (state: AppState) =>
     state.user.categories.items.sort((a, b) => (a.name > b.name ? 1 : -1));
+
+  // Returns true if the user is authenticated
+  public isAuthenticated = (state: AppState) => 
+    state.user.username !== ""
 }
 
 const StateUtilSingleton = new StateUtil();

@@ -3,6 +3,7 @@ import { bindActionCreators, Dispatch } from "redux";
 
 import { GifCard } from "components";
 import { AppState, addGif, deleteGif, updateGif } from "reducers";
+import { StateUtil } from "services";
 import { Category, Gif } from "types";
 
 interface StateProps {
@@ -22,7 +23,7 @@ interface OwnProps {
 
 const mapStateToProps = (state: AppState, props: OwnProps) => ({
   categories: state.user.categories.items,
-  isAuthenticated: state.user.username !== ""
+  isAuthenticated: StateUtil.isAuthenticated(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

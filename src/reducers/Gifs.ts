@@ -86,21 +86,21 @@ export const getGifs = (query: string = "") => async (
 ) => {
   const url = `/api/gifs?limit=${API_LIMIT}${query ? `&q=${query}` : ""}`;
 
-  Api.fetch(url, GifActionTypes.GET_GIFS, dispatch)
-    .then(json => {
-      if (json.data) {
-        const items: Gif[] = json.data.map((gif: GifResponse) => ({
-          giphy_id: gif.id,
-          fixed_url: gif.images.fixed_width.webp,
-          original_url: gif.images.original.url,
-          title: gif.title,
-          height: gif.images.fixed_width.height
-        }));
-        dispatch(setGifs(items, query));
-        dispatch(setPagination(json.pagination));
-      }
-    })
-    .catch(error => console.log(error));
+  dispatch(setGifs([], query));
+
+  Api.fetch(url, GifActionTypes.GET_GIFS, dispatch).then(json => {
+    if (json.data) {
+      const items: Gif[] = json.data.map((gif: GifResponse) => ({
+        giphy_id: gif.id,
+        fixed_url: gif.images.fixed_width.webp,
+        original_url: gif.images.original.url,
+        title: gif.title,
+        height: gif.images.fixed_width.height
+      }));
+      dispatch(setGifs(items, query));
+      dispatch(setPagination(json.pagination));
+    }
+  });
 };
 
 export const getMoreGifs = () => async (
@@ -115,19 +115,17 @@ export const getMoreGifs = () => async (
     query ? `&q=${query}` : ""
   }`;
 
-  Api.fetch(url, GifActionTypes.GET_GIFS, dispatch)
-    .then(json => {
-      if (json.data) {
-        const items: Gif[] = json.data.map((gif: GifResponse) => ({
-          giphy_id: gif.id,
-          fixed_url: gif.images.fixed_width.webp,
-          original_url: gif.images.original.url,
-          title: gif.title,
-          height: gif.images.fixed_width.height
-        }));
-        dispatch(addGifs(items));
-        dispatch(setPagination(json.pagination));
-      }
-    })
-    .catch(error => console.log(error));
+  Api.fetch(url, GifActionTypes.GET_GIFS, dispatch).then(json => {
+    if (json.data) {
+      const items: Gif[] = json.data.map((gif: GifResponse) => ({
+        giphy_id: gif.id,
+        fixed_url: gif.images.fixed_width.webp,
+        original_url: gif.images.original.url,
+        title: gif.title,
+        height: gif.images.fixed_width.height
+      }));
+      dispatch(addGifs(items));
+      dispatch(setPagination(json.pagination));
+    }
+  });
 };

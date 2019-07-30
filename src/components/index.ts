@@ -1,4 +1,5 @@
 export * from "./popovers/AddCategoryPopover";
+export * from "./popovers/EditCategoriesPopover";
 export * from "./popovers/LoginPopover";
 export * from "./popovers/LoginPopoverContainer";
 export * from "./popovers/RegistrationPopover";

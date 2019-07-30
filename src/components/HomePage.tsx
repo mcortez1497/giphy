@@ -24,8 +24,8 @@ class HomePage extends React.Component<Props> {
 
     return (
       <Layout>
-        <Content apiRequest={apiRequest} gifs={gifs} />
-        <InfiniteScroll loadMore={getMoreGifs} />
+        <Content apiRequest={apiRequest} gifs={gifs} showEmptyMessage={false} />
+        {!apiRequest.isError && <InfiniteScroll loadMore={getMoreGifs} />}
       </Layout>
     );
   }
