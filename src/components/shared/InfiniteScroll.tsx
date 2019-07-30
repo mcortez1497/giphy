@@ -1,7 +1,7 @@
 import React from "react";
 import { debounce } from "ts-debounce";
 
-import { CircularProgress, Typography, WithStyles } from "@material-ui/core";
+import { CircularProgress, WithStyles } from "@material-ui/core";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 
 const styles = (theme: Theme) =>
@@ -13,7 +13,7 @@ const styles = (theme: Theme) =>
       alignItems: "center",
       display: "flex",
       flexDirection: "column",
-      marginBottom: "32px"
+      marginBottom: theme.spacing(8)
     }
   });
 
@@ -45,9 +45,6 @@ class InfiniteScrollWithStyles extends React.Component<Props> {
     return (
       <div ref={component} className={classes.root}>
         <CircularProgress className={classes.progress} />
-        <Typography variant="h5" color="primary">
-          Fetching GIFs...
-        </Typography>
       </div>
     );
   }

@@ -2,13 +2,12 @@ import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
 import { UserGifsPage } from "components";
-import {
-  AppState,
-  getGifs,
-} from "reducers";
-import { Gif } from "types";
+import { AppState, getGifs, UserActionTypes } from "reducers";
+import { StateUtil } from "services";
+import { ApiRequest, Gif } from "types";
 
 interface StateProps {
+  readonly apiRequest: ApiRequest;
   readonly gifs: Gif[];
   readonly isAuthenticated: boolean;
 }
@@ -18,6 +17,7 @@ interface DispatchProps {
 }
 
 const mapStateToProps = (state: AppState) => ({
+  apiRequest: StateUtil.getApiRequest(state, UserActionTypes.GET_USER_GIFS),
   gifs: state.user.gifs,
   isAuthenticated: state.user.username !== ""
 });

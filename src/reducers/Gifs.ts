@@ -34,7 +34,6 @@ const initialState: GifState = {
 export enum GifActionTypes {
   ADD_GIFS = "ADD_GIFS",
   GET_GIFS = "GET_GIFS",
-  GET_MORE_GIFS = "GET_MORE_GIFS",
   SET_GIFS = "SET_GIFS",
   SET_PAGINATION = "SET_PAGINATION"
 }
@@ -116,7 +115,7 @@ export const getMoreGifs = () => async (
     query ? `&q=${query}` : ""
   }`;
 
-  Api.fetch(url, GifActionTypes.GET_MORE_GIFS, dispatch)
+  Api.fetch(url, GifActionTypes.GET_GIFS, dispatch)
     .then(json => {
       if (json.data) {
         const items: Gif[] = json.data.map((gif: GifResponse) => ({

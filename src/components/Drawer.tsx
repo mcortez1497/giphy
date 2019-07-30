@@ -83,13 +83,22 @@ class DrawerWithStyles extends React.Component<Props, State> {
             </Typography>
           </ListItem>
           <Divider />
-          <ListItem button component={Link} to="/">
+          <ListItem
+            button
+            component={Link}
+            to="/"
+            onClick={closeDrawer}>
             <ListItemIcon>
               <Home />
             </ListItemIcon>
             <ListItemText primary={"Home"} />
           </ListItem>
-          <ListItem button component={Link} to="/my-gifs" onClick={closeDrawer}>
+          <ListItem
+            button
+            component={Link}
+            to="/my-gifs"
+            onClick={closeDrawer}
+          >
             <ListItemIcon>
               <Favorite />
             </ListItemIcon>

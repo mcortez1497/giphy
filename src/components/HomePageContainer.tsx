@@ -2,11 +2,12 @@ import { connect } from "react-redux";
 import { bindActionCreators, Dispatch } from "redux";
 
 import { HomePage } from "components";
-import { AppState, getGifs, getMoreGifs } from "reducers";
-import { QueryUtil } from "services";
-import { Gif } from "types";
+import { AppState, getGifs, getMoreGifs, GifActionTypes } from "reducers";
+import { QueryUtil, StateUtil } from "services";
+import { ApiRequest, Gif } from "types";
 
 interface StateProps {
+  readonly apiRequest: ApiRequest;
   readonly gifs: Gif[];
   readonly query: string;
 }
@@ -16,19 +17,11 @@ interface DispatchProps {
   readonly getMoreGifs: () => void;
 }
 
-const mapStateToProps = (state: AppState) => {
-  const gifs = state.gifs.items.map(gif => {
-    const userGif = state.user.gifs.find(
-      userGif => userGif.giphy_id === gif.giphy_id
-    );
-    return userGif ? userGif : gif;
-  });
-
-  return {
-    gifs,
-    query: QueryUtil.parseQueryString(window.location.search).q || ""
-  };
-};
+const mapStateToProps = (state: AppState) => ({
+  apiRequest: StateUtil.getApiRequest(state, GifActionTypes.GET_GIFS),
+  gifs: StateUtil.getFreshGifsMergedWithSavedGifs(state),
+  query: QueryUtil.parseQueryString(window.location.search).q || ""
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(

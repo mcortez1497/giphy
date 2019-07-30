@@ -3,10 +3,12 @@ import { RouteComponentProps } from "react-router";
 import { bindActionCreators, Dispatch } from "redux";
 
 import { UserGifsPage } from "components";
-import { AppState, getGifs } from "reducers";
-import { Gif } from "types";
+import { AppState, getGifs, UserActionTypes } from "reducers";
+import { StateUtil } from "services";
+import { ApiRequest, Gif } from "types";
 
 interface StateProps {
+  readonly apiRequest: ApiRequest;
   readonly gifs: Gif[];
   readonly isAuthenticated: boolean;
 }
@@ -23,16 +25,8 @@ const mapStateToProps = (
   state: AppState,
   props: RouteComponentProps<RouteProps>
 ) => ({
-  gifs: state.user.gifs.reduce(
-    (gifsWithCategory: Gif[], gif: Gif) =>
-      gif.categories &&
-      gif.categories.find(
-        category => category._id === props.match.params.categoryId
-      )
-        ? [...gifsWithCategory, gif]
-        : gifsWithCategory,
-    []
-  ),
+  apiRequest: StateUtil.getApiRequest(state, UserActionTypes.GET_USER_GIFS),
+  gifs: StateUtil.getSavedGifsByCategory(state, props.match.params.categoryId),
   isAuthenticated: state.user.username !== ""
 });
 

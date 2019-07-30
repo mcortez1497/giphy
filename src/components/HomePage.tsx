@@ -1,9 +1,10 @@
 import React from "react";
 
 import { Content, InfiniteScroll, Layout } from "components";
-import { Gif } from "types";
+import { ApiRequest, Gif } from "types";
 
 interface Props {
+  readonly apiRequest: ApiRequest;
   readonly gifs: Gif[];
   readonly query: string;
 
@@ -17,10 +18,14 @@ class HomePage extends React.Component<Props> {
   }
 
   public render() {
+    const {
+      props: { apiRequest, gifs, getMoreGifs }
+    } = this;
+
     return (
       <Layout>
-        <Content gifs={this.props.gifs} />
-        <InfiniteScroll loadMore={this.props.getMoreGifs} />
+        <Content apiRequest={apiRequest} gifs={gifs} />
+        <InfiniteScroll loadMore={getMoreGifs} />
       </Layout>
     );
   }

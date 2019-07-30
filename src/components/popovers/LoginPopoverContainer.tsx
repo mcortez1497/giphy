@@ -5,10 +5,10 @@ import { LoginPopover } from "components";
 import {
   AppState,
   apiRequestClear,
-  defaultApiRequest,
   login,
   UserActionTypes
 } from "reducers";
+import { StateUtil } from "services";
 import { ApiRequest } from "types";
 
 interface StateProps {
@@ -26,7 +26,7 @@ interface OwnProps {
 }
 
 const mapStateToProps = (state: AppState) => ({
-  apiRequest: state.api[UserActionTypes.LOGIN] || defaultApiRequest,
+  apiRequest: StateUtil.getApiRequest(state, UserActionTypes.LOGIN),
   didRegister: state.ui.didRegister
 });
 

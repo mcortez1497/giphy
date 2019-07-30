@@ -1,21 +1,36 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import {
   Container,
   CssBaseline,
   WithStyles,
-  withWidth
+  withWidth,
+  Typography
 } from "@material-ui/core";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import { isWidthUp, WithWidthProps } from "@material-ui/core/withWidth";
 
 import { GifCardContainer } from "components";
-import { Gif } from "types";
+import { ApiRequest, Gif } from "types";
 
 const styles = (theme: Theme) =>
   createStyles({
     container: {
       marginTop: theme.spacing(2)
+    },
+    empty: {
+      textAlign: "center",
+      marginTop: theme.spacing(10)
+    },
+    loader: {
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "column",
+      marginBottom: "32px"
+    },
+    progress: {
+      margin: theme.spacing(2)
     },
     masonry: {
       display: "flex",
@@ -30,10 +45,12 @@ const styles = (theme: Theme) =>
   });
 
 interface Props extends WithWidthProps, WithStyles<typeof styles> {
-  gifs: Gif[];
+  readonly apiRequest: ApiRequest;
+  readonly gifs: Gif[];
 }
 
 const ContentWithStyles: React.FC<Props> = ({
+  apiRequest: { isLoading },
   classes,
   gifs,
   width = "lg"
@@ -71,13 +88,27 @@ const ContentWithStyles: React.FC<Props> = ({
   return (
     <Container maxWidth="lg" className={classes.container}>
       <CssBaseline />
-      <div className={classes.masonry} style={{ height: calculateHeight() }}>
-        {gifs.map((gif, index) => (
-          <div key={index} className={classes.brick}>
-            <GifCardContainer gif={gif} />
-          </div>
-        ))}
-      </div>
+      {gifs.length > 0 && (
+        <div className={classes.masonry} style={{ height: calculateHeight() }}>
+          {gifs.map((gif, index) => (
+            <div key={index} className={classes.brick}>
+              <GifCardContainer gif={gif} />
+            </div>
+          ))}
+        </div>
+      )}
+      {!isLoading && gifs.length === 0 && (
+        <div className={classes.empty}>
+          <Typography variant="h4" color="primary">
+            There's no GIFs here!
+          </Typography>
+          <Typography variant="subtitle1">
+            <Link to="/" style={{ color: "#757575" }}>
+              Go add some
+            </Link>
+          </Typography>
+        </div>
+      )}
     </Container>
   );
 };

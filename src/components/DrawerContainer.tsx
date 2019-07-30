@@ -3,6 +3,7 @@ import { bindActionCreators, Dispatch } from "redux";
 
 import { Drawer } from "components"
 import { AppState, addCategory, setDrawerClosed } from "reducers";
+import { StateUtil } from "services";
 import { Category } from "types";
 
 interface StateProps {
@@ -16,7 +17,7 @@ interface DispatchProps {
 }
 
 const mapStateToProps = (state: AppState) => ({
-  categories: state.user.categories.items.sort((a, b) => a.name > b.name ? 1 : -1),
+  categories: StateUtil.getSortedCategories(state),
   isOpen: state.ui.isDrawerOpen
 });
 

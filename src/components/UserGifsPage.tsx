@@ -2,9 +2,10 @@ import React from "react";
 import { Redirect } from "react-router";
 
 import { Content, Layout } from "components";
-import { Gif } from "types";
+import { ApiRequest, Gif } from "types";
 
 interface Props {
+  readonly apiRequest: ApiRequest;
   readonly gifs: Gif[];
   readonly isAuthenticated: boolean;
 }
@@ -12,14 +13,14 @@ interface Props {
 class UserGifsPage extends React.Component<Props> {
   public render() {
     const {
-      props: { gifs, isAuthenticated }
+      props: { isAuthenticated, ...rest }
     } = this;
 
     return !isAuthenticated ? (
       <Redirect to="/" />
     ) : (
       <Layout>
-        <Content gifs={gifs} />
+        <Content {...rest} />
       </Layout>
     );
   }

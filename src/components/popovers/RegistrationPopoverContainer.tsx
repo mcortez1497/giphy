@@ -5,10 +5,10 @@ import { RegistrationPopover } from "components";
 import {
   AppState,
   apiRequestClear,
-  defaultApiRequest,
   register,
   UserActionTypes
 } from "reducers";
+import { StateUtil } from "services";
 import { ApiRequest } from "types";
 
 interface StateProps {
@@ -25,7 +25,7 @@ interface OwnProps {
 }
 
 const mapStateToProps = (state: AppState) => ({
-  apiRequest: state.api[UserActionTypes.REGISTER] || defaultApiRequest
+  apiRequest: StateUtil.getApiRequest(state, UserActionTypes.REGISTER)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
