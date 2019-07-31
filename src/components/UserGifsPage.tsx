@@ -12,15 +12,13 @@ interface Props {
 
 class UserGifsPage extends React.Component<Props> {
   public render() {
-    const {
-      props: { isAuthenticated, ...rest }
-    } = this;
+    const { isAuthenticated } = this.props;
 
     return !isAuthenticated ? (
       <Redirect to="/" />
     ) : (
       <Layout>
-        <Content {...rest} />
+        <Content {...this.props} />
       </Layout>
     );
   }

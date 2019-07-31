@@ -6,6 +6,7 @@ import { ApiRequest, Gif } from "types";
 interface Props {
   readonly apiRequest: ApiRequest;
   readonly gifs: Gif[];
+  readonly isAuthenticated: boolean;
   readonly query: string;
 
   readonly getGifs: (query?: string) => void;
@@ -19,13 +20,16 @@ class HomePage extends React.Component<Props> {
 
   public render() {
     const {
-      props: { apiRequest, gifs, getMoreGifs }
+      props: { getGifs, getMoreGifs, query, ...rest }
     } = this;
+    const isError = this.props.apiRequest.isError;
 
     return (
       <Layout>
-        <Content apiRequest={apiRequest} gifs={gifs} showEmptyMessage={false} />
-        {!apiRequest.isError && <InfiniteScroll loadMore={getMoreGifs} />}
+        <Content {...rest} showEmptyMessage={false} />
+        {!isError && (
+          <InfiniteScroll loadMore={getMoreGifs} />
+        )}
       </Layout>
     );
   }

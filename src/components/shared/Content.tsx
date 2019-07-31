@@ -47,11 +47,13 @@ const styles = (theme: Theme) =>
 interface Props extends WithWidthProps, WithStyles<typeof styles> {
   readonly apiRequest: ApiRequest;
   readonly gifs: Gif[];
+  readonly isAuthenticated: boolean;
   readonly showEmptyMessage?: boolean;
 }
 
 const ContentWithStyles: React.FC<Props> = ({
   apiRequest: { isError },
+  isAuthenticated,
   classes,
   gifs,
   width = "lg",
@@ -77,12 +79,14 @@ const ContentWithStyles: React.FC<Props> = ({
   // fit properly into the calculated columns.
   const calculateHeight = () => {
     const cols = calculateColumns();
+    const cardFooterHeight = isAuthenticated ? 64 : 0;
+    const cardMarginHeight = 8;
 
     // Total height of each card calulated by:
     // Card footer (64px) + margin (8px) + Gif Height * 2
     // We double height since each Gif is also being doubled in width within the Card
     const height = gifs.reduce((height: number, gif: Gif) => {
-      return height + 72 + parseInt(gif.height, 10) * 2;
+      return height + cardFooterHeight + cardMarginHeight + parseInt(gif.height, 10) * 2;
     }, 0);
 
     // Divide the total height by the number of columns to get height

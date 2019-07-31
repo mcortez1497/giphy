@@ -9,7 +9,7 @@ exports[`Content Rendering renders correctly 1`] = `
     className="ContentWithStyles-masonry-5"
     style={
       Object {
-        "height": "408px",
+        "height": "312px",
       }
     }
   >

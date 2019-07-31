@@ -11,6 +11,7 @@ exports[`HomePage renders correctly 1`] = `
       }
     }
     gifs={Array []}
+    isAuthenticated={true}
     showEmptyMessage={false}
   />
   <ForwardRef(WithStyles)
@@ -30,6 +31,7 @@ exports[`HomePage renders without InfiniteScroll if in error state 1`] = `
       }
     }
     gifs={Array []}
+    isAuthenticated={true}
     showEmptyMessage={false}
   />
 </Layout>

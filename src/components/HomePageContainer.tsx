@@ -9,6 +9,7 @@ import { ApiRequest, Gif } from "types";
 interface StateProps {
   readonly apiRequest: ApiRequest;
   readonly gifs: Gif[];
+  readonly isAuthenticated: boolean;
   readonly query: string;
 }
 
@@ -20,6 +21,7 @@ interface DispatchProps {
 const mapStateToProps = (state: AppState) => ({
   apiRequest: StateUtil.getApiRequest(state, GifActionTypes.GET_GIFS),
   gifs: StateUtil.getFreshGifsMergedWithSavedGifs(state),
+  isAuthenticated: StateUtil.isAuthenticated(state),
   query: QueryUtil.parseQueryString(window.location.search).q || ""
 });
 

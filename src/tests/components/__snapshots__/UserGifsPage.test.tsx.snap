@@ -17,6 +17,7 @@ exports[`UserGifsPage renders correctly 1`] = `
       }
     }
     gifs={Array []}
+    isAuthenticated={true}
   />
 </Layout>
 `;

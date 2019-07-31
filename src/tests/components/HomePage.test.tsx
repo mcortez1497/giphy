@@ -7,6 +7,7 @@ import { Gif } from "types";
 const props = {
   apiRequest: defaultApiRequest,
   gifs: [] as Gif[],
+  isAuthenticated: true,
   query: "",
   getGifs: jest.fn(),
   getMoreGifs: jest.fn()
