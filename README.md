@@ -29,7 +29,7 @@ This project requires the following be installed on your machine:
 
 [Run `mongod`](https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-on-os-x/#run-mongodb) locally on your machine. It'll start on a port that's specified in your `mongod.conf` file.
 
-If that port does not match the `DATABASE_PORT` environment variable specified in this projects `.env` file, you'll need to update it so they match.
+If that port does not match the port specified in the `MONGODB_URI` environment variable within the `.env` file, you'll need to update it so they match.
 
 Leave `mongod` running and do the following in another terminal.
 
