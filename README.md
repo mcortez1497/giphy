@@ -53,4 +53,4 @@ node server/index.js
 
 ### And that's it!
 
-Thank you for giving me the oportunity to participate!
+Thank you for giving me the opportunity to participate!
