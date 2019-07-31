@@ -1,6 +1,6 @@
 ## GIPHY Coding Challenge
 
-This project a full stack web application that allows users to search, save, and categorize GIFs from the GIPHY API. It was built using various modern technologies:
+This project is a full stack web application that allows users to search, save, and categorize GIFs from the GIPHY API. It was built using the following technologies:
 
 - **Material UI** for Design/UX
 - **React** as a JS framework
