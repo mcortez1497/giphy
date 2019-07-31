@@ -12,6 +12,7 @@ import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import { isWidthUp, WithWidthProps } from "@material-ui/core/withWidth";
 
 import { GifCardContainer } from "components";
+import { GridUtil } from "services";
 import { ApiRequest, Gif } from "types";
 
 const styles = (theme: Theme) =>
@@ -51,6 +52,10 @@ interface Props extends WithWidthProps, WithStyles<typeof styles> {
   readonly showEmptyMessage?: boolean;
 }
 
+interface Bucket {
+  [key: number]: Gif[];
+}
+
 const ContentWithStyles: React.FC<Props> = ({
   apiRequest: { isError },
   isAuthenticated,
@@ -59,7 +64,8 @@ const ContentWithStyles: React.FC<Props> = ({
   width = "lg",
   showEmptyMessage = true
 }) => {
-  // Calculate the number of columns to display to ensure Grid is responsive
+  // Calculate the number of columns to display
+  // So we ensure the Grid is responsive
   const calculateColumns = () => {
     if (gifs.length <= 2) {
       return gifs.length;
@@ -75,36 +81,31 @@ const ContentWithStyles: React.FC<Props> = ({
     return 1;
   };
 
-  // Calculate the total height of the container so the masonry effect will
-  // fit properly into the calculated columns.
-  const calculateHeight = () => {
-    const cols = calculateColumns();
-    const cardFooterHeight = isAuthenticated ? 64 : 0;
-    const cardMarginHeight = 8;
-
-    // Total height of each card calulated by:
-    // Card footer (64px) + margin (8px) + Gif Height * 2
-    // We double height since each Gif is also being doubled in width within the Card
-    const height = gifs.reduce((height: number, gif: Gif) => {
-      return height + cardFooterHeight + cardMarginHeight + parseInt(gif.height, 10) * 2;
-    }, 0);
-
-    // Divide the total height by the number of columns to get height
-    return height / cols + height / (gifs.length + 1) + "px";
-  };
-
   const hasGifs = gifs.length > 0;
+  const numOfColumns = calculateColumns();
+  const buckets = GridUtil.buildGifBuckets(gifs, numOfColumns);
 
   return (
     <Container maxWidth="lg" className={classes.container}>
       <CssBaseline />
       {!isError && hasGifs && (
-        <div className={classes.masonry} style={{ height: calculateHeight() }}>
-          {gifs.map((gif, index) => (
-            <div key={index} className={classes.brick}>
-              <GifCardContainer gif={gif} />
-            </div>
-          ))}
+        <div
+          className={classes.masonry}
+          style={{
+            height: GridUtil.calculateContainerHeight(
+              numOfColumns,
+              gifs,
+              isAuthenticated
+            )
+          }}
+        >
+          {Object.keys(buckets).map((val: string, i: number) =>
+            buckets[i].map((gif: Gif) => (
+              <div key={gif.giphy_id} className={classes.brick}>
+                <GifCardContainer gif={gif} />
+              </div>
+            ))
+          )}
         </div>
       )}
       {!isError && !hasGifs && showEmptyMessage && (

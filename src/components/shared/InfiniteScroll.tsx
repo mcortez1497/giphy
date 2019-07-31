@@ -60,7 +60,7 @@ class InfiniteScrollWithStyles extends React.Component<Props> {
     }
   };
 
-  private debouncedHandleScroll = debounce(this.handleScroll, 500);
+  private debouncedHandleScroll = debounce(this.handleScroll, 800);
 }
 
 const InfiniteScroll = withStyles(styles)(InfiniteScrollWithStyles);
