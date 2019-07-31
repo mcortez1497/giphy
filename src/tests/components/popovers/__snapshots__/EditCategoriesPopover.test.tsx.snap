@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditCategoriesPopover Rendering renders correctly 1`] = `
+<ForwardRef(MenuList)>
+  <ForwardRef(WithStyles)
+    onClick={[Function]}
+  >
+    Add
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    disabled={false}
+    onClick={[Function]}
+  >
+    Remove...
+  </ForwardRef(WithStyles)>
+</ForwardRef(MenuList)>
+`;
+
+exports[`EditCategoriesPopover Rendering renders correctly if there are no categories 1`] = `
+<ForwardRef(MenuList)>
+  <ForwardRef(WithStyles)
+    onClick={[Function]}
+  >
+    Add
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    disabled={true}
+    onClick={[Function]}
+  >
+    Remove...
+  </ForwardRef(WithStyles)>
+</ForwardRef(MenuList)>
+`;

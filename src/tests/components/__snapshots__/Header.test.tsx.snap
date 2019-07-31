@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Rendering renders correctly 1`] = `
+<div
+  className="HeaderWithStyles-root-1"
+>
+  <ForwardRef(WithStyles)
+    className="HeaderWithStyles-appBar-2"
+    position="sticky"
+  >
+    <ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        initialValue=""
+        onSearch={[Function]}
+      />
+      <div
+        className="HeaderWithStyles-grow-6"
+      />
+      <React.Fragment>
+        <ForwardRef(WithStyles)
+          aria-describedby="header-popover-login"
+          className="HeaderWithStyles-button-3"
+          color="inherit"
+          id="header-button-login"
+          onClick={[Function]}
+          variant="outlined"
+        >
+          <Memo
+            className="HeaderWithStyles-buttonIconLeft-4"
+          />
+          Log in
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          anchorEl={null}
+          anchorOrigin={
+            Object {
+              "horizontal": "right",
+              "vertical": "bottom",
+            }
+          }
+          id="header-popover-login"
+          onClose={[Function]}
+          open={false}
+          transformOrigin={
+            Object {
+              "horizontal": "right",
+              "vertical": "top",
+            }
+          }
+        >
+          <Memo(ConnectFunction)
+            onSignUp={[Function]}
+          />
+        </ForwardRef(WithStyles)>
+      </React.Fragment>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</div>
+`;
+
+exports[`Header Rendering renders correctly if user is authenticated 1`] = `
+<div
+  className="HeaderWithStyles-root-1"
+>
+  <ForwardRef(WithStyles)
+    className="HeaderWithStyles-appBar-2"
+    position="sticky"
+  >
+    <ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        aria-label="menu"
+        className="HeaderWithStyles-menuButton-7"
+        color="inherit"
+        edge="start"
+        id="header-button-menu"
+        onClick={[MockFunction]}
+      >
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        initialValue=""
+        onSearch={[Function]}
+      />
+      <div
+        className="HeaderWithStyles-grow-6"
+      />
+      <ForwardRef(WithStyles)
+        className="HeaderWithStyles-button-3"
+        color="inherit"
+        id="header-button-logout"
+        onClick={[Function]}
+        variant="outlined"
+      >
+        Log out
+        <Memo
+          className="HeaderWithStyles-buttonIconRight-5"
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</div>
+`;

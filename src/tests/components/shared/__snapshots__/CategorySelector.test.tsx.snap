@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategorySelector Rendering renders correctly 1`] = `
+<div
+  className="MuiFormControl-root CategorySelectorWithStyles-grow-3"
+>
+  <ForwardRef(WithStyles)
+    className="CategorySelectorWithStyles-label-4"
+    htmlFor="select-multiple-chip"
+  >
+    Add Categories
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    IconComponent={[Function]}
+    MenuProps={
+      Object {
+        "PaperProps": Object {
+          "style": Object {
+            "maxHeight": 224,
+            "width": 250,
+          },
+        },
+      }
+    }
+    className="CategorySelectorWithStyles-select-5"
+    input={
+      <ForwardRef(WithStyles)
+        id="select-multiple-chip"
+      />
+    }
+    multiple={true}
+    onChange={[Function]}
+    renderValue={[Function]}
+    value={Array []}
+  >
+    &gt;
+    <ForwardRef(WithStyles)
+      disabled={true}
+      value=""
+    >
+      Add Categories
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      value="123"
+    >
+      abc
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</div>
+`;
+
+exports[`CategorySelector Rendering renders correctly with no categories 1`] = `
+<div
+  className="MuiFormControl-root CategorySelectorWithStyles-grow-3"
+>
+  <ForwardRef(WithStyles)
+    className="CategorySelectorWithStyles-label-4"
+    htmlFor="select-multiple-chip"
+  >
+    Add Categories
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    IconComponent={[Function]}
+    MenuProps={
+      Object {
+        "PaperProps": Object {
+          "style": Object {
+            "maxHeight": 224,
+            "width": 250,
+          },
+        },
+      }
+    }
+    className="CategorySelectorWithStyles-select-5"
+    input={
+      <ForwardRef(WithStyles)
+        id="select-multiple-chip"
+      />
+    }
+    multiple={true}
+    onChange={[Function]}
+    renderValue={[Function]}
+    value={Array []}
+  >
+    &gt;
+    <ForwardRef(WithStyles)
+      disabled={true}
+      value=""
+    >
+      Add Categories
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</div>
+`;

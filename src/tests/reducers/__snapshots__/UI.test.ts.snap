@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI State Actions returns resetRegistration action 1`] = `
+Object {
+  "type": "RESET_REGISTRATION",
+}
+`;
+
+exports[`UI State Actions returns setDrawerClosed action 1`] = `
+Object {
+  "type": "SET_DRAWER_CLOSED",
+}
+`;
+
+exports[`UI State Actions returns setDrawerOpen action 1`] = `
+Object {
+  "type": "SET_DRAWER_OPEN",
+}
+`;
+
+exports[`UI State Actions returns setRegistrationComplete action 1`] = `
+Object {
+  "type": "SET_REGISTRATION_COMPLETE",
+}
+`;
+
+exports[`UI State Reducer resets registration 1`] = `
+Object {
+  "didRegister": false,
+  "isDrawerOpen": false,
+}
+`;
+
+exports[`UI State Reducer sets drawer closed 1`] = `
+Object {
+  "didRegister": false,
+  "isDrawerOpen": false,
+}
+`;
+
+exports[`UI State Reducer sets drawer open 1`] = `
+Object {
+  "didRegister": false,
+  "isDrawerOpen": true,
+}
+`;
+
+exports[`UI State Reducer sets registration complete 1`] = `
+Object {
+  "didRegister": true,
+  "isDrawerOpen": false,
+}
+`;

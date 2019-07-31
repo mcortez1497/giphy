@@ -83,11 +83,13 @@ class LoginPopoverWithStyles extends React.Component<Props, State> {
 
     return (
       <Card className={classes.card}>
-        {didRegister && <CardHeader
-          title="Registration Success!"
-          titleTypographyProps={{ color: "primary" }}
-          className={classes.cardTitle}
-        />}
+        {didRegister && (
+          <CardHeader
+            title="Registration Success!"
+            titleTypographyProps={{ color: "primary" }}
+            className={classes.cardTitle}
+          />
+        )}
         <CardContent>
           <FormControl
             required
@@ -99,7 +101,7 @@ class LoginPopoverWithStyles extends React.Component<Props, State> {
             <InputLabel htmlFor="username">Username</InputLabel>
             <OutlinedInput
               autoFocus
-              id="username"
+              id="popover-login-username"
               labelWidth={85}
               value={username}
               onChange={handleUsernameChange}
@@ -118,7 +120,7 @@ class LoginPopoverWithStyles extends React.Component<Props, State> {
           >
             <InputLabel htmlFor="password-confirm">Password</InputLabel>
             <OutlinedInput
-              id="password"
+              id="popover-login-password"
               type="password"
               labelWidth={85}
               value={password}
@@ -142,6 +144,7 @@ class LoginPopoverWithStyles extends React.Component<Props, State> {
         <CardActions className={classes.cardActions}>
           <Button
             type="button"
+            id="popover-login-submit"
             fullWidth
             variant="contained"
             color="primary"

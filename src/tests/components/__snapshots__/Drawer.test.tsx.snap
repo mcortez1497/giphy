@@ -1,0 +1,476 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Drawer Rendering renders category message if categories are empty 1`] = `
+<ForwardRef(WithStyles)
+  onClose={[MockFunction]}
+  open={true}
+>
+  <div
+    className="DrawerWithStyles-drawer-1"
+  >
+    <ForwardRef(WithStyles)
+      className="DrawerWithStyles-title-7"
+    >
+      <ForwardRef(WithStyles)
+        variant="subtitle1"
+      >
+        Welcome back,
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        color="primary"
+        variant="h5"
+      >
+        test
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles) />
+    <ForwardRef(WithStyles)
+      button={true}
+      component={[Function]}
+      id="drawer-button-home"
+      onClick={[MockFunction]}
+      to="/"
+    >
+      <ForwardRef(WithStyles)>
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        primary="Home"
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      button={true}
+      component={[Function]}
+      id="drawer-button-favorites"
+      onClick={[MockFunction]}
+      to="/my-gifs"
+    >
+      <ForwardRef(WithStyles)>
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        primary="My Saved Gifs"
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles) />
+    <ForwardRef(WithStyles)
+      className="DrawerWithStyles-flex-4"
+    >
+      <span
+        className="DrawerWithStyles-grow-5"
+      >
+        Categories
+      </span>
+      <ForwardRef(WithStyles)
+        aria-describedby="drawer-popover-add-category"
+        aria-label="settings"
+        className="DrawerWithStyles-settingsButton-6"
+        id="drawer-button-settings"
+        onClick={[Function]}
+        size="small"
+      >
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        anchorEl={null}
+        anchorOrigin={
+          Object {
+            "horizontal": "right",
+            "vertical": "center",
+          }
+        }
+        id="drawer-popover-add-category"
+        onClose={[Function]}
+        open={false}
+        transformOrigin={
+          Object {
+            "horizontal": "left",
+            "vertical": "center",
+          }
+        }
+      >
+        <EditCategoriesPopover
+          hasCategories={false}
+          onAddClick={[Function]}
+          onClose={[Function]}
+          onRemoveClick={[Function]}
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      className="DrawerWithStyles-categoryMessage-2"
+      style={
+        Object {
+          "color": "#9e9e9e",
+        }
+      }
+    >
+      <ForwardRef(WithStyles)
+        variant="h6"
+      >
+        No categories yet
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        variant="subtitle2"
+      >
+        Click the Settings icon to add one
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </div>
+</ForwardRef(WithStyles)>
+`;
+
+exports[`Drawer Rendering renders closed isOpen is false 1`] = `
+<ForwardRef(WithStyles)
+  onClose={[MockFunction]}
+  open={false}
+>
+  <div
+    className="DrawerWithStyles-drawer-1"
+  >
+    <ForwardRef(WithStyles)
+      className="DrawerWithStyles-title-7"
+    >
+      <ForwardRef(WithStyles)
+        variant="subtitle1"
+      >
+        Welcome back,
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        color="primary"
+        variant="h5"
+      >
+        test
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles) />
+    <ForwardRef(WithStyles)
+      button={true}
+      component={[Function]}
+      id="drawer-button-home"
+      onClick={[MockFunction]}
+      to="/"
+    >
+      <ForwardRef(WithStyles)>
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        primary="Home"
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      button={true}
+      component={[Function]}
+      id="drawer-button-favorites"
+      onClick={[MockFunction]}
+      to="/my-gifs"
+    >
+      <ForwardRef(WithStyles)>
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        primary="My Saved Gifs"
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles) />
+    <ForwardRef(WithStyles)
+      className="DrawerWithStyles-flex-4"
+    >
+      <span
+        className="DrawerWithStyles-grow-5"
+      >
+        Categories
+      </span>
+      <ForwardRef(WithStyles)
+        aria-describedby="drawer-popover-add-category"
+        aria-label="settings"
+        className="DrawerWithStyles-settingsButton-6"
+        id="drawer-button-settings"
+        onClick={[Function]}
+        size="small"
+      >
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        anchorEl={null}
+        anchorOrigin={
+          Object {
+            "horizontal": "right",
+            "vertical": "center",
+          }
+        }
+        id="drawer-popover-add-category"
+        onClose={[Function]}
+        open={false}
+        transformOrigin={
+          Object {
+            "horizontal": "left",
+            "vertical": "center",
+          }
+        }
+      >
+        <EditCategoriesPopover
+          hasCategories={true}
+          onAddClick={[Function]}
+          onClose={[Function]}
+          onRemoveClick={[Function]}
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      disablePadding={true}
+    >
+      <ForwardRef(WithStyles)
+        button={true}
+        className="drawer-button-category"
+        component={[Function]}
+        onClick={[MockFunction]}
+        to="/categories/123"
+      >
+        <ForwardRef(WithStyles)
+          primary="test-category"
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </div>
+</ForwardRef(WithStyles)>
+`;
+
+exports[`Drawer Rendering renders correctly 1`] = `
+<ForwardRef(WithStyles)
+  onClose={[MockFunction]}
+  open={true}
+>
+  <div
+    className="DrawerWithStyles-drawer-1"
+  >
+    <ForwardRef(WithStyles)
+      className="DrawerWithStyles-title-7"
+    >
+      <ForwardRef(WithStyles)
+        variant="subtitle1"
+      >
+        Welcome back,
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        color="primary"
+        variant="h5"
+      >
+        test
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles) />
+    <ForwardRef(WithStyles)
+      button={true}
+      component={[Function]}
+      id="drawer-button-home"
+      onClick={[MockFunction]}
+      to="/"
+    >
+      <ForwardRef(WithStyles)>
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        primary="Home"
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      button={true}
+      component={[Function]}
+      id="drawer-button-favorites"
+      onClick={[MockFunction]}
+      to="/my-gifs"
+    >
+      <ForwardRef(WithStyles)>
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        primary="My Saved Gifs"
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles) />
+    <ForwardRef(WithStyles)
+      className="DrawerWithStyles-flex-4"
+    >
+      <span
+        className="DrawerWithStyles-grow-5"
+      >
+        Categories
+      </span>
+      <ForwardRef(WithStyles)
+        aria-describedby="drawer-popover-add-category"
+        aria-label="settings"
+        className="DrawerWithStyles-settingsButton-6"
+        id="drawer-button-settings"
+        onClick={[Function]}
+        size="small"
+      >
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        anchorEl={null}
+        anchorOrigin={
+          Object {
+            "horizontal": "right",
+            "vertical": "center",
+          }
+        }
+        id="drawer-popover-add-category"
+        onClose={[Function]}
+        open={false}
+        transformOrigin={
+          Object {
+            "horizontal": "left",
+            "vertical": "center",
+          }
+        }
+      >
+        <EditCategoriesPopover
+          hasCategories={true}
+          onAddClick={[Function]}
+          onClose={[Function]}
+          onRemoveClick={[Function]}
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      disablePadding={true}
+    >
+      <ForwardRef(WithStyles)
+        button={true}
+        className="drawer-button-category"
+        component={[Function]}
+        onClick={[MockFunction]}
+        to="/categories/123"
+      >
+        <ForwardRef(WithStyles)
+          primary="test-category"
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </div>
+</ForwardRef(WithStyles)>
+`;
+
+exports[`Drawer Rendering renders drawer in edit mode 1`] = `
+<ForwardRef(WithStyles)
+  onClose={[MockFunction]}
+  open={true}
+>
+  <div
+    className="DrawerWithStyles-drawer-1"
+  >
+    <ForwardRef(WithStyles)
+      className="DrawerWithStyles-title-7"
+    >
+      <ForwardRef(WithStyles)
+        variant="subtitle1"
+      >
+        Welcome back,
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        color="primary"
+        variant="h5"
+      >
+        test
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles) />
+    <ForwardRef(WithStyles)
+      button={true}
+      component={[Function]}
+      id="drawer-button-home"
+      onClick={[MockFunction]}
+      to="/"
+    >
+      <ForwardRef(WithStyles)>
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        primary="Home"
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      button={true}
+      component={[Function]}
+      id="drawer-button-favorites"
+      onClick={[MockFunction]}
+      to="/my-gifs"
+    >
+      <ForwardRef(WithStyles)>
+        <Memo />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        primary="My Saved Gifs"
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles) />
+    <ForwardRef(WithStyles)
+      className="DrawerWithStyles-flex-4"
+    >
+      <span
+        className="DrawerWithStyles-grow-5"
+      >
+        Categories
+      </span>
+      <ForwardRef(WithStyles)
+        className="DrawerWithStyles-doneButton-3"
+        color="primary"
+        id="drawer-button-done"
+        onClick={[Function]}
+      >
+        Done
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        anchorEl={null}
+        anchorOrigin={
+          Object {
+            "horizontal": "right",
+            "vertical": "center",
+          }
+        }
+        id="drawer-popover-add-category"
+        onClose={[Function]}
+        open={false}
+        transformOrigin={
+          Object {
+            "horizontal": "left",
+            "vertical": "center",
+          }
+        }
+      >
+        <EditCategoriesPopover
+          hasCategories={true}
+          onAddClick={[Function]}
+          onClose={[Function]}
+          onRemoveClick={[Function]}
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      disablePadding={true}
+    >
+      <ForwardRef(WithStyles)
+        button={true}
+        className="drawer-button-category"
+        component={[Function]}
+        onClick={[MockFunction]}
+        to="/categories/123"
+      >
+        <ForwardRef(WithStyles)
+          primary="test-category"
+        />
+        <ForwardRef(WithStyles)>
+          <ForwardRef(WithStyles)
+            className="drawer-button-remove-category"
+            edge="end"
+            onClick={[Function]}
+          >
+            <Memo />
+          </ForwardRef(WithStyles)>
+        </ForwardRef(WithStyles)>
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </div>
+</ForwardRef(WithStyles)>
+`;

@@ -48,7 +48,7 @@ class AddCategoryPopoverWithStyles extends React.Component<Props, State> {
           margin="normal"
           required
           fullWidth
-          id="category"
+          id="popover-add-category-input"
           label="Category Name"
           name="category"
           value={categoryName}
@@ -59,6 +59,7 @@ class AddCategoryPopoverWithStyles extends React.Component<Props, State> {
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton
+                  id="popover-add-category-submit"
                   disabled={!isValid}
                   edge="end"
                   aria-label="add category"

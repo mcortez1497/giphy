@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User State Actions returns setUserCategories action 1`] = `
+Object {
+  "categories": Array [
+    Object {
+      "_id": "123",
+      "name": "abc",
+    },
+  ],
+  "type": "SET_USER_CATEGORIES",
+}
+`;
+
+exports[`User State Actions returns setUserGifs action 1`] = `
+Object {
+  "gifs": Array [
+    Object {
+      "categories": Array [],
+      "fixed_url": "fixed_url",
+      "giphy_id": "giphy_123",
+      "height": "100",
+      "original_url": "original_url",
+      "title": "test",
+    },
+  ],
+  "type": "SET_USER_GIFS",
+}
+`;
+
+exports[`User State Actions returns setUsername action 1`] = `
+Object {
+  "type": "SET_USERNAME",
+  "username": "test",
+}
+`;
+
+exports[`User State Reducer Adds a gif 1`] = `
+Object {
+  "categories": Object {
+    "items": Array [],
+  },
+  "gifs": Array [
+    Object {
+      "categories": Array [],
+      "fixed_url": "fixed_url",
+      "giphy_id": "giphy_123",
+      "height": "100",
+      "original_url": "original_url",
+      "title": "test",
+    },
+  ],
+  "username": "",
+}
+`;
+
+exports[`User State Reducer Delete a category 1`] = `
+Object {
+  "categories": Object {
+    "items": Array [],
+  },
+  "gifs": Array [],
+  "username": "",
+}
+`;
+
+exports[`User State Reducer Delete a gif 1`] = `
+Object {
+  "categories": Object {
+    "items": Array [],
+  },
+  "gifs": Array [],
+  "username": "",
+}
+`;
+
+exports[`User State Reducer Reset User 1`] = `
+Object {
+  "categories": Object {
+    "items": Array [],
+  },
+  "gifs": Array [],
+  "username": "",
+}
+`;
+
+exports[`User State Reducer Set User Categories 1`] = `
+Object {
+  "categories": Object {
+    "items": Array [
+      Object {
+        "_id": "123",
+        "name": "abc",
+      },
+    ],
+  },
+  "gifs": Array [],
+  "username": "",
+}
+`;
+
+exports[`User State Reducer Set User Gifs 1`] = `
+Object {
+  "categories": Object {
+    "items": Array [],
+  },
+  "gifs": Array [
+    Object {
+      "_id": "123",
+      "categories": Array [],
+      "fixed_url": "fixed_url",
+      "giphy_id": "giphy_123",
+      "height": "100",
+      "original_url": "original_url",
+      "title": "test",
+    },
+  ],
+  "username": "",
+}
+`;
+
+exports[`User State Reducer Set Username 1`] = `
+Object {
+  "categories": Object {
+    "items": Array [],
+  },
+  "gifs": Array [],
+  "username": "test",
+}
+`;
+
+exports[`User State Reducer Update a gif 1`] = `
+Object {
+  "categories": Object {
+    "items": Array [],
+  },
+  "gifs": Array [
+    Object {
+      "_id": "123",
+      "categories": Array [],
+      "fixed_url": "fixed_url",
+      "giphy_id": "giphy_456",
+      "height": "100",
+      "original_url": "original_url",
+      "title": "test",
+    },
+  ],
+  "username": "",
+}
+`;
+
+exports[`User State Reducer add a category 1`] = `
+Object {
+  "categories": Object {
+    "items": Array [
+      Object {
+        "_id": "123",
+        "name": "abc",
+      },
+    ],
+  },
+  "gifs": Array [],
+  "username": "",
+}
+`;

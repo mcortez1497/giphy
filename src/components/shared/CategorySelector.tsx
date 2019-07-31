@@ -59,12 +59,14 @@ const CategorySelectorWithStyles: React.FC<Props> = ({
   onCategorySelect
 }) => (
   <FormControl className={classes.grow}>
-    {!gif.categories ||
-      (gif.categories.length <= 0 && (
-        <InputLabel htmlFor="select-multiple-chip" className={classes.label}>
-          Add Categories
-        </InputLabel>
-      ))}
+    {/* {!gif.categories ||
+      (gif.categories.length <= 0 && ( */}
+    {!hasCategories(gif) && (
+      <InputLabel htmlFor="select-multiple-chip" className={classes.label}>
+        Add Categories
+      </InputLabel>
+    )}
+    {/* ))} */}
     <Select
       multiple
       value={getSelectedCategories(gif)}
@@ -90,16 +92,15 @@ const CategorySelectorWithStyles: React.FC<Props> = ({
         Add Categories
       </MenuItem>
       {categories.map((category, index) => (
-        <MenuItem
-          key={index}
-          value={category._id}
-        >
+        <MenuItem key={index} value={category._id}>
           {category.name}
         </MenuItem>
       ))}
     </Select>
   </FormControl>
 );
+
+const hasCategories = (gif: Gif) => gif.categories && gif.categories.length > 0;
 
 const getSelectedCategories = (gif: Gif) =>
   gif.categories ? gif.categories.map(cat => cat._id) : [];

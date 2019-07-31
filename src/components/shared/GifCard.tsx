@@ -61,51 +61,47 @@ class GifCardWithStyles extends React.Component<Props, State> {
     const isSaved = Boolean(gif._id);
 
     return (
-      <React.Fragment>
-        <Card raised>
-          <CardActionArea
-            onClick={blowUpImage}
-          >
-            <CardMedia
-              component="img"
-              alt={gif.title}
-              image={gif.fixed_url}
-              title={gif.title}
-            />
-          </CardActionArea>
-          {isAuthenticated && (
-            <CardActions disableSpacing>
-              {isSaved && (
-                <React.Fragment>
-                  <CategorySelector
-                    gif={gif}
-                    categories={categories}
-                    onCategorySelect={onCategoryChange}
-                  />
-                  <IconButton
-                    aria-label="remove"
-                    className={classes.favorite}
-                    onClick={deleteGif}
-                  >
-                    <Favorite color="secondary" />
-                  </IconButton>
-                </React.Fragment>
-              )}
-              {!isSaved && (
-                <React.Fragment>
-                  <div className={classes.grow} />
-                  <IconButton
-                    aria-label="add"
-                    className={classes.favorite}
-                    onClick={addGif}
-                  >
-                    <Favorite />
-                  </IconButton>
-                </React.Fragment>
-              )}
-            </CardActions>
-          )}
-        </Card>
+      <Card raised>
+        <CardActionArea onClick={blowUpImage}>
+          <CardMedia
+            component="img"
+            alt={gif.title}
+            image={gif.fixed_url}
+            title={gif.title}
+          />
+        </CardActionArea>
+        {isAuthenticated && (
+          <CardActions disableSpacing>
+            {isSaved && (
+              <React.Fragment>
+                <CategorySelector
+                  gif={gif}
+                  categories={categories}
+                  onCategorySelect={onCategoryChange}
+                />
+                <IconButton
+                  aria-label="remove"
+                  className={classes.favorite}
+                  onClick={deleteGif}
+                >
+                  <Favorite color="secondary" />
+                </IconButton>
+              </React.Fragment>
+            )}
+            {!isSaved && (
+              <React.Fragment>
+                <div className={classes.grow} />
+                <IconButton
+                  aria-label="add"
+                  className={classes.favorite}
+                  onClick={addGif}
+                >
+                  <Favorite />
+                </IconButton>
+              </React.Fragment>
+            )}
+          </CardActions>
+        )}
         <Modal
           open={isBlownUp}
           onClose={this.shrinkImage}
@@ -113,7 +109,7 @@ class GifCardWithStyles extends React.Component<Props, State> {
         >
           <img src={gif.original_url} title={gif.title} alt={gif.title} />
         </Modal>
-      </React.Fragment>
+      </Card>
     );
   }
 

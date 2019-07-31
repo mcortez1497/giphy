@@ -86,7 +86,6 @@ class HeaderWithStyles extends React.Component<Props, State> {
     } = this;
 
     const open = Boolean(anchorEl);
-    const id = open ? "login-popover" : undefined;
     const isAuthenticated = Boolean(username);
     const searchValue =
       QueryUtil.parseQueryString(window.location.search).q || "";
@@ -97,6 +96,7 @@ class HeaderWithStyles extends React.Component<Props, State> {
           <Toolbar>
             {isAuthenticated && (
               <IconButton
+                id="header-button-menu"
                 edge="start"
                 className={classes.menuButton}
                 color="inherit"
@@ -110,6 +110,7 @@ class HeaderWithStyles extends React.Component<Props, State> {
             <div className={classes.grow} />
             {isAuthenticated && (
               <Button
+                id="header-button-logout"
                 variant="outlined"
                 color="inherit"
                 className={classes.button}
@@ -122,8 +123,9 @@ class HeaderWithStyles extends React.Component<Props, State> {
             {!isAuthenticated && (
               <React.Fragment>
                 <Button
+                  id="header-button-login"
                   variant="outlined"
-                  aria-describedby={id}
+                  aria-describedby={"header-popover-login"}
                   color="inherit"
                   className={classes.button}
                   onClick={handlePopoverOpen}
@@ -132,7 +134,7 @@ class HeaderWithStyles extends React.Component<Props, State> {
                   Log in
                 </Button>
                 <Popover
-                  id={id}
+                  id={"header-popover-login"}
                   open={open}
                   anchorEl={anchorEl}
                   onClose={handlePopoverClose}

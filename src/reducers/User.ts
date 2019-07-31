@@ -61,14 +61,14 @@ const addUserCategory = (category: Category): UserAction => ({
   category
 });
 
-const deleteUserCategory = (id: string): UserAction => ({
-  type: UserActionTypes.DELETE_USER_CATEGORY,
-  id
-});
-
 const addUserGif = (gif: Gif): UserAction => ({
   type: UserActionTypes.ADD_USER_GIF,
   gif
+});
+
+const deleteUserCategory = (id: string): UserAction => ({
+  type: UserActionTypes.DELETE_USER_CATEGORY,
+  id
 });
 
 const deleteUserGif = (id: string): UserAction => ({

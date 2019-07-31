@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBar Rendering renders correctly 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation1 SearchBarWithStyles-root-1 MuiPaper-rounded"
+>
+  <ForwardRef(WithStyles)
+    aria-label="search"
+    className="SearchBarWithStyles-iconButton-3"
+    onClick={[Function]}
+  >
+    <Memo />
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    className="SearchBarWithStyles-input-2"
+    inputProps={
+      Object {
+        "aria-label": "search giphy",
+      }
+    }
+    onChange={[Function]}
+    onKeyPress={[Function]}
+    placeholder="Search GIPHY for fresh GIFs"
+    value=""
+  />
+</div>
+`;
+
+exports[`SearchBar Rendering renders with initial value 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation1 SearchBarWithStyles-root-1 MuiPaper-rounded"
+>
+  <ForwardRef(WithStyles)
+    aria-label="search"
+    className="SearchBarWithStyles-iconButton-3"
+    onClick={[Function]}
+  >
+    <Memo />
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    className="SearchBarWithStyles-input-2"
+    inputProps={
+      Object {
+        "aria-label": "search giphy",
+      }
+    }
+    onChange={[Function]}
+    onKeyPress={[Function]}
+    placeholder="Search GIPHY for fresh GIFs"
+    value="test"
+  />
+  <ForwardRef(WithStyles)
+    aria-label="cancel"
+    className="SearchBarWithStyles-iconButton-3"
+    onClick={[Function]}
+  >
+    <Memo />
+  </ForwardRef(WithStyles)>
+</div>
+`;

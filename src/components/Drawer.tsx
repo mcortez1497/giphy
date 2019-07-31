@@ -93,7 +93,6 @@ class DrawerWithStyles extends React.Component<Props, State> {
     } = this;
 
     const open = Boolean(anchorEl);
-    const id = open ? "add-category-popover" : undefined;
     const hasCategories = categories.length > 0;
 
     return (
@@ -104,21 +103,27 @@ class DrawerWithStyles extends React.Component<Props, State> {
             <Typography variant="h5" color="primary">
               {username}
             </Typography>
-            {/* <Typography variant="h5" color="primary">
-              GIF Viewer
-            </Typography>
-            <Typography variant="caption">
-              By Michael Cortez for H-E-B
-            </Typography> */}
           </ListItem>
           <Divider />
-          <ListItem button component={Link} to="/" onClick={closeDrawer}>
+          <ListItem
+            id="drawer-button-home"
+            button
+            component={Link}
+            to="/"
+            onClick={closeDrawer}
+          >
             <ListItemIcon>
               <Home />
             </ListItemIcon>
             <ListItemText primary={"Home"} />
           </ListItem>
-          <ListItem button component={Link} to="/my-gifs" onClick={closeDrawer}>
+          <ListItem
+            id="drawer-button-favorites"
+            button
+            component={Link}
+            to="/my-gifs"
+            onClick={closeDrawer}
+          >
             <ListItemIcon>
               <Favorite />
             </ListItemIcon>
@@ -129,6 +134,7 @@ class DrawerWithStyles extends React.Component<Props, State> {
             <span className={classes.grow}>Categories</span>
             {isEditing && (
               <Button
+                id="drawer-button-done"
                 color="primary"
                 className={classes.doneButton}
                 onClick={toggleEditMode}
@@ -138,8 +144,9 @@ class DrawerWithStyles extends React.Component<Props, State> {
             )}
             {!isEditing && (
               <IconButton
+                id="drawer-button-settings"
                 size="small"
-                aria-describedby={id}
+                aria-describedby={"drawer-popover-add-category"}
                 aria-label="settings"
                 className={classes.settingsButton}
                 onClick={handlePopoverOpen}
@@ -148,7 +155,7 @@ class DrawerWithStyles extends React.Component<Props, State> {
               </IconButton>
             )}
             <Popover
-              id={id}
+              id={"drawer-popover-add-category"}
               open={open}
               anchorEl={anchorEl}
               onClose={handlePopoverClose}
@@ -184,6 +191,7 @@ class DrawerWithStyles extends React.Component<Props, State> {
                   key={index}
                   component={Link}
                   to={`/categories/${category._id}`}
+                  className="drawer-button-category"
                   onClick={closeDrawer}
                 >
                   <ListItemText primary={category.name} />
@@ -191,6 +199,7 @@ class DrawerWithStyles extends React.Component<Props, State> {
                     <ListItemSecondaryAction>
                       <IconButton
                         edge="end"
+                        className="drawer-button-remove-category"
                         onClick={handleCategoryRemoveClick(category._id)}
                       >
                         <RemoveCircle />

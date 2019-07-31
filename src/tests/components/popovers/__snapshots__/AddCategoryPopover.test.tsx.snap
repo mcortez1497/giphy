@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddCategoryPopover Rendering renders correctly 1`] = `
+<div
+  className="AddCategoryPopoverWithStyles-root-1"
+>
+  <ForwardRef(WithStyles)
+    InputProps={
+      Object {
+        "endAdornment": <ForwardRef(WithStyles)
+          position="end"
+        >
+          <ForwardRef(WithStyles)
+            aria-label="add category"
+            disabled={true}
+            edge="end"
+            id="popover-add-category-submit"
+            onClick={[Function]}
+          >
+            <Memo
+              color="disabled"
+            />
+          </ForwardRef(WithStyles)>
+        </ForwardRef(WithStyles)>,
+      }
+    }
+    autoFocus={true}
+    fullWidth={true}
+    id="popover-add-category-input"
+    label="Category Name"
+    margin="normal"
+    name="category"
+    onChange={[Function]}
+    onKeyPress={[Function]}
+    required={true}
+    value=""
+    variant="outlined"
+  />
+</div>
+`;
+
+exports[`AddCategoryPopover Rendering renders correctly if category name is set 1`] = `
+<div
+  className="AddCategoryPopoverWithStyles-root-1"
+>
+  <ForwardRef(WithStyles)
+    InputProps={
+      Object {
+        "endAdornment": <ForwardRef(WithStyles)
+          position="end"
+        >
+          <ForwardRef(WithStyles)
+            aria-label="add category"
+            disabled={false}
+            edge="end"
+            id="popover-add-category-submit"
+            onClick={[Function]}
+          >
+            <Memo
+              color="primary"
+            />
+          </ForwardRef(WithStyles)>
+        </ForwardRef(WithStyles)>,
+      }
+    }
+    autoFocus={true}
+    fullWidth={true}
+    id="popover-add-category-input"
+    label="Category Name"
+    margin="normal"
+    name="category"
+    onChange={[Function]}
+    onKeyPress={[Function]}
+    required={true}
+    value="test"
+    variant="outlined"
+  />
+</div>
+`;

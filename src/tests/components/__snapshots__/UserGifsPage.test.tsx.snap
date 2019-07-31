@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserGifsPage renders Redirect if not authenticated 1`] = `
+<Redirect
+  to="/"
+/>
+`;
+
+exports[`UserGifsPage renders correctly 1`] = `
+<Layout>
+  <WithWidth(WithStyles(ContentWithStyles))
+    apiRequest={
+      Object {
+        "isError": false,
+        "isLoading": false,
+        "isSuccess": false,
+      }
+    }
+    gifs={Array []}
+  />
+</Layout>
+`;

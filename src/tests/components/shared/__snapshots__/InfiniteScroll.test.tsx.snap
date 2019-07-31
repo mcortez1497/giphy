@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InfiniteScroll Rendering renders correctly 1`] = `
+<div
+  className="InfiniteScrollWithStyles-root-2"
+>
+  <ForwardRef(WithStyles)
+    className="InfiniteScrollWithStyles-progress-1"
+  />
+</div>
+`;

@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`API State Actions returns apiRequestClear action 1`] = `
+Object {
+  "request": "test",
+  "type": "API_REQUEST_CLEAR",
+}
+`;
+
+exports[`API State Actions returns apiRequestError action 1`] = `
+Object {
+  "message": "error",
+  "request": "test",
+  "type": "API_REQUEST_ERROR",
+}
+`;
+
+exports[`API State Actions returns apiRequestStart action 1`] = `
+Object {
+  "request": "test",
+  "type": "API_REQUEST_START",
+}
+`;
+
+exports[`API State Actions returns apiRequestSuccess action 1`] = `
+Object {
+  "request": "test",
+  "type": "API_REQUEST_SUCCESS",
+}
+`;
+
+exports[`API State Reducer resets API key/value 1`] = `
+Object {
+  "test": Object {
+    "isError": false,
+    "isLoading": false,
+    "isSuccess": false,
+  },
+}
+`;
+
+exports[`API State Reducer sets API key/value as errored 1`] = `
+Object {
+  "test": Object {
+    "isError": true,
+    "isLoading": false,
+    "isSuccess": false,
+    "message": "error",
+  },
+}
+`;
+
+exports[`API State Reducer sets API key/value as loading 1`] = `
+Object {
+  "test": Object {
+    "isError": false,
+    "isLoading": true,
+    "isSuccess": false,
+  },
+}
+`;
+
+exports[`API State Reducer sets API key/value as success 1`] = `
+Object {
+  "test": Object {
+    "isError": false,
+    "isLoading": false,
+    "isSuccess": true,
+  },
+}
+`;

@@ -80,7 +80,7 @@ const ContentWithStyles: React.FC<Props> = ({
 
     // Total height of each card calulated by:
     // Card footer (64px) + margin (8px) + Gif Height * 2
-    // We multiply since each Gif is also being doubled in width within the Card
+    // We double height since each Gif is also being doubled in width within the Card
     const height = gifs.reduce((height: number, gif: Gif) => {
       return height + 72 + parseInt(gif.height, 10) * 2;
     }, 0);
@@ -133,4 +133,7 @@ const ContentWithStyles: React.FC<Props> = ({
 
 const Content = withWidth()(withStyles(styles)(ContentWithStyles));
 
-export { Content };
+// Export an unwrapped version for testing
+const ContentForTesting = withStyles(styles)(ContentWithStyles);
+
+export { Content, ContentForTesting };

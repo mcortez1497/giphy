@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Gif State Actions returns addGifs action 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "categories": Array [],
+      "fixed_url": "fixed_url",
+      "giphy_id": "giphy_123",
+      "height": "100",
+      "original_url": "original_url",
+      "title": "test",
+    },
+  ],
+  "type": "ADD_GIFS",
+}
+`;
+
+exports[`Gif State Actions returns setGifs action 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "categories": Array [],
+      "fixed_url": "fixed_url",
+      "giphy_id": "giphy_123",
+      "height": "100",
+      "original_url": "original_url",
+      "title": "test",
+    },
+  ],
+  "query": "test",
+  "type": "SET_GIFS",
+}
+`;
+
+exports[`Gif State Actions returns setPagination action 1`] = `
+Object {
+  "pagination": Object {
+    "count": 10,
+    "offset": 0,
+    "total_count": 100,
+  },
+  "type": "SET_PAGINATION",
+}
+`;
+
+exports[`Gif State Reducer add a gif 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "categories": Array [],
+      "fixed_url": "fixed_url",
+      "giphy_id": "giphy_123",
+      "height": "100",
+      "original_url": "original_url",
+      "title": "test",
+    },
+  ],
+  "pagination": Object {
+    "count": 0,
+    "offset": 0,
+    "total_count": 0,
+  },
+  "query": "",
+}
+`;
+
+exports[`Gif State Reducer sets pagination 1`] = `
+Object {
+  "items": Array [],
+  "pagination": Object {
+    "count": 10,
+    "offset": 0,
+    "total_count": 100,
+  },
+  "query": "",
+}
+`;
+
+exports[`Gif State Reducer sets the array of gifs 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "categories": Array [],
+      "fixed_url": "fixed_url",
+      "giphy_id": "giphy_123",
+      "height": "100",
+      "original_url": "original_url",
+      "title": "test",
+    },
+  ],
+  "pagination": Object {
+    "count": 0,
+    "offset": 0,
+    "total_count": 0,
+  },
+  "query": "test",
+}
+`;
+
+exports[`Gif State Thunks calls getGifs 1`] = `
+Array [
+  Object {
+    "items": Array [],
+    "query": "",
+    "type": "SET_GIFS",
+  },
+  Object {
+    "items": Array [
+      Object {
+        "fixed_url": "fixed_url",
+        "giphy_id": "giphy_123",
+        "height": undefined,
+        "original_url": "original_url",
+        "title": "test",
+      },
+    ],
+    "query": "",
+    "type": "SET_GIFS",
+  },
+  Object {
+    "pagination": Object {
+      "count": 10,
+      "offset": 0,
+      "total_count": 100,
+    },
+    "type": "SET_PAGINATION",
+  },
+]
+`;
+
+exports[`Gif State Thunks calls getMoreGifs 1`] = `
+Array [
+  Object {
+    "items": Array [
+      Object {
+        "fixed_url": "fixed_url",
+        "giphy_id": "giphy_456",
+        "height": undefined,
+        "original_url": "original_url",
+        "title": "test",
+      },
+    ],
+    "type": "ADD_GIFS",
+  },
+  Object {
+    "pagination": Object {
+      "count": 10,
+      "offset": 0,
+      "total_count": 100,
+    },
+    "type": "SET_PAGINATION",
+  },
+]
+`;

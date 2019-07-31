@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegistrationPopover Rendering renders correctly 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation1 MuiCard-root LoginPopoverWithStyles-card-2 MuiPaper-rounded"
+>
+  <ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      error={false}
+      fullWidth={true}
+      margin="normal"
+      required={true}
+      variant="outlined"
+    >
+      <ForwardRef(WithStyles)
+        htmlFor="username"
+      >
+        Username
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        autoFocus={true}
+        id="username"
+        labelWidth={85}
+        onChange={[Function]}
+        onKeyPress={[Function]}
+        value=""
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      error={false}
+      fullWidth={true}
+      margin="normal"
+      required={true}
+      variant="outlined"
+    >
+      <ForwardRef(WithStyles)
+        htmlFor="password-confirm"
+      >
+        Password
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        id="password"
+        labelWidth={85}
+        onChange={[Function]}
+        onKeyPress={[Function]}
+        type="password"
+        value=""
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      error={false}
+      fullWidth={true}
+      margin="normal"
+      required={true}
+      variant="outlined"
+    >
+      <ForwardRef(WithStyles)
+        htmlFor="password-confirm"
+      >
+        Confirm Password
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        id="password-confirm"
+        labelWidth={145}
+        onChange={[Function]}
+        onKeyPress={[Function]}
+        type="password"
+        value=""
+      />
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    className="LoginPopoverWithStyles-cardActions-3"
+  >
+    <ForwardRef(WithStyles)
+      className="LoginPopoverWithStyles-submit-5"
+      color="primary"
+      disabled={false}
+      fullWidth={true}
+      onClick={[Function]}
+      type="button"
+      variant="contained"
+    >
+      Sign Up
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      className="LoginPopoverWithStyles-signup-4"
+      href="#"
+      onClick={[MockFunction]}
+      variant="body2"
+    >
+      Go Back
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</div>
+`;
+
+exports[`RegistrationPopover Rendering renders error message if API returns error 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation1 MuiCard-root LoginPopoverWithStyles-card-2 MuiPaper-rounded"
+>
+  <ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      error={false}
+      fullWidth={true}
+      margin="normal"
+      required={true}
+      variant="outlined"
+    >
+      <ForwardRef(WithStyles)
+        htmlFor="username"
+      >
+        Username
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        autoFocus={true}
+        id="username"
+        labelWidth={85}
+        onChange={[Function]}
+        onKeyPress={[Function]}
+        value=""
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      error={false}
+      fullWidth={true}
+      margin="normal"
+      required={true}
+      variant="outlined"
+    >
+      <ForwardRef(WithStyles)
+        htmlFor="password-confirm"
+      >
+        Password
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        id="password"
+        labelWidth={85}
+        onChange={[Function]}
+        onKeyPress={[Function]}
+        type="password"
+        value=""
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      error={false}
+      fullWidth={true}
+      margin="normal"
+      required={true}
+      variant="outlined"
+    >
+      <ForwardRef(WithStyles)
+        htmlFor="password-confirm"
+      >
+        Confirm Password
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        id="password-confirm"
+        labelWidth={145}
+        onChange={[Function]}
+        onKeyPress={[Function]}
+        type="password"
+        value=""
+      />
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      className="LoginPopoverWithStyles-apiError-1"
+      color="error"
+      variant="body1"
+    >
+      oh no!
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    className="LoginPopoverWithStyles-cardActions-3"
+  >
+    <ForwardRef(WithStyles)
+      className="LoginPopoverWithStyles-submit-5"
+      color="primary"
+      disabled={false}
+      fullWidth={true}
+      onClick={[Function]}
+      type="button"
+      variant="contained"
+    >
+      Sign Up
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      className="LoginPopoverWithStyles-signup-4"
+      href="#"
+      onClick={[MockFunction]}
+      variant="body2"
+    >
+      Go Back
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</div>
+`;

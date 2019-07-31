@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Content Rendering renders correctly 1`] = `
+<div
+  className="MuiContainer-root ContentWithStyles-container-1 MuiContainer-maxWidthLg"
+>
+  <CssBaseline />
+  <div
+    className="ContentWithStyles-masonry-5"
+    style={
+      Object {
+        "height": "408px",
+      }
+    }
+  >
+    <div
+      className="ContentWithStyles-brick-6"
+    >
+      <Memo(ConnectFunction)
+        gif={
+          Object {
+            "_id": "123",
+            "categories": Array [],
+            "fixed_url": "fixed_url",
+            "giphy_id": "giphy_123",
+            "height": "100",
+            "original_url": "original_url",
+            "title": "test",
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Content Rendering renders correctly with no gifs 1`] = `
+<div
+  className="MuiContainer-root ContentWithStyles-container-1 MuiContainer-maxWidthLg"
+>
+  <CssBaseline />
+</div>
+`;
+
+exports[`Content Rendering renders correctly with no gifs and show flag set 1`] = `
+<div
+  className="MuiContainer-root ContentWithStyles-container-1 MuiContainer-maxWidthLg"
+>
+  <CssBaseline />
+  <div
+    className="ContentWithStyles-message-2"
+  >
+    <ForwardRef(WithStyles)
+      color="primary"
+      variant="h4"
+    >
+      There's no GIFs here!
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      variant="subtitle1"
+    >
+      <Link
+        style={
+          Object {
+            "color": "#757575",
+          }
+        }
+        to="/"
+      >
+        Go add some
+      </Link>
+    </ForwardRef(WithStyles)>
+  </div>
+</div>
+`;
+
+exports[`Content Rendering renders error if Api request returns error 1`] = `
+<div
+  className="MuiContainer-root ContentWithStyles-container-1 MuiContainer-maxWidthLg"
+>
+  <CssBaseline />
+  <div
+    className="ContentWithStyles-message-2"
+  >
+    <ForwardRef(WithStyles)
+      color="error"
+      variant="h4"
+    >
+      Uh oh! We couldn't fetch your GIFs!
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
+      variant="subtitle1"
+    >
+      <a
+        href="/"
+        style={
+          Object {
+            "color": "#757575",
+          }
+        }
+      >
+        Try fetching again
+      </a>
+    </ForwardRef(WithStyles)>
+  </div>
+</div>
+`;

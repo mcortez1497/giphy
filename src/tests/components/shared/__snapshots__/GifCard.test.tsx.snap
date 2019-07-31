@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Content Rendering renders correctly 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation8 MuiCard-root MuiPaper-rounded"
+>
+  <ForwardRef(WithStyles)
+    onClick={[Function]}
+  >
+    <ForwardRef(WithStyles)
+      alt="test"
+      component="img"
+      image="fixed_url"
+      title="test"
+    />
+  </ForwardRef(WithStyles)>
+  <ForwardRef(Modal)
+    className="GifCardWithStyles-modal-3"
+    onClose={[Function]}
+    open={false}
+  >
+    <img
+      alt="test"
+      src="original_url"
+      title="test"
+    />
+  </ForwardRef(Modal)>
+</div>
+`;
+
+exports[`Content Rendering renders correctly when authenticated 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation8 MuiCard-root MuiPaper-rounded"
+>
+  <ForwardRef(WithStyles)
+    onClick={[Function]}
+  >
+    <ForwardRef(WithStyles)
+      alt="test"
+      component="img"
+      image="fixed_url"
+      title="test"
+    />
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    disableSpacing={true}
+  >
+    <React.Fragment>
+      <div
+        className="GifCardWithStyles-grow-2"
+      />
+      <ForwardRef(WithStyles)
+        aria-label="add"
+        className="GifCardWithStyles-favorite-1"
+        onClick={[Function]}
+      >
+        <Memo />
+      </ForwardRef(WithStyles)>
+    </React.Fragment>
+  </ForwardRef(WithStyles)>
+  <ForwardRef(Modal)
+    className="GifCardWithStyles-modal-3"
+    onClose={[Function]}
+    open={false}
+  >
+    <img
+      alt="test"
+      src="original_url"
+      title="test"
+    />
+  </ForwardRef(Modal)>
+</div>
+`;
+
+exports[`Content Rendering renders correctly when authenticated and saved 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation8 MuiCard-root MuiPaper-rounded"
+>
+  <ForwardRef(WithStyles)
+    onClick={[Function]}
+  >
+    <ForwardRef(WithStyles)
+      alt="test"
+      component="img"
+      image="fixed_url"
+      title="test"
+    />
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    disableSpacing={true}
+  >
+    <React.Fragment>
+      <ForwardRef(WithStyles)
+        categories={Array []}
+        gif={
+          Object {
+            "_id": "123",
+            "categories": Array [],
+            "fixed_url": "fixed_url",
+            "giphy_id": "giphy_123",
+            "height": "100",
+            "original_url": "original_url",
+            "title": "test",
+          }
+        }
+        onCategorySelect={[MockFunction]}
+      />
+      <ForwardRef(WithStyles)
+        aria-label="remove"
+        className="GifCardWithStyles-favorite-1"
+        onClick={[Function]}
+      >
+        <Memo
+          color="secondary"
+        />
+      </ForwardRef(WithStyles)>
+    </React.Fragment>
+  </ForwardRef(WithStyles)>
+  <ForwardRef(Modal)
+    className="GifCardWithStyles-modal-3"
+    onClose={[Function]}
+    open={false}
+  >
+    <img
+      alt="test"
+      src="original_url"
+      title="test"
+    />
+  </ForwardRef(Modal)>
+</div>
+`;
+
+exports[`Content Rendering renders correctly when saved with categories 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation8 MuiCard-root MuiPaper-rounded"
+>
+  <ForwardRef(WithStyles)
+    onClick={[Function]}
+  >
+    <ForwardRef(WithStyles)
+      alt="test"
+      component="img"
+      image="fixed_url"
+      title="test"
+    />
+  </ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
+    disableSpacing={true}
+  >
+    <React.Fragment>
+      <ForwardRef(WithStyles)
+        categories={
+          Array [
+            Object {
+              "_id": "123",
+              "name": "abc",
+            },
+          ]
+        }
+        gif={
+          Object {
+            "_id": "123",
+            "categories": Array [],
+            "fixed_url": "fixed_url",
+            "giphy_id": "giphy_123",
+            "height": "100",
+            "original_url": "original_url",
+            "title": "test",
+          }
+        }
+        onCategorySelect={[MockFunction]}
+      />
+      <ForwardRef(WithStyles)
+        aria-label="remove"
+        className="GifCardWithStyles-favorite-1"
+        onClick={[Function]}
+      >
+        <Memo
+          color="secondary"
+        />
+      </ForwardRef(WithStyles)>
+    </React.Fragment>
+  </ForwardRef(WithStyles)>
+  <ForwardRef(Modal)
+    className="GifCardWithStyles-modal-3"
+    onClose={[Function]}
+    open={false}
+  >
+    <img
+      alt="test"
+      src="original_url"
+      title="test"
+    />
+  </ForwardRef(Modal)>
+</div>
+`;

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage renders correctly 1`] = `
+<Layout>
+  <WithWidth(WithStyles(ContentWithStyles))
+    apiRequest={
+      Object {
+        "isError": false,
+        "isLoading": false,
+        "isSuccess": false,
+      }
+    }
+    gifs={Array []}
+    showEmptyMessage={false}
+  />
+  <ForwardRef(WithStyles)
+    loadMore={[MockFunction]}
+  />
+</Layout>
+`;
+
+exports[`HomePage renders without InfiniteScroll if in error state 1`] = `
+<Layout>
+  <WithWidth(WithStyles(ContentWithStyles))
+    apiRequest={
+      Object {
+        "isError": true,
+        "isLoading": false,
+        "isSuccess": false,
+      }
+    }
+    gifs={Array []}
+    showEmptyMessage={false}
+  />
+</Layout>
+`;

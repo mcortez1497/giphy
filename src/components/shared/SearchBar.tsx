@@ -37,7 +37,7 @@ class SearchBarWithStyles extends React.Component<Props, State> {
   state = {
     query: this.props.initialValue
   };
-  
+
   render() {
     const {
       handleClear,
@@ -105,4 +105,7 @@ class SearchBarWithStyles extends React.Component<Props, State> {
 
 const SearchBar = withStyles(styles)(withRouter(SearchBarWithStyles));
 
-export { SearchBar };
+// Export unwrapped version for snapshot testing
+const SearchBarForTesting = withStyles(styles)(SearchBarWithStyles);
+
+export { SearchBar, SearchBarForTesting };
