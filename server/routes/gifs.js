@@ -1,7 +1,7 @@
 const express = require("express");
 const fetch = require("node-fetch");
 
-const Gif = require("../models/Gif");
+const Gif = require("../models/gif");
 const utils = require("../utils");
 
 const router = express.Router();
