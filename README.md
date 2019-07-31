@@ -1,44 +1,54 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## GIPHY Coding Challenge
 
-## Available Scripts
+This project a full stack web application that allows users to search, save, and categorize GIFs from the GIPHY API. It was built using various modern technologies:
 
-In the project directory, you can run:
+- **Material UI** for Design/UX
+- **React** as a JS framework
+- **Redux** for state management
+- **Thunks** as an asynchronous middleware for Redux
+- **Passport** for authentication and session management
+- **Express** as a web framework
+- **NodeJS** for a server-side environment
+- **Mongoose** as a MongoDB ODM for Node
+- **MongoDB** as a database
 
-### `npm start`
+This project was also bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Running locally
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+#### 1. Install local dependencies
 
-### `npm test`
+This project requires the following be installed on your machine:
+- [MongoDB](https://docs.mongodb.com/manual/installation/) ~v4.0.0
+- Node ~v8.12.0
+- npm (My version is 6.4.1)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### 2. Run MongoDB
 
-### `npm run build`
+[Run `mongod`](https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-on-os-x/#run-mongodb) locally on your machine. It'll start on a port that's specified in your `mongod.conf` file.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+If that port does not match the `DATABASE_PORT` environment variable specified in this projects `.env` file, you'll need to update it so they match.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Leave `mongod` running and do the following in another terminal.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 3. Install project dependencies
 
-### `npm run eject`
+```
+npm install
+```
+All the project's specified dependencies will be installed.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### 4. Start the app!
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+npm run app
+```
+This command will start both the client and server apps. You can also run each app seperately in different terminals if you wish:
+```
+npm start
+node server/index.js
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### And that's it!
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Thank you for giving me the oportunity to participate!

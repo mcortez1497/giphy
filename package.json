@@ -45,6 +45,7 @@
     "redux-mock-store": "^1.5.3"
   },
   "scripts": {
+    "app": "node server/index.js & npm start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
