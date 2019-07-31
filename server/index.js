@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
+const path = require("path");
 const MongoStore = require("connect-mongo")(session);
 
 const initialize = require("./passport");
@@ -34,6 +35,12 @@ app.use("/api", require("./routes/user"));
 app.use("/api", require("./routes/category"));
 app.use("/api", require("./routes/gifs"));
 
+app.use(express.static(path.join(__dirname, '../build')));
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
+
 // Error Handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -42,7 +49,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-const port = process.env.SERVER_PORT || 9000;
+const port = process.env.PORT || 9000;
 app.listen(port, () => {
   console.log("listening on port 9000");
 });
