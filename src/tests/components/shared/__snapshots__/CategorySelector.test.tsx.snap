@@ -33,7 +33,6 @@ exports[`CategorySelector Rendering renders correctly 1`] = `
     renderValue={[Function]}
     value={Array []}
   >
-    &gt;
     <ForwardRef(WithStyles)
       disabled={true}
       value=""
@@ -82,12 +81,11 @@ exports[`CategorySelector Rendering renders correctly with no categories 1`] = `
     renderValue={[Function]}
     value={Array []}
   >
-    &gt;
     <ForwardRef(WithStyles)
       disabled={true}
       value=""
     >
-      Add Categories
+      Create a category in the left-hand nav first!
     </ForwardRef(WithStyles)>
   </ForwardRef(WithStyles)>
 </div>
