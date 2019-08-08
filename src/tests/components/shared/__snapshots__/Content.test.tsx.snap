@@ -9,26 +9,30 @@ exports[`Content Rendering renders correctly 1`] = `
     className="ContentWithStyles-masonry-5"
     style={
       Object {
-        "height": "312px",
+        "height": 208,
       }
     }
   >
     <div
-      className="ContentWithStyles-brick-6"
+      className="ContentWithStyles-column-6"
     >
-      <Memo(ConnectFunction)
-        gif={
-          Object {
-            "_id": "123",
-            "categories": Array [],
-            "fixed_url": "fixed_url",
-            "giphy_id": "giphy_123",
-            "height": "100",
-            "original_url": "original_url",
-            "title": "test",
+      <div
+        className="ContentWithStyles-brick-7"
+      >
+        <Memo(ConnectFunction)
+          gif={
+            Object {
+              "_id": "123",
+              "categories": Array [],
+              "fixed_url": "fixed_url",
+              "giphy_id": "giphy_123",
+              "height": "100",
+              "original_url": "original_url",
+              "title": "test",
+            }
           }
-        }
-      />
+        />
+      </div>
     </div>
   </div>
 </div>

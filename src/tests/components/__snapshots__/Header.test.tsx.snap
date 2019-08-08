@@ -28,7 +28,11 @@ exports[`Header Rendering renders correctly 1`] = `
           <Memo
             className="HeaderWithStyles-buttonIconLeft-4"
           />
-          Log in
+          <span
+            className="HeaderWithStyles-loginLabel-7"
+          >
+            Log in
+          </span>
         </ForwardRef(WithStyles)>
         <ForwardRef(WithStyles)
           anchorEl={null}
@@ -69,7 +73,7 @@ exports[`Header Rendering renders correctly if user is authenticated 1`] = `
     <ForwardRef(WithStyles)>
       <ForwardRef(WithStyles)
         aria-label="menu"
-        className="HeaderWithStyles-menuButton-7"
+        className="HeaderWithStyles-menuButton-8"
         color="inherit"
         edge="start"
         id="header-button-menu"
@@ -91,7 +95,11 @@ exports[`Header Rendering renders correctly if user is authenticated 1`] = `
         onClick={[Function]}
         variant="outlined"
       >
-        Log out
+        <span
+          className="HeaderWithStyles-loginLabel-7"
+        >
+          Log out
+        </span>
         <Memo
           className="HeaderWithStyles-buttonIconRight-5"
         />

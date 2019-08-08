@@ -28,16 +28,28 @@ const styles = (theme: Theme) =>
       color: "#9ccc65"
     },
     button: {
+      margin: theme.spacing(2, 0, 2, 2),
       padding: theme.spacing(1, 2)
     },
     buttonIconLeft: {
-      marginRight: theme.spacing(1)
+      marginRight: theme.spacing(1),
+      [theme.breakpoints.down("sm")]: {
+        marginRight: theme.spacing(0)
+      }
     },
     buttonIconRight: {
-      marginLeft: theme.spacing(1)
+      marginLeft: theme.spacing(1),
+      [theme.breakpoints.down("sm")]: {
+        marginLeft: theme.spacing(0)
+      }
     },
     grow: {
       flexGrow: 1
+    },
+    loginLabel: {
+      [theme.breakpoints.down("sm")]: {
+        display: "none"
+      }
     },
     menuButton: {
       marginRight: theme.spacing(2)
@@ -116,7 +128,7 @@ class HeaderWithStyles extends React.Component<Props, State> {
                 className={classes.button}
                 onClick={handleLogout}
               >
-                Log out
+                <span className={classes.loginLabel}>Log out</span>
                 <ExitToApp className={classes.buttonIconRight} />
               </Button>
             )}
@@ -131,7 +143,7 @@ class HeaderWithStyles extends React.Component<Props, State> {
                   onClick={handlePopoverOpen}
                 >
                   <AccountCircle className={classes.buttonIconLeft} />
-                  Log in
+                  <span className={classes.loginLabel}>Log in</span>
                 </Button>
                 <Popover
                   id={"header-popover-login"}
@@ -148,9 +160,7 @@ class HeaderWithStyles extends React.Component<Props, State> {
                   }}
                 >
                   {isRegistering ? (
-                    <RegistrationPopoverContainer
-                      onGoBack={togglePopover}
-                    />
+                    <RegistrationPopoverContainer onGoBack={togglePopover} />
                   ) : (
                     <LoginPopoverContainer onSignUp={togglePopover} />
                   )}

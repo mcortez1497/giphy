@@ -39,9 +39,17 @@ const styles = (theme: Theme) =>
       alignContent: "center",
       width: "100%"
     },
+    column: {
+      [theme.breakpoints.down("sm")]: {
+        width: "100%"
+      }
+    },
     brick: {
       margin: theme.spacing(0.5),
-      width: "400px"
+      width: "400px",
+      [theme.breakpoints.down("sm")]: {
+        width: "100%"
+      }
     }
   });
 
@@ -50,10 +58,6 @@ interface Props extends WithWidthProps, WithStyles<typeof styles> {
   readonly gifs: Gif[];
   readonly isAuthenticated: boolean;
   readonly showEmptyMessage?: boolean;
-}
-
-interface Bucket {
-  [key: number]: Gif[];
 }
 
 const ContentWithStyles: React.FC<Props> = ({
@@ -83,7 +87,11 @@ const ContentWithStyles: React.FC<Props> = ({
 
   const hasGifs = gifs.length > 0;
   const numOfColumns = calculateColumns();
-  const buckets = GridUtil.buildGifBuckets(gifs, numOfColumns);
+  const displayData = GridUtil.buildGifDisplay(
+    gifs,
+    numOfColumns,
+    isAuthenticated
+  );
 
   return (
     <Container maxWidth="lg" className={classes.container}>
@@ -92,20 +100,18 @@ const ContentWithStyles: React.FC<Props> = ({
         <div
           className={classes.masonry}
           style={{
-            height: GridUtil.calculateContainerHeight(
-              numOfColumns,
-              gifs,
-              isAuthenticated
-            )
+            height: displayData.height
           }}
         >
-          {Object.keys(buckets).map((val: string, i: number) =>
-            buckets[i].map((gif: Gif) => (
-              <div key={gif.giphy_id} className={classes.brick}>
-                <GifCardContainer gif={gif} />
-              </div>
-            ))
-          )}
+          {Object.keys(displayData.columns).map((_, index: number) => (
+            <div key={index} className={classes.column}>
+              {displayData.columns[index].map((gif: Gif) => (
+                <div key={gif.giphy_id} className={classes.brick}>
+                  <GifCardContainer gif={gif} />
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       )}
       {!isError && !hasGifs && showEmptyMessage && (
