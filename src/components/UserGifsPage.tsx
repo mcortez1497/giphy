@@ -18,7 +18,7 @@ class UserGifsPage extends React.Component<Props> {
       <Redirect to="/" />
     ) : (
       <Layout>
-        <Content {...this.props} />
+        <Content {...this.props} allowTrim={false} />
       </Layout>
     );
   }

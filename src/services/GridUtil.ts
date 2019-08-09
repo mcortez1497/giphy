@@ -18,7 +18,8 @@ class GridUtil {
   public buildGifDisplay = (
     gifs: Gif[],
     numOfColumns: number,
-    includeCardFooters: boolean = false
+    includeCardFooters: boolean = false,
+    trimExtra: boolean = false
   ): GifDisplay => {
     // Divide all gifs evenly into columns
     const columns = this.buildGifColumns(gifs, numOfColumns);
@@ -33,36 +34,36 @@ class GridUtil {
     );
 
     // Determine the "target" height of the container, which is the shortest column
-    const targetHeight = Math.min(...columnHeights);
+    // if we're trimming, or the tallest column if we're not.
+    const targetHeight = trimExtra
+      ? Math.min(...columnHeights)
+      : Math.max(...columnHeights);
 
-    // Trim gifs from each of the taller columns, so that the total height of any column
+    // Trim gifs from each of the taller columns if needed, so that the total height of any column
     // is less than the "target" height. This way, no column grows too large and disrupts
     // the masonry / infinite scroll effect.
-    const trimmedColumns = columnHeights.map(
-      (height: number, index: number) => {
-        if (height > targetHeight) {
-          let colHeight = 0;
+    const columnsToDisplay = trimExtra
+      ? columnHeights.map((height: number, index: number) => {
+          if (height > targetHeight) {
+            let colHeight = 0;
 
-          return columns[index].filter((gif: Gif) => {
-            colHeight += this.calculateCardHeight(
-              gif,
-              includeCardFooters
-            );
+            return columns[index].filter((gif: Gif) => {
+              colHeight += this.calculateCardHeight(gif, includeCardFooters);
 
-            if (colHeight < targetHeight) {
-              return true;
-            }
-            return false;
-          });
-        }
+              if (colHeight < targetHeight) {
+                return true;
+              }
+              return false;
+            });
+          }
 
-        return columns[index];
-      }
-    );
+          return columns[index];
+        })
+      : columns;
 
     return {
       height: targetHeight,
-      columns: trimmedColumns
+      columns: columnsToDisplay
     };
   };
 

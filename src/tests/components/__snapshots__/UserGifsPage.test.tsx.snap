@@ -9,6 +9,7 @@ exports[`UserGifsPage renders Redirect if not authenticated 1`] = `
 exports[`UserGifsPage renders correctly 1`] = `
 <Layout>
   <WithWidth(WithStyles(ContentWithStyles))
+    allowTrim={false}
     apiRequest={
       Object {
         "isError": false,

@@ -58,10 +58,12 @@ interface Props extends WithWidthProps, WithStyles<typeof styles> {
   readonly gifs: Gif[];
   readonly isAuthenticated: boolean;
   readonly showEmptyMessage?: boolean;
+  readonly allowTrim?: boolean;
 }
 
 const ContentWithStyles: React.FC<Props> = ({
   apiRequest: { isError },
+  allowTrim,
   isAuthenticated,
   classes,
   gifs,
@@ -90,7 +92,8 @@ const ContentWithStyles: React.FC<Props> = ({
   const displayData = GridUtil.buildGifDisplay(
     gifs,
     numOfColumns,
-    isAuthenticated
+    isAuthenticated,
+    allowTrim
   );
 
   return (

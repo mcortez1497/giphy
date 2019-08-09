@@ -3,6 +3,7 @@
 exports[`HomePage renders correctly 1`] = `
 <Layout>
   <WithWidth(WithStyles(ContentWithStyles))
+    allowTrim={true}
     apiRequest={
       Object {
         "isError": false,
@@ -23,6 +24,7 @@ exports[`HomePage renders correctly 1`] = `
 exports[`HomePage renders without InfiniteScroll if in error state 1`] = `
 <Layout>
   <WithWidth(WithStyles(ContentWithStyles))
+    allowTrim={true}
     apiRequest={
       Object {
         "isError": true,

@@ -26,7 +26,7 @@ class HomePage extends React.Component<Props> {
 
     return (
       <Layout>
-        <Content {...rest} showEmptyMessage={false} />
+        <Content {...rest} showEmptyMessage={false} allowTrim={true} />
         {!isError && (
           <InfiniteScroll loadMore={getMoreGifs} />
         )}
